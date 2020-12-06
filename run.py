@@ -221,7 +221,14 @@ def add_wine():
                                                              results_country="",
                                                              results_region="",
                                                              results_grape="",
-                                                             results=mongo.db.wines.find({'_id': ObjectId(wineid)})
+                                                             results=mongo.db.wines.find({"wine_name": nameadd.title(),
+                                                                                          "vintage": vintageadd,
+                                                                                          "colour": colouradd,
+                                                                                          "country": countryadd,
+                                                                                          "region": regionadd,
+                                                                                          "grape": grapeadd,
+                                                                                          "photo_url": "",
+                                                                                          "tasting_notes": ""})
                                                              )
 
 
@@ -677,4 +684,4 @@ def upload_image(wine_id):
 if __name__ == '__main__':
     app.secret_key = 'mysecret'
     app.run(host=os.environ.get('IP'),
-            debug=False)
+            debug=True)
