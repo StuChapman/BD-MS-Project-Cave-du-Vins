@@ -1,0 +1,209 @@
+
+{% extends "layout.html" %}
+{% block body %}
+
+    <!-- Header -->
+    <header class="hero text-center">
+        <div class="hero-content">
+            <div class="container">
+                <h1 class="hero-heading mb-0">Cave du Vins</h1>
+                <h2 class="hero-subheading mb-0">An online cellar of fine wine</h2>
+                <a href="#add" class="btn btn-yellow btn-large btn-xl rounded-pill mt-5">Add Wine</a>
+            </div>
+        </div>
+    </header>
+
+        <!-- Alert Flash -->
+        <div class="flashmessage ml-auto mr-auto mt-0">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-warning alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+
+    <!-- Add Wine Section -->
+    <section id="add">
+
+        <h3 class="text-center bookmark mb-3">add wine</h3>
+
+        <div class="search ml-auto mr-auto">
+            <form action="{{ url_for('add_wine') }}" method="post" class="searchform">
+                <div>
+                    <div>
+                        <label for="name">Wine Name</label>
+                        <br>
+                        <input type="text" name="name" id="name" minlength="3" class="searchitem">
+                    </div>
+                    <div class="searchvintage">
+                        <label for="vintage">Vintage</label>
+                        <br>
+                        <input type="text" name="vintage" id="vintage" minlength="3" class="searchitem">
+                    </div>
+                    <div class="searchcolour">
+                        <label for="colour">Colour</label>
+                        <br>
+                        <select name="colour" id="colour" class="searchitem">
+                            <option value="select"></option>
+                            {% for document in colours %}
+                            <option value="{{ document.colour }}">{{ document.colour }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="searchcountry">
+                        <label class="addlabel" for="country">Country</label>
+                        <div 
+                            class="btn btn-yellow btn-xsmall rounded-pill ml-2"
+                            data-toggle="modal" data-target="#AddCountryModal">
+                            <i class="fas fa-plus"></i> Add
+                        </div>
+                        {% if user_name == 'User: admin' %}
+                            <a class="btn btn-blue btn-xsmall rounded-pill ml-2"
+                                    href="{{ url_for('delete_category_page', category_id='country') }}">
+                                    <i class="fas fa-minus"></i> Del
+                            </a>
+                        {% endif %}
+                        <br>
+                        <select name="country" id="country" class="searchitem">
+                            <option value="select"></option>
+                            {% for document in country %}
+                            <option value="{{ document.country }}">{{ document.country }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="searchregion">
+                        <label class="addlabel" for="region">Region</label>
+                        <div 
+                            class="btn btn-yellow btn-xsmall rounded-pill ml-2"
+                            data-toggle="modal" data-target="#AddRegionModal">
+                            <i class="fas fa-plus"></i> Add
+                        </div>
+                        {% if user_name == 'User: admin' %}
+                            <a class="btn btn-blue btn-xsmall rounded-pill ml-2"
+                                    href="{{ url_for('delete_category_page', category_id='region') }}">
+                                    <i class="fas fa-minus"></i> Del
+                            </a>
+                        {% endif %}
+                        <br>
+                        <select name="region" id="region" class="searchitem">
+                            <option value="select"></option>
+                            {% for document in region %}
+                            <option value="{{ document.region }}">{{ document.region }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="searchregion">
+                        <label class="addlabel" for="grape">Grape</label>
+                        <div 
+                            class="btn btn-yellow btn-xsmall rounded-pill ml-2"
+                            data-toggle="modal" data-target="#AddGrapeModal">
+                            <i class="fas fa-plus"></i> Add
+                        </div>
+                        {% if user_name == 'User: admin' %}
+                            <a class="btn btn-blue btn-xsmall rounded-pill ml-2"
+                                    href="{{ url_for('delete_category_page', category_id='grape') }}">
+                                    <i class="fas fa-minus"></i> Del
+                            </a>
+                        {% endif %}
+                        <br>
+                        <select name="grape" id="grape" class="searchitem">
+                            <option value="select"></option>
+                            {% for document in grape %}
+                            <option value="{{ document.grape }}">{{ document.grape }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <button type="submit" 
+                        class="btn btn-yellow btn-medium btn-xl rounded-pill mt-5 ml-auto mr-auto"> 
+                        <i class="fas fa-plus"></i> Add
+                    </button>
+                    <button type="reset" 
+                        class="btn btn-blue btn-medium btn-xl rounded-pill mt-5 ml-auto mr-auto mb-5"> 
+                        <a href="{{ url_for('populate_form') }}" >
+                        <i class=""></i> Reset
+                        </a>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+
+    <!-- Add Country Modal -->
+    <div class="modal" tabindex="-1" role="dialog" id="AddCountryModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add a country to the list</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form  action="{{ url_for('add_country') }}">
+                    <div class="modal-body">
+                        <input type="text" name="addcountry" id="addcountry" minlength="3" class="searchitem">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-blue btn-small rounded-pill" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-yellow btn-small rounded-pill">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Region Modal -->
+    <div class="modal" tabindex="-1" role="dialog" id="AddRegionModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add a region to the list</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form  action="{{ url_for('add_region') }}">
+                    <div class="modal-body">
+                        <input type="text" name="addregion" id="addregion" minlength="3" class="searchitem">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-blue btn-small rounded-pill" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-yellow btn-small rounded-pill">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Grape Modal -->
+    <div class="modal" tabindex="-1" role="dialog" id="AddGrapeModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add a grape variety to the list</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form  action="{{ url_for('add_grape') }}">
+                    <div class="modal-body">
+                        <input type="text" name="addgrape" id="addgrape" minlength="3" class="searchitem">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-blue btn-small rounded-pill" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-yellow btn-small rounded-pill">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

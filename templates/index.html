@@ -1,0 +1,202 @@
+
+{% extends "layout.html" %}
+{% block body %}
+
+    <!-- Header -->
+    <header class="hero text-center">
+        <div class="hero-content">
+            <div class="container">
+                <h1 class="hero-heading mb-0">Cave du Vins</h1>
+                <h2 class="hero-subheading mb-0">An online cellar of fine wine</h2>
+                <a href="#browse" class="btn btn-yellow btn-large btn-xl rounded-pill mt-5">Browse Wines</a>
+            </div>
+        </div>
+    </header>
+
+	<div class="flashmessage ml-auto mr-auto">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+	</div>
+
+    <!-- Browse Section -->
+    <section id="browse">
+
+        <h3 class="text-center mb-3 pt-5">browse wines</h3>
+
+        <div class="search ml-auto mr-auto">
+            <form action="{{ url_for('search') }}" method="post" class="searchform">
+                <div>
+                    <div>
+                        <label for="name">Wine Name</label>
+                        <br>
+                        <input type="text" name="name" id="name" minlength="1" class="searchitem" value="{{ results_winename }}">
+                    </div>
+                    <div class="searchvintage">
+                        <label for="vintage">Vintage</label>
+                        <br>
+                        <input type="text" name="vintage" id="vintage" minlength="4" maxlength="4" class="searchitem" value="{{ results_vintage }}">
+                    </div>
+                    <div class="searchcolour">
+                        <label for="colour">Colour</label>
+                        <br>
+                        <select name="colour" id="colour" class="searchitem">
+                            {% if results_colour == "" %}
+                                <option value="{{ results_colour }}"></option>
+                            {% endif %}
+                            {% for document in colours %}
+                                {% if document.colour == results_colour %}
+                                    <option value="{{ results_colour }}" selected>{{ results_colour }}</option>
+                                {% else %}
+                                    <option value="{{ document.colour }}">{{ document.colour }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="searchcountry">
+                        <label for="country">Country</label>
+                        <br>
+                        <select name="country" id="country" class="searchitem">
+                            {% if results_country == "" %}
+                                <option value="{{ results_country }}"></option>
+                            {% endif %}
+                            {% for document in country %}
+                                {% if document.country == results_country %}
+                                    <option value="{{ results_country }}" selected>{{ results_country }}</option>
+                                {% else %}
+                                    <option value="{{ document.country }}">{{ document.country }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="searchregion">
+                        <label for="region">Region</label>
+                        <br>
+                        <select name="region" id="region" class="searchitem">
+                            {% if results_region == "" %}
+                                <option value="{{ results_region }}"></option>
+                            {% endif %}
+                            {% for document in region %}
+                                {% if document.region == results_region %}
+                                    <option value="{{ results_region }}" selected>{{ results_region }}</option>
+                                {% else %}
+                                    <option value="{{ document.region }}">{{ document.region }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="searchgrape">
+                        <label for="grape">Grape</label>
+                        <br>
+                        <select name="grape" id="grape" class="searchitem">
+                            {% if results_grape == "" %}
+                                <option value="{{ results_grape }}"></option>
+                            {% endif %}
+                            {% for document in grape %}
+                                {% if document.grape == results_grape %}
+                                    <option value="{{ results_grape }}" selected>{{ results_grape }}</option>
+                                {% else %}
+                                    <option value="{{ document.grape }}">{{ document.grape }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <button type="submit" class="btn btn-yellow btn-medium btn-xl rounded-pill mt-5 ml-auto mr-auto"> 
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                    <button type="reset" class="btn btn-blue btn-medium btn-xl rounded-pill mt-5 ml-auto mr-auto"> 
+                        <a href="{{ url_for('populate_search') }}" >
+                        <i class=""></i> Reset</a>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section id="results">
+        <div class="container text-center mt-5 pt-5">
+            {% if results %}
+                <h3>results for <span class="resultsgrey">
+                    <em>
+                        {{ results_winename }} 
+                        {{ results_vintage }} 
+                        {{ results_colour }} 
+                        {{ results_country }} 
+                        {{ results_region }} 
+                        {{ results_grape }} 
+                    </em></span>
+                    <br><br>
+                    {{ results.count() }} found...
+                </h3>
+                <br>
+                {% for document in results %}
+                    <div class="ml-md-5 mr-md-5">
+                        <div>
+                            <h1>{{ document.wine_name.title() }}</h1>
+                            <h3>{{ document.vintage }}</h3>
+                            <h3>{{ document.colour }}</h3>
+                            <h3>{{ document.country }}</h3>
+                            <h3>{{ document.region }}</h3>
+                            <p>{{ document.tasting_notes }}</p>
+                        </div>
+                        <div>
+                            {% if document.photo_url %}
+                                <img class="img-fluid rounded-circle wine_img mb-3 mb-md-0" src="{{ document.photo_url }}" alt="wine image">
+                            {% endif %}
+                            <div class="row">
+                                {% if user_name != 'Cave du Vins' %}
+                                    <div class="col-md-3 mb-2 m-md-0">
+                                        <a class="btn btn-yellow btn-xxsmall rounded-pill mb-1"
+                                            href="{{ url_for('add_tasting_note_page', wine_id=document._id) }}">
+                                            <i class="fas fa-plus"></i>
+                                        </a>
+                                        Tasting Notes
+                                    </div>
+                                    <div class="col-md-3 mb-2 m-md-0">
+                                        <a class="btn btn-yellow btn-xxsmall rounded-pill mb-1"
+                                            href="{{ url_for('upload_image_page', wine_id=document._id) }}">
+                                            <i class="fa fa-camera"></i>
+                                        </a>
+                                        Upload image
+                                    </div>
+                                {% endif %}
+                                {% if user_name == 'User: admin' %}
+                                    <div class="col-md-3 mb-2 m-md-0">
+                                        <a class="btn btn-blue btn-xxsmall rounded-pill mb-1"
+                                            href="{{ url_for('delete_wine', wine_id=document._id) }}">
+                                            <i class="fas fa-minus"></i>
+                                        </a>
+                                        Delete Wine
+                                    </div>
+                                {% endif %}
+                                <div class="col-md-3 mb-2 m-md-0">
+                                    <a class="btn btn-silver btn-xxsmall rounded-pill mb-1"
+                                        href="https://www.wine-searcher.com/find/{{ document.wine_name }}+{{ document.vintage }}/{{ document.vintage }}" target="_blank">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </a>
+                                    Buy this Wine
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% if loop.index != results.count() %}
+                        <hr>
+                    {% else %}
+                        <br>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </section>
+
+{% endblock %}

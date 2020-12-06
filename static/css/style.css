@@ -1,0 +1,212 @@
+
+/* General styling */
+.btn-yellow {
+    background-color: #FFD374;
+}
+
+.btn-blue {
+    background-color: #2E9693;
+}
+
+.btn-silver {
+    background-color: silver;
+}
+
+.btn-large {
+    width: 15rem;
+}
+
+.btn-medium {
+    width: 12.5rem;
+    height: 5rem;
+}
+
+.btn-small {
+    width: 5rem;
+    height: 2.5rem;
+}
+
+.btn-xsmall {
+    width: 2.5rem;
+    height: 1rem;
+    font-size: .6rem;
+    padding: 0;
+}
+
+.btn-xxsmall {
+    width: 1.25rem;
+    height: 1.25rem;
+    font-size: .6rem;
+    margin-top: .1rem;
+    padding: .1rem;
+}
+
+a {
+    color: black;
+}
+
+.bookmark {
+    padding-top: 15vh;
+}
+
+.addlabel {
+    width: 4rem;
+}
+
+.flashmessage {
+    width: 90vw;
+}
+
+hr {
+    background-color: #2E9693;
+}
+
+/* Login Page Styling */
+.loginform {
+    width: 18rem;
+}
+
+.login {
+    width: 12rem;
+}
+
+.logintext {
+    font-family: 'Lato';
+    color: white;
+}
+
+.logintext a {
+    color: #FFD374;
+}
+
+/* Register Page styling */
+ .passwordtext {
+    color: white;
+}
+
+/* Header Section styling */
+header.hero {
+    position: relative;
+    overflow: hidden;
+    height: 95vh;
+    padding-bottom: 7rem;
+}
+
+.hero::before { /* Credit: https://coder-coder.com/background-image-opacity/ */
+    content: "";
+    background-image: url(/static/img/IMG_4723sml.JPG);
+    background-size: cover;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: scroll;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: 0.75;
+}
+
+header.hero .hero-content {
+  z-index: 1;
+  position: relative;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+header.hero .hero-content .hero-subheading {
+  font-size: 2rem;
+}
+
+/* Browse Section styling */
+.search {
+    width: 75vw;
+}
+
+.searchitem {
+    width: 100%;
+    height: 2rem;
+}
+
+.tastingnote {
+    width: 80vw;
+    height: 20vh;
+    overflow-y: scroll;
+    opacity: .6;
+}
+
+.resultsgrey {
+    color: silver;
+}
+
+.wine_img {
+    height: 30vw;
+    background-size: cover;
+}
+
+/* Category.html styling */
+.deleteitem {
+    width: 50vw;
+    height: 2rem;
+}
+
+/* Upload Image styling */
+.filedialogcontainer {
+    width: 20rem;
+}
+
+.filedialog {
+    background-color: white;
+    width: 100%;
+}
+
+/* Large Media Device styling */
+@media (min-width: 992px) {
+    .search {
+        width: 33vw;
+    }
+
+    header.hero .hero-content .hero-heading {
+    font-size: 7rem;
+    }
+
+    header.hero .hero-content .hero-subheading {
+    font-size: 4rem;
+    }
+
+    .deleteitem {
+        width: 20vw;
+    }
+
+    .flashmessage {
+        width: 34vw;
+    }
+
+    .wine_img {
+        height: 15vw;
+    }
+
+}
+
+@media screen and (orientation: landscape){ /* Credit: https://stackoverflow.com/questions/43589507/how-can-you-have-bootstrap-responsiveness-based-on-screen-ratio-instead-of-scree */
+
+    header.hero {
+        padding-top: 22.5vh;
+    }
+
+    header.hero .hero-content .hero-heading {
+        font-size: 17.5vh;
+    }
+
+}
+
+@media screen and (orientation: portrait){ /* Credit: https://stackoverflow.com/questions/43589507/how-can-you-have-bootstrap-responsiveness-based-on-screen-ratio-instead-of-scree */
+
+    header.hero {
+        padding-top: calc(7rem + 72px);
+    }
+
+    header.hero .hero-content .hero-heading {
+        font-size: 15vw;
+    }
+
+}

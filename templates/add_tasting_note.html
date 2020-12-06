@@ -1,0 +1,24 @@
+
+{% extends "layout.html" %}
+{% block body %}
+
+    <!-- Header -->
+    <header class="hero text-center">
+        <div class="hero-content">
+            <div class="container">
+                <div>
+                    <h3>Add Tasting Note for: {{ wine.wine_name }}, {{ wine.vintage }}</h3>
+                </div>
+                <br>
+                <form method="POST" action="{{ url_for('add_tasting_note', wine_id=wine._id) }}">
+                    <div>
+                        <textarea type="text" class="tastingnote ml-auto mb-1" maxlength="500" name="add_tasting_note">{{ wine.tasting_notes }}</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-yellow rounded-pill mt-2">Save</button>
+                </form>
+                <br>
+            </div>
+        </div>
+    </header>
+
+{% endblock %}

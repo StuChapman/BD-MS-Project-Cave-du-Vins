@@ -1,0 +1,32 @@
+<!-- Credit: https://edubanq.com/programming/mongodb/creating-a-user-login-system-using-python-flask-and-mongodb/ -->
+
+{% extends "layout.html" %}
+{% block body %}
+
+    <!-- Header -->
+    <header class="hero text-center">
+        <div class="hero-content">
+            <div class="container loginform mt-4">
+                <form method="POST" action="{{ url_for('login') }}">
+                    {% if password_error %}
+                        <h6 class="logintext">{{ password_error }}</h6>
+                    {% endif %}
+                    <div class="row">
+                        <label for="InputUsername1" class="logintext pr-2" >Username:</label>
+                        <input type="text" class="login ml-auto mb-1" name="username" placeholder="Username">
+                    </div>
+                    <div class="row">
+                        <label for="InputPassword1" class="logintext pr-2" >Password:</label>
+                        <input type="password" class="login ml-auto mb-1" name="pass" placeholder="Password">
+                    </div>
+                    <button type="submit" class="btn btn-yellow mt-2">Log In</button>
+                </form>
+                <br>
+                <div class="logintext" >
+                    Don't have an account? <a href="{{ url_for('register') }}">Sign up here</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+{% endblock %}

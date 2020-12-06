@@ -1,0 +1,23 @@
+
+{% extends "layout.html" %}
+{% block body %}
+
+    <!-- Header -->
+    <header class="hero text-center">
+        <div class="hero-content">
+            {% if upload_error %}
+                <h6 class="logintext">{{ upload_error }}</h6>
+            {% endif %}
+            <div class="container filedialogcontainer">
+                <form method="POST" action="{{ url_for('upload_image', wine_id=wine._id) }}" enctype="multipart/form-data">
+                    <div class="row ml-auto mr-auto">
+                        <label for="filename">Select an image to upload...</label>
+                        <input name="filename" type="file" class="filedialog">
+                    </div>
+                    <button type="submit" class="btn btn-yellow mt-2">Upload</button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+{% endblock %}
