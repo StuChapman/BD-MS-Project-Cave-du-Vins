@@ -38,18 +38,30 @@
                     <div>
                         <label for="name">Wine Name</label>
                         <br>
-                        <input type="text" name="name" id="name" minlength="3" class="searchitem">
+                            {% if results_name != "" %}
+                                <input type="text" name="name" id="name" minlength="3" class="searchitem" value="{{ results_name }}">
+                            {% else %}
+                                <input type="text" name="name" id="name" minlength="3" class="searchitem">
+                            {% endif %}
                     </div>
                     <div class="searchvintage">
                         <label for="vintage">Vintage</label>
                         <br>
-                        <input type="text" name="vintage" id="vintage" minlength="3" class="searchitem">
+                            {% if results_vintage != "" %}
+                                <input type="text" name="name" id="vintage" minlength="3" class="searchitem" value="{{ results_vintage }}">
+                            {% else %}
+                                <input type="text" name="name" id="vintage" minlength="3" class="searchitem">
+                            {% endif %}
                     </div>
                     <div class="searchcolour">
                         <label for="colour">Colour</label>
                         <br>
                         <select name="colour" id="colour" class="searchitem">
-                            <option value="select"></option>
+                            {% if results_colour != "" %}
+                                <option value="{{ results_colour }}">{{ results_colour }}</option>
+                            {% else %}
+                                <option value=""></option>
+                            {% endif %}
                             {% for document in colours %}
                             <option value="{{ document.colour }}">{{ document.colour }}</option>
                             {% endfor %}
@@ -70,7 +82,11 @@
                         {% endif %}
                         <br>
                         <select name="country" id="country" class="searchitem">
-                            <option value="select"></option>
+                            {% if results_country != "" %}
+                                <option value="{{ results_country }}">{{ results_country }}</option>
+                            {% else %}
+                                <option value=""></option>
+                            {% endif %}
                             {% for document in country %}
                             <option value="{{ document.country }}">{{ document.country }}</option>
                             {% endfor %}
@@ -91,7 +107,11 @@
                         {% endif %}
                         <br>
                         <select name="region" id="region" class="searchitem">
-                            <option value="select"></option>
+                            {% if results_region != "" %}
+                                <option value="{{ results_region }}">{{ results_region }}</option>
+                            {% else %}
+                                <option value=""></option>
+                            {% endif %}
                             {% for document in region %}
                             <option value="{{ document.region }}">{{ document.region }}</option>
                             {% endfor %}
@@ -112,7 +132,11 @@
                         {% endif %}
                         <br>
                         <select name="grape" id="grape" class="searchitem">
-                            <option value="select"></option>
+                            {% if results_grape != "" %}
+                                <option value="{{ results_grape }}">{{ results_grape }}</option>
+                            {% else %}
+                                <option value=""></option>
+                            {% endif %}
                             {% for document in grape %}
                             <option value="{{ document.grape }}">{{ document.grape }}</option>
                             {% endfor %}

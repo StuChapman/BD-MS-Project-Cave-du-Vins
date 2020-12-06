@@ -205,7 +205,7 @@ def add_wine():
 
     # Credit: https://pythonprogramming.net/flash-flask-tutorial/
     flash("The wine has been added")
-    return render_template("add_wine.html",
+    return render_template("index.html",
                            user_name='User: ' + session['username'],
                            insert=mongo.db.wines.insert_one({"wine_name": nameadd.title(),
                                                              "vintage": vintageadd,
@@ -214,7 +214,14 @@ def add_wine():
                                                              "region": regionadd,
                                                              "grape": grapeadd,
                                                              "photo_url": "",
-                                                             "tasting_notes": ""})
+                                                             "tasting_notes": ""}),
+                                                             results_winename="",
+                                                             results_vintage="",
+                                                             results_colour="",
+                                                             results_country="",
+                                                             results_region="",
+                                                             results_grape="",
+                                                             results=mongo.db.wines.find({'_id': ObjectId(wineid)})
                                                              )
 
 
