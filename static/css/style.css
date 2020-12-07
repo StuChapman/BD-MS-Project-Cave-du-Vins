@@ -61,6 +61,10 @@ hr {
     background-color: #2E9693;
 }
 
+.disabledtext {
+    color: silver;
+}
+
 /* Login Page Styling */
 .loginform {
     width: 18rem;

@@ -169,11 +169,31 @@
                                         </a>
                                         Upload image
                                     </div>
+                                {% else %}
+                                    <div class="col-md-3 mb-2 m-md-0 disabledtext">
+                                        <a class="btn btn-yellow btn-xxsmall rounded-pill mb-1 disabled">
+                                            <i class="fas fa-plus"></i>
+                                        </a>
+                                        Tasting Notes
+                                    </div>
+                                    <div class="col-md-3 mb-2 m-md-0 disabledtext">
+                                        <a class="btn btn-yellow btn-xxsmall rounded-pill mb-1 disabled">
+                                            <i class="fa fa-camera"></i>
+                                        </a>
+                                        Upload image
+                                    </div>
                                 {% endif %}
                                 {% if user_name == 'User: admin' %}
                                     <div class="col-md-3 mb-2 m-md-0">
                                         <a class="btn btn-blue btn-xxsmall rounded-pill mb-1"
                                             href="{{ url_for('delete_wine', wine_id=document._id) }}">
+                                            <i class="fas fa-minus"></i>
+                                        </a>
+                                        Delete Wine
+                                    </div>
+                                {% else %}
+                                    <div class="col-md-3 mb-2 m-md-0 disabledtext">
+                                        <a class="btn btn-blue btn-xxsmall rounded-pill mb-1 disabled">
                                             <i class="fas fa-minus"></i>
                                         </a>
                                         Delete Wine

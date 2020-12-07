@@ -208,20 +208,20 @@ def add_wine():
     return render_template("index.html",
                            user_name='User: ' + session['username'],
                            insert=mongo.db.wines.insert_one({"wine_name": nameadd.title(),
-                                                             "vintage": vintageadd,
-                                                             "colour": colouradd,
-                                                             "country": countryadd,
-                                                             "region": regionadd,
-                                                             "grape": grapeadd,
-                                                             "photo_url": "",
-                                                             "tasting_notes": ""}),
-                                                             results_winename="",
-                                                             results_vintage="",
-                                                             results_colour="",
-                                                             results_country="",
-                                                             results_region="",
-                                                             results_grape="",
-                                                             results=mongo.db.wines.find({"wine_name": nameadd.title(),
+                                                            "vintage": vintageadd,
+                                                            "colour": colouradd,
+                                                            "country": countryadd,
+                                                            "region": regionadd,
+                                                            "grape": grapeadd,
+                                                            "photo_url": "",
+                                                            "tasting_notes": ""}),
+                                                            results_winename="",
+                                                            results_vintage="",
+                                                            results_colour="",
+                                                            results_country="",
+                                                            results_region="",
+                                                            results_grape="",
+                                                            results=mongo.db.wines.find({"wine_name": nameadd.title(),
                                                                                           "vintage": vintageadd,
                                                                                           "colour": colouradd,
                                                                                           "country": countryadd,
@@ -229,7 +229,7 @@ def add_wine():
                                                                                           "grape": grapeadd,
                                                                                           "photo_url": "",
                                                                                           "tasting_notes": ""})
-                                                             )
+                                                            )
 
 
 @app.route('/delete_wine/<wine_id>')
@@ -263,7 +263,8 @@ def add_country():
                                user_name='User: ' + session['username'],
                                country=mongo.db.country.find(),
                                region=mongo.db.region.find(),
-                               grape=mongo.db.grape.find())
+                               grape=mongo.db.grape.find()
+                               )
 
     # Credit: https://pythonprogramming.net/flash-flask-tutorial/
     flash(countryadd + " has been added")
@@ -282,7 +283,7 @@ def add_country():
                            colours=mongo.db.colours.find(),
                            country=mongo.db.country.find(),
                            region=mongo.db.region.find(),
-                           grape=mongo.db.grape.find(),
+                           grape=mongo.db.grape.find()
                            )
 
 
@@ -296,7 +297,8 @@ def add_region():
                                user_name='User: ' + session['username'],
                                country=mongo.db.country.find(),
                                region=mongo.db.region.find(),
-                               grape=mongo.db.grape.find())
+                               grape=mongo.db.grape.find()
+                               )
 
     # Credit: https://pythonprogramming.net/flash-flask-tutorial/
     flash(regionadd + " has been added")
@@ -315,7 +317,7 @@ def add_region():
                            colours=mongo.db.colours.find(),
                            country=mongo.db.country.find(),
                            region=mongo.db.region.find(),
-                           grape=mongo.db.grape.find(),
+                           grape=mongo.db.grape.find()
                            )
 
 
@@ -348,7 +350,7 @@ def add_grape():
                            colours=mongo.db.colours.find(),
                            country=mongo.db.country.find(),
                            region=mongo.db.region.find(),
-                           grape=mongo.db.grape.find(),
+                           grape=mongo.db.grape.find()
                            )
 
 
@@ -360,7 +362,7 @@ def delete_category_page(category_id):
                            colours=mongo.db.colours.find(),
                            country=mongo.db.country.find(),
                            region=mongo.db.region.find(),
-                           grape=mongo.db.grape.find(),
+                           grape=mongo.db.grape.find()
                            )
 
 
@@ -371,23 +373,35 @@ def delete_category(category_id):
     # Credit: https://pythonprogramming.net/flash-flask-tutorial/
     flash(category + " has been deleted")
     if category_id == "country":
-        return render_template('categories.html',
+        return render_template('add_wine.html',
                                user_name='User: ' + session['username'],
-                               country=mongo.db.country.find(),
                                category_id="country",
-                               delete=mongo.db.country.delete_one({'country': category}))
-    if category_id == "region":
-        return render_template('categories.html',
-                               user_name='User: ' + session['username'],
+                               delete=mongo.db.country.delete_one({'country': category}),
+                               colours=mongo.db.colours.find(),
+                               country=mongo.db.country.find(),
                                region=mongo.db.region.find(),
-                               category_id="region",
-                               delete=mongo.db.region.delete_one({'region': category}))
-    if category_id == "grape":
-        return render_template('categories.html',
+                               grape=mongo.db.grape.find()
+                               )
+    if category_id == "region":
+        return render_template('add_wine.html',
                                user_name='User: ' + session['username'],
-                               grape=mongo.db.grape.find(),
+                               category_id="region",
+                               delete=mongo.db.region.delete_one({'region': category}),
+                               colours=mongo.db.colours.find(),
+                               country=mongo.db.country.find(),
+                               region=mongo.db.region.find(),
+                               grape=mongo.db.grape.find()
+                               )
+    if category_id == "grape":
+        return render_template('add_wine.html',
+                               user_name='User: ' + session['username'],
                                category_id="grape",
-                               delete=mongo.db.grape.delete_one({'grape': category}))
+                               delete=mongo.db.grape.delete_one({'grape': category}),
+                               colours=mongo.db.colours.find(),
+                               country=mongo.db.country.find(),
+                               region=mongo.db.region.find(),
+                               grape=mongo.db.grape.find()
+                               )
 
 
 # Browse Wines routes
