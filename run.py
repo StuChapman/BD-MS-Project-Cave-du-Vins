@@ -696,6 +696,7 @@ def upload_image(wine_id):
 
 
 if __name__ == '__main__':
-    app.secret_key = 'mysecret'
+    app.secret_key = 'mysecret',
+    port=int(os.environ.get('PORT')),
     app.run(host=os.environ.get('IP'),
             debug=True)
