@@ -167,7 +167,7 @@ The code for requirements Validation-Updating-Wine-Information:8-9 is credited t
 As is now standard workflow for me; I produced detailed mockups for: phones, tablets and desktop devices prior to writing any code. Key design decisions are made at this stage to ensure the creation of code meets these designs, rather than designing the app at the same time as coding it.
 I included the data structure for the backend databases in the mockups.
 
-[iPhone](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/1373b8817dc6233d05fe0b281369000a27b88f54/mockups/Data-Centric%20Development%20Milestone%20Project.jpg)
+[iPhone](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/733c885efed6503fffda533463fd2f32714f1ee3/mockups/Data-Centric%20Development%20Milestone%20Project.jpg)
 
 [tablet](...)
 
