@@ -13,7 +13,7 @@
         </div>
     </header>
 
-	<div class="flashmessage ml-auto mr-auto">
+    <div class="flashmessage ml-auto mr-auto">
         {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
@@ -24,7 +24,7 @@
             {% endfor %}
         {% endif %}
         {% endwith %}
-	</div>
+    </div>
 
     <!-- Browse Section -->
     <section id="browse">
@@ -151,7 +151,10 @@
                         </div>
                         <div>
                             {% if document.photo_url %}
-                                <img class="img-fluid rounded-circle wine_img mb-3 mb-md-0" src="{{ document.photo_url }}" alt="wine image">
+                                <a href="{{ url_for('view_image_page', wine_id=document._id) }}">
+                                    <img class="img-fluid rounded-circle wine_img mb-3 mb-md-0" 
+                                        alt="wine image" src="{{ document.photo_url }}" target="_blank">
+                                </a>
                             {% endif %}
                             <div class="row">
                                 {% if user_name != 'Cave du Vins' %}
@@ -220,3 +223,4 @@
     </section>
 
 {% endblock %}
+

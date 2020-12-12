@@ -1,11 +1,13 @@
 import os
-from flask import Flask, render_template, redirect, request, url_for, session, flash
+from flask import Flask, render_template, redirect, request, url_for, session
+from flask import flash
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 import bcrypt
 import re
 import uuid
-from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient, __version__
+from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
+from azure.storage.blob import __version__
 from azure.core.exceptions import ResourceExistsError
 from werkzeug.utils import secure_filename
 
@@ -20,7 +22,6 @@ app.config["IMAGE_UPLOADS"] = "./upload_images"
 app.config["ALLOWED_IMAGE_EXTENSIONS"] = ["JPEG", "JPG", "PNG", "GIF"]
 
 mongo = PyMongo(app)
-
 
 # Start app on index.html
 @app.route('/')
@@ -43,7 +44,6 @@ def index():
                            results_grape=""
                            )
 
-
 # Log In/Out and Register routes
 @app.route('/login_page')
 def login_page():
@@ -54,9 +54,7 @@ def login_page():
     return render_template('login.html',
                            user_name=user_return)
 
-
-# Credit: https://edubanq.com/programming/mongodb/
-# creating-a-user-login-system-using-python-flask-and-mongodb/
+# Credit: https://edubanq.com/programming/mongodb/creating-a-user-login-system-using-python-flask-and-mongodb/
 @app.route('/login', methods=['POST'])
 def login():
     users = mongo.db.users
@@ -69,8 +67,7 @@ def login():
             return redirect(url_for('index'))
 
     return render_template("login.html",
-                        password_error='Invalid username/password combination')
-
+                           password_error='Invalid username/password combination')
 
 # Credit: https://pythonbasics.org/flask-sessions/
 @app.route('/logout')
@@ -78,44 +75,42 @@ def logout():
     session.pop('username', None)
     return redirect(url_for('index'))
 
-
-# Credit: https://edubanq.com/programming/mongodb/
-# creating-a-user-login-system-using-python-flask-and-mongodb/
+# Credit: https://edubanq.com/programming/mongodb/creating-a-user-login-system-using-python-flask-and-mongodb/
 @app.route('/register', methods=['POST', 'GET'])
 def register():
     if request.method == 'POST':
         users = mongo.db.users
         existing_user = users.find_one({'name': request.form['username']})
 
-        SpecialSym =['$', '@', '#', '%', '!']
+        SpecialSym = ['$', '@', '#', '%', '!']
 
         userVal = request.form['username']
 
-        if re.match("^[a-zA-Z0-9*]+$", userVal): # Credit: https://stackoverflow.com/questions/15580917/python-data-validation-using-regular-expression
+        if re.match("^[a-zA-Z0-9*]+$", userVal):
+            # Credit: https://stackoverflow.com/questions/15580917/python-data-validation-using-regular-expression
             passVal = request.form['pass']
             # Credit: https://www.geeksforgeeks.org/password-validation-in-python/#:~:text=Conditions%20for%20a%20valid%20password%20are%3A%201%20Should,be%20between%206%20to%2020%20characters%20long.%20
-            if len(passVal) < 6: 
-                return render_template("register.html", register_error = 'password should be at least 6 characters')
-            if len(passVal) > 10: 
-                return render_template("register.html", register_error = 'password should be no more than 10 characters')
-            if not any(char.isdigit() for char in passVal): 
-                return render_template("register.html", register_error = 'password should have at least one numeral')
+            if len(passVal) < 6:
+                return render_template("register.html", register_error='password should be at least 6 characters')
+            if len(passVal) > 10:
+                return render_template("register.html", register_error='password should be no more than 10 characters')
+            if not any(char.isdigit() for char in passVal):
+                return render_template("register.html", register_error='password should have at least one numeral')
             if not any(char.isupper() for char in passVal):
-                return render_template("register.html", register_error = 'password should have at least one uppercase letter')
+                return render_template("register.html", register_error='password should have at least one uppercase letter')
             if not any(char.islower() for char in passVal):
-                return render_template("register.html", register_error = 'password should have at least one lowercase letter')
+                return render_template("register.html", register_error='password should have at least one lowercase letter')
             if not any(char in SpecialSym for char in passVal):
-                return render_template("register.html", register_error = 'password should have at least one of the symbols $, @, #, % or !')
+                return render_template("register.html", register_error='password should have at least one of the symbols $, @, #, % or !')
             else:
                 if existing_user is None:
                     hashpass = bcrypt.hashpw(request.form['pass'].encode('utf-8'), bcrypt.gensalt())
-                    users.insert({'name' : request.form['username'], 'password' : hashpass})
+                    users.insert({'name': request.form['username'], 'password': hashpass})
                     session['username'] = request.form['username']
                     return redirect(url_for('index'))
-                return render_template("register.html", register_error = 'That username already exists')
+                return render_template("register.html", register_error='That username already exists')
         else:
-            return render_template("register.html", register_error = 'Please enter a valid username of text and numbers, with no spaces')
-
+            return render_template("register.html", register_error='Please enter a valid username of text and numbers, with no spaces')
 
     if 'username' in session:
         user_return = 'User: ' + session['username']
@@ -125,7 +120,6 @@ def register():
                            user_name=user_return)
 
     return ''
-
 
 # Add/Delete Wine routes
 @app.route('/add_wine_page')
@@ -138,7 +132,6 @@ def add_wine_page():
                            grape=mongo.db.grape.find()
                            )
 
-
 # Refresh Add Wine Form route
 @app.route('/populate_form')
 def populate_form():
@@ -149,7 +142,6 @@ def populate_form():
                            region=mongo.db.region.find(),
                            grape=mongo.db.grape.find()
                            )
-
 
 @app.route('/add_wine', methods=["GET", "POST"])
 def add_wine():
@@ -208,20 +200,20 @@ def add_wine():
     return render_template("index.html",
                            user_name='User: ' + session['username'],
                            insert=mongo.db.wines.insert_one({"wine_name": nameadd.title(),
-                                                            "vintage": vintageadd,
-                                                            "colour": colouradd,
-                                                            "country": countryadd,
-                                                            "region": regionadd,
-                                                            "grape": grapeadd,
-                                                            "photo_url": "",
-                                                            "tasting_notes": ""}),
-                                                            results_winename="",
-                                                            results_vintage="",
-                                                            results_colour="",
-                                                            results_country="",
-                                                            results_region="",
-                                                            results_grape="",
-                                                            results=mongo.db.wines.find({"wine_name": nameadd.title(),
+                                                             "vintage": vintageadd,
+                                                             "colour": colouradd,
+                                                             "country": countryadd,
+                                                             "region": regionadd,
+                                                             "grape": grapeadd,
+                                                             "photo_url": "",
+                                                             "tasting_notes": ""}),
+                                                             results_winename="",
+                                                             results_vintage="",
+                                                             results_colour="",
+                                                             results_country="",
+                                                             results_region="",
+                                                             results_grape="",
+                                                             results=mongo.db.wines.find({"wine_name": nameadd.title(),
                                                                                           "vintage": vintageadd,
                                                                                           "colour": colouradd,
                                                                                           "country": countryadd,
@@ -229,8 +221,7 @@ def add_wine():
                                                                                           "grape": grapeadd,
                                                                                           "photo_url": "",
                                                                                           "tasting_notes": ""})
-                                                            )
-
+                                                             )
 
 @app.route('/delete_wine/<wine_id>')
 def delete_wine(wine_id):
@@ -251,13 +242,12 @@ def delete_wine(wine_id):
                            results_grape=""
                            )
 
-
 # Add/Deleted Documents to/from Collections routes
 @app.route('/add_country', methods=["GET", "POST"])
 def add_country():
     countryadd = request.values.get("addcountry")
     existing_country = mongo.db.country.find_one({'country': countryadd})
-    if not any(char.islower() for char in countryadd):
+    if not any(char.islower() for char in countryadd) and not any(char.isupper() for char in countryadd):
         flash('country must be populated')
         return render_template("add_wine.html",
                                user_name='User: ' + session['username'],
@@ -286,12 +276,11 @@ def add_country():
                            grape=mongo.db.grape.find()
                            )
 
-
 @app.route('/add_region', methods=["GET", "POST"])
 def add_region():
     regionadd = request.values.get("addregion")
     existing_region = mongo.db.region.find_one({'region': regionadd})
-    if not any(char.islower() for char in regionadd):
+    if not any(char.islower() for char in regionadd) and not any(char.isupper() for char in regionadd):
         flash('region must be populated')
         return render_template("add_wine.html",
                                user_name='User: ' + session['username'],
@@ -320,12 +309,11 @@ def add_region():
                            grape=mongo.db.grape.find()
                            )
 
-
 @app.route('/add_grape', methods=["GET", "POST"])
 def add_grape():
     grapeadd = request.values.get("addgrape")
     existing_grape = mongo.db.grape.find_one({'grape': grapeadd})
-    if not any(char.islower() for char in grapeadd):
+    if not any(char.islower() for char in grapeadd) and not any(char.isupper() for char in grapeadd):
         flash('grape must be populated')
         return render_template("add_wine.html",
                                user_name='User: ' + session['username'],
@@ -353,7 +341,6 @@ def add_grape():
                            grape=mongo.db.grape.find()
                            )
 
-
 @app.route('/delete_category_page/<category_id>')
 def delete_category_page(category_id):
     return render_template('categories.html',
@@ -364,7 +351,6 @@ def delete_category_page(category_id):
                            region=mongo.db.region.find(),
                            grape=mongo.db.grape.find()
                            )
-
 
 @app.route('/delete_category/<category_id>', methods=["GET", "POST"])
 def delete_category(category_id):
@@ -403,7 +389,6 @@ def delete_category(category_id):
                                grape=mongo.db.grape.find()
                                )
 
-
 # Browse Wines routes
 @app.route('/search_page')
 def search_page():
@@ -425,7 +410,6 @@ def search_page():
                            results_grape=""
                            )
 
-
 @app.route('/populate_search')
 def populate_search():
     if 'username' in session:
@@ -446,11 +430,9 @@ def populate_search():
                            results_grape=""
                            )
 
-
 @app.route("/search", methods=["GET", "POST"])
 def search():
-    # Credit: https://stackoverflow.com/questions/55617412/
-    # how-to-perform-wildcard-searches-mongodb-in-python-with-pymongo
+    # Credit: https://stackoverflow.com/questions/55617412/how-to-perform-wildcard-searches-mongodb-in-python-with-pymongo
     if request.values.get("name") == "":
         namesearch = ".*.*"
         resultname = ""
@@ -517,9 +499,7 @@ def search():
     return render_template("index.html",
                            results=mongo.db.wines.find(
                                 {"$and": [{"$or": [
-                                    # Credit: https://stackoverflow.com/
-                                    # questions/55617412/how-to-perform-wildcard
-                                    # -searches-mongodb-in-python-with-pymongo
+                                    # Credit: https://stackoverflow.com/questions/55617412/how-to-perform-wildcard-searches-mongodb-in-python-with-pymongo
                                     {'wine_name': {'$regex': '.*' + namesearch + '.*'}},
                                     {'wine_name': {'$regex': '.*' + namesearch.title() + '.*'}}]},
                                     {"vintage": vintagesearch},
@@ -541,7 +521,6 @@ def search():
                                     results_grape=resultgrape
                                     )
 
-
 # Add tasting Note Routes
 @app.route('/add_tasting_note_page/<wine_id>')
 def add_tasting_note_page(wine_id):
@@ -555,30 +534,30 @@ def add_tasting_note_page(wine_id):
                            grape=mongo.db.grape.find()
                            )
 
-
 @app.route('/add_tasting_note', methods=["GET", "POST"])
 def add_tasting_note():
-    tastingnoteadd = request.values.get("add_tasting_note")
+    if request.values.get("existing_tasting_note") is None:
+        tastingnoteexist = ""
+    else:
+        tastingnoteexist = request.values.get("existing_tasting_note")
+    tastingnoteadd = tastingnoteexist + " [" + 'User: ' + session['username'] + "] " + request.values.get("add_tasting_note")
     wineid = request.values.get("wine_id")
     return render_template("index.html",
-                            user_name='User: ' + session['username'],
-                            colours=mongo.db.colours.find(),
-                            country=mongo.db.country.find(),
-                            region=mongo.db.region.find(),
-                            grape=mongo.db.grape.find(),
-                            results_winename="",
-                            results_vintage="",
-                            results_colour="",
-                            results_country="",
-                            results_region="",
-                            results_grape="",
-                            update=mongo.db.wines.update({'_id': ObjectId(wineid)},
-                                                        # Credit: https://stackoverflow.com/questions/10290621/
-                                                        # how-do-i-partially-update-an-object-in-mongodb-so-the-new-
-                                                        # object-will-overlay
-                                                        {"$set": {'tasting_notes': tastingnoteadd}}),
-                                                        results=mongo.db.wines.find({'_id': ObjectId(wineid)}))
-
+                           user_name='User: ' + session['username'],
+                           colours=mongo.db.colours.find(),
+                           country=mongo.db.country.find(),
+                           region=mongo.db.region.find(),
+                           grape=mongo.db.grape.find(),
+                           results_winename="",
+                           results_vintage="",
+                           results_colour="",
+                           results_country="",
+                           results_region="",
+                           results_grape="",
+                           update=mongo.db.wines.update_one({'_id': ObjectId(wineid)},
+                                                            # Credit: https://stackoverflow.com/questions/10290621/how-do-i-partially-update-an-object-in-mongodb-so-the-new-object-will-overlay
+                                                            {"$set": {'tasting_notes': tastingnoteadd}}),
+                                                            results=mongo.db.wines.find({'_id': ObjectId(wineid)}))
 
 # Upload Image
 @app.route('/upload_image_page/<wine_id>')
@@ -598,7 +577,6 @@ def allowed_image(filename):
         return True
     else:
         return False
-
 
 # Upload Image
 @app.route('/upload_image/<wine_id>', methods=["GET", "POST"])
@@ -674,11 +652,9 @@ def upload_image(wine_id):
     else:
         user_return = 'Cave du Vins'
 
-    return render_template("index.html", 
+    return render_template("index.html",
                            update=mongo.db.wines.update({'_id': ObjectId(wineid)},
-                           # Credit: https://stackoverflow.com/questions/10290621/
-                           # how-do-i-partially-update-an-object-in-mongodb-so-the-new-
-                           # object-will-overlay
+                           # Credit: https://stackoverflow.com/questions/10290621/how-do-i-partially-update-an-object-in-mongodb-so-the-new-object-will-overlay
                            {"$set": {'photo_url': image_url}}),
                            user_name=user_return,
                            colours=mongo.db.colours.find(),
@@ -694,9 +670,22 @@ def upload_image(wine_id):
                            results=mongo.db.wines.find({'_id': ObjectId(wineid)})
                            )
 
+# Upload Image
+@app.route('/view_image_page/<wine_id>')
+def view_image_page(wine_id):
+    if 'username' in session:
+        user_return = 'User: ' + session['username']
+    else:
+        user_return = 'Cave du Vins'
+    return render_template("view_image.html",
+                           user_name=user_return,
+                           wine=mongo.db.wines.find({'_id': ObjectId(wine_id)})
+                           )
 
 if __name__ == '__main__':
-    app.secret_key = 'mysecret',
-    port=int(os.environ.get('PORT')),
+    app.secret_key = 'mysecret'
     app.run(host=os.environ.get('IP'),
-            debug=True)
+            port=int(os.environ.get('PORT')),
+            debug=False)
+
+

@@ -65,6 +65,12 @@ hr {
     color: silver;
 }
 
+.align-vertically { /* credit to https://webdevblog.com/css-vertical-align/ */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* Login Page Styling */
 .loginform {
     width: 18rem;
@@ -138,6 +144,15 @@ header.hero .hero-content .hero-subheading {
     opacity: .6;
 }
 
+.disabledtextinput {
+    width: 80vw;
+    border: 0;
+    opacity: 1;
+    color: black;
+    overflow-y: hidden;
+    background: transparent;
+}
+
 .resultsgrey {
     color: silver;
 }
@@ -201,6 +216,26 @@ header.hero .hero-content .hero-subheading {
         font-size: 17.5vh;
     }
 
+    .imgcontainer {
+        position: relative;
+        overflow: hidden;
+        height: 140vw;
+    }
+
+    .img-header {
+        margin-top: 20vh;
+        height: 10vh;
+    }
+
+    .wine_img_lg {
+        width: 75vw;
+    }
+
+    .wine_btn {
+        margin-top: 5vh;
+        height: 10vh;
+    }
+
 }
 
 @media screen and (orientation: portrait){ /* Credit: https://stackoverflow.com/questions/43589507/how-can-you-have-bootstrap-responsiveness-based-on-screen-ratio-instead-of-scree */
@@ -213,4 +248,28 @@ header.hero .hero-content .hero-subheading {
         font-size: 15vw;
     }
 
+    .imgcontainer {
+        position: relative;
+        overflow: hidden;
+        margin-top: 6rem;
+        padding-bottom: 5vh;
+        height: 165vw;
+    }
+
+    .img-header {
+        padding-top: 5vh;
+        height: 10vh;
+    }
+
+    .wine_img_lg {
+        width: 95vw;
+        background-size: contain;
+    }
+
+    .wine_btn {
+        margin-top: .5rem;
+        height: 10vh;
+    }
+
 }
+
