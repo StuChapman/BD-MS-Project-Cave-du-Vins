@@ -12,7 +12,7 @@
                 <form method="POST" action="{{ url_for('upload_image', wine_id=wine._id) }}" enctype="multipart/form-data">
                     <div class="row ml-auto mr-auto">
                         <label for="filename">Select an image to upload...</label>
-                        <input name="filename" type="file" class="filedialog">
+                        <input id="filename" name="filename" type="file" class="filedialog">
                     </div>
                     <button type="submit" class="btn btn-yellow mt-2">Upload</button>
                 </form>

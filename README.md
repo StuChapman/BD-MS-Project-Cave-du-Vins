@@ -51,7 +51,7 @@ User Stories are organised in the following groups:
 * Adding Wines
 * Updating Wine Information
 * Navigation
-* Administrator access (credentials can be found in [admin-credentials.txt](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/81afe31ecea1082a90f827549efb7319ff6d3f91/admin-credentials.txt))
+* Administrator access (credentials can be found in [admin-credentials.txt](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/987cf88bda8f97f9b421680e54477c323c8be3f7/admin-credentials.txt))
 
 ## User Stories 
 
@@ -168,11 +168,11 @@ The code for requirements Validation-Updating-Wine-Information:8-9 is credited t
 As is now standard workflow for me; I produced detailed mockups for: phones, tablets and desktop devices prior to writing any code. Key design decisions are made at this stage to ensure the creation of code meets these designs, rather than designing the app at the same time as coding it.
 I included the data structure for the backend databases in the mockups.
 
-[iPhone](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/733c885efed6503fffda533463fd2f32714f1ee3/mockups/Data-Centric%20Development%20Milestone%20Project%(phone).jpg)
+[phone](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/987cf88bda8f97f9b421680e54477c323c8be3f7/mockups/Data-Centric%20Development%20Milestone%20Project%20%28phone%29.jpg)
 
-[tablet](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/733c885efed6503fffda533463fd2f32714f1ee3/mockups/Data-Centric%20Development%20Milestone%20Project%(tablet).jpg)
+[tablet](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/987cf88bda8f97f9b421680e54477c323c8be3f7/mockups/Data-Centric%20Development%20Milestone%20Project%20%28tablet%29.jpg)
 
-[laptop](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/733c885efed6503fffda533463fd2f32714f1ee3/mockups/Data-Centric%20Development%20Milestone%20Project%(desktop).jpg)
+[laptop](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/987cf88bda8f97f9b421680e54477c323c8be3f7/mockups/Data-Centric%20Development%20Milestone%20Project%20%28desktop%29.jpg)
 
 I used [figma](https://www.figma.com/) to produce the mockups. 
 
@@ -264,8 +264,8 @@ the concepts of:
 
 ### Bugs, Challenges and Errors
 
-1.  When designing the layout for the search form, I moved the search button outside the <form></form> - this resulted in the search criteria not being passed to run.py. I corrected this by returning the button to the form, and finding a better way to achieve the layout I wanted.
-2.  The default values in the search inputs were being passed into run.py and preventing the code from running - I removed these.
+1.  When designing the layout for the search form, I moved the search button outside the <form></form> - this resulted in the search criteria not being passed to the flask app. I corrected this by returning the button to the form, and finding a better way to achieve the layout I wanted.
+2.  The default values in the search inputs were being passed into the flask app and preventing the code from running - I removed these.
 3.  The username was resetting to 'Cave du Vins' whilst navigating around the app - I corrected this by adding the following 'if' statement and always passing the username back with render_template...
 ```{python}
     if 'username' in session:
