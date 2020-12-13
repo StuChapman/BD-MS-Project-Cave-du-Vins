@@ -95,14 +95,17 @@ hr {
 }
 
 /* Header Section styling */
-header.hero {
+header.hero, header.tastingnotehero {
     position: relative;
     overflow: hidden;
-    height: 95vh;
     padding-bottom: 7rem;
 }
 
-.hero::before { /* Credit: https://coder-coder.com/background-image-opacity/ */
+header.hero, header.tastingnotehero {
+    height: 95vh;
+}
+
+.hero::before, header.tastingnotehero::before { /* Credit: https://coder-coder.com/background-image-opacity/ */
     content: "";
     background-image: url(/static/img/IMG_4723sml.JPG);
     background-size: cover;
@@ -117,14 +120,19 @@ header.hero {
     opacity: 0.75;
 }
 
-header.hero .hero-content {
+header.hero .hero-content, header.tastingnotehero .hero-content {
   z-index: 1;
   position: relative;
   color: rgba(0, 0, 0, 0.8);
 }
 
-header.hero .hero-content .hero-subheading {
+header.hero .hero-content .hero-subheading, header.tastingnotehero .hero-content .hero-subheading {
   font-size: 2rem;
+}
+
+/* Add Tasting Note styling */
+header.tastingnotehero {
+    height: 105vh;
 }
 
 /* Browse Section styling */
@@ -149,7 +157,7 @@ header.hero .hero-content .hero-subheading {
     border: 0;
     opacity: 1;
     color: black;
-    overflow-y: hidden;
+    overflow-y: auto;
     background: transparent;
 }
 
@@ -208,12 +216,20 @@ header.hero .hero-content .hero-subheading {
 
 @media screen and (orientation: landscape){ /* Credit: https://stackoverflow.com/questions/43589507/how-can-you-have-bootstrap-responsiveness-based-on-screen-ratio-instead-of-scree */
 
-    header.hero {
-        padding-top: 22.5vh;
+    header.hero, header.tastingnotehero {
+        padding-top: 25vh;
     }
 
-    header.hero .hero-content .hero-heading {
+    header.hero .hero-content .hero-heading, header.tastingnotehero .hero-content .hero-heading {
         font-size: 17.5vh;
+    }
+
+    header.tastingnotehero {
+        height: 125vh;
+    }
+
+    header.hero {
+        height: 110vh;
     }
 
     .imgcontainer {
@@ -240,11 +256,11 @@ header.hero .hero-content .hero-subheading {
 
 @media screen and (orientation: portrait){ /* Credit: https://stackoverflow.com/questions/43589507/how-can-you-have-bootstrap-responsiveness-based-on-screen-ratio-instead-of-scree */
 
-    header.hero {
+    header.hero, header.tastingnotehero {
         padding-top: calc(7rem + 72px);
     }
 
-    header.hero .hero-content .hero-heading {
+    header.hero .hero-content .hero-heading, header.tastingnotehero .hero-content .hero-heading {
         font-size: 15vw;
     }
 
@@ -269,6 +285,23 @@ header.hero .hero-content .hero-subheading {
     .wine_btn {
         margin-top: .5rem;
         height: 10vh;
+    }
+
+    @media (min-height: 652px) {
+        .loginform {
+            width: 17rem;
+        }
+
+        .logintext {
+            font-family: 'Lato';
+            color: white;
+            font-size: .9rem;
+        }
+
+        .filedialogcontainer {
+            width: 18rem;
+        }
+
     }
 
 }

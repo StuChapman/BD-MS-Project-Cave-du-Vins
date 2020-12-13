@@ -45,12 +45,13 @@ Documents can be deleted from the collections only by the administrator; through
 
 The app should be designed ‘mobile first’, and should be equally as accessible through desktop and laptop devices.
 User Stories are organised in the following groups:
-    * Registration
-    * Logging in
-    * Browsing
-    * Adding Wines
-    * Updating Wine Information
-    * Navigation
+* Registration
+* Logging in
+* Browsing
+* Adding Wines
+* Updating Wine Information
+* Navigation
+* Administrator access (credentials can be found in [admin-credentials.txt](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/81afe31ecea1082a90f827549efb7319ff6d3f91/admin-credentials.txt))
 
 ## User Stories 
 
@@ -247,6 +248,7 @@ I used these fonts exclusively.
 #### Add Tasting Notes page
 1. The current tasting note as read only.
 2. A text input to allow the user to add 155 characters of free text (stamped with the username).
+3. A Save button to append documents in the [MongoDB](https://www.mongodb.com/) database.
 
 ### Approach
 
@@ -307,6 +309,7 @@ the concepts of:
 ```
 9.  I had the issue with the broken Dockerfile as detailed above.
 10. I had left the default value "select" in the select inputs on add_wine.html. This caused the fileds to reset after the wine was added, but a much better user experience was to have the new wine returned.
+11. There was also an issue with the GutHub repository not updating with the latest code pushed from GitPod. The GitPod workspace had been upversioned and commited over 5 days, but none of these reflected in the repository. I manually updated the repository to consolidation all updates.
 
 Apart from the 2 major isses with Procfile and Dockefile; the most challenging aspect of the project was uploading images to cloud storage.
 
@@ -347,7 +350,18 @@ Within the run.py app, I installed a number of add ins to enable various capabil
 10. secure_filename from werkzeug.utils -to add protection from malicious use when uploading an image.
 
 ## Testing
-I created a separate [...](.../TESTING.md) file and the test matrices.
+I created a separate [testing](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/733c885efed6503fffda533463fd2f32714f1ee3/testing) folder containing pre and post test matrices.
+
+As usual; an organised testing matrix proved invaluable. Taking a disciplined approach to testing all features on all devices and browsers, 
+in both portrait and landscape orientation **always** reveals unforseen issues.
+
+Testing revealed some issues with rendering - particularly on add_tasting_note.html in landscape viw on small mobile devices,
+and a number of views on Glalaxy Fold in landscape.
+
+There was also an error with the code to navigate back to the search view from view_image.html on Edge and Opera browsers... 
+*onclick="window.history.back();location.reload(); return false;"*
+
+These were corrected in a post-testing commit.
 
 ## Deployment
 

@@ -3,30 +3,26 @@
 {% block body %}
 
     <!-- Header -->
-    <header class="hero text-center">
-        <div class="hero-content">
-            <div class="container loginform mt-4">
-                <form method="POST" action="{{ url_for('login') }}">
-                    {% if password_error %}
-                        <h6 class="logintext">{{ password_error }}</h6>
-                    {% endif %}
-                    <div class="row">
-                        <label for="InputUsername1" class="logintext pr-2" >Username:</label>
-                        <input type="text" class="login ml-auto mb-1" name="username" placeholder="Username">
+    <header class="imgcontainer text-center align-vertically">
+        <div>
+            <div>
+                {% for document in wine %}
+                    <div class="img-header mt-lg-0">
+                        <h5 class="hero-subheading">{{ document.wine_name }}, {{ document.vintage }}</h5>
                     </div>
-                    <div class="row">
-                        <label for="InputPassword1" class="logintext pr-2" >Password:</label>
-                        <input type="password" class="login ml-auto mb-1" name="pass" placeholder="Password">
+                    <div>
+                        <img class="wine_img_lg" alt="wine image" src="{{ document.photo_url }}">
                     </div>
-                    <button type="submit" class="btn btn-yellow mt-2">Log In</button>
-                </form>
-                <br>
-                <div class="logintext" >
-                    Don't have an account? <a href="{{ url_for('register') }}">Sign up here</a>
-                </div>
+                {% endfor %}
+            </div>
+            <div class="wine_btn">
+                <a href="#browse" 
+                    class="btn btn-blue btn-small btn-xl rounded-pill p-0 ml-auto mr-auto align-vertically" 
+                    onclick="window.history.back(); return false;">
+                    Back
+                </a>
             </div>
         </div>
     </header>
 
 {% endblock %}
-
