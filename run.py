@@ -482,6 +482,22 @@ def search():
 
     results_string = resultname + resultvintage + resultcolour + resultcountry + resultregion + resultgrape
 
+    if not all(char.isdigit() for char in resultvintage):
+        flash('vintage must be 4 numerals')
+        return render_template("index.html",
+                               user_name=user_return,
+                               colours=mongo.db.colours.find(),
+                               country=mongo.db.country.find(),
+                               region=mongo.db.region.find(),
+                               grape=mongo.db.grape.find(),
+                               results_winename=resultname,
+                               results_colour=resultcolour,
+                               results_country=resultcountry,
+                               results_region=resultregion,
+                               results_grape=resultgrape,
+                               vintagenumfail=True
+                               )
+
     if results_string == "":
         return render_template("index.html",
                                user_name=user_return,
@@ -608,7 +624,6 @@ def upload_image(wine_id):
                 filename = secure_filename(image.filename)
                 image.save(os.path.join(app.config["IMAGE_UPLOADS"], filename))
             else:
-                print("That file extension is not allowed")
                 the_wine = mongo.db.wines.find_one({"_id": ObjectId(wine_id)})
                 return render_template('image_upload.html',
                                        wine=the_wine,
@@ -686,6 +701,6 @@ if __name__ == '__main__':
     app.secret_key = 'mysecret'
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
-            debug=False)
+            debug=True)
 
 
