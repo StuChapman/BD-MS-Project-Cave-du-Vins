@@ -10,6 +10,7 @@ from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
 from azure.storage.blob import __version__
 from azure.core.exceptions import ResourceExistsError
 from werkzeug.utils import secure_filename
+import time
 
 if os.path.exists("env.py"):
     import env
@@ -556,7 +557,9 @@ def add_tasting_note():
         tastingnoteexist = ""
     else:
         tastingnoteexist = request.values.get("existing_tasting_note")
-    tastingnoteadd = tastingnoteexist + " [" + 'User: ' + session['username'] + "] " + request.values.get("add_tasting_note")
+    ts = time.time()
+    timestring = time.ctime(ts)
+    tastingnoteadd = "[" + 'User: ' + session['username'] + ": " + timestring  + "] "+ request.values.get("add_tasting_note") + "\r" + tastingnoteexist
     wineid = request.values.get("wine_id")
     return render_template("index.html",
                            user_name='User: ' + session['username'],

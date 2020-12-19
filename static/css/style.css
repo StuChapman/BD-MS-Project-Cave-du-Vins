@@ -147,17 +147,22 @@ header.tastingnotehero {
 
 .tastingnote {
     width: 80vw;
-    height: 20vh;
+    height: 10vh;
     overflow-y: scroll;
     opacity: .6;
 }
 
 .disabledtextinput {
+    height: 20vh;
+}
+
+.disabledtextinput, .tastingnotebrowse {
     width: 80vw;
     border: 0;
     opacity: 1;
     color: black;
     text-align: center;
+    overflow-x: none;
     overflow-y: auto;
     background: transparent;
 }
