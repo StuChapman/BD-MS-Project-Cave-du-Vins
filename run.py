@@ -87,7 +87,7 @@ def register():
 
         userVal = request.form['username']
 
-        if re.match("^[a-zA-Z0-9*]+$", userVal):
+        if re.match("^[a-zA-Z0-9*]+$", userVal) and not userVal.isnumeric():
             # Credit: https://stackoverflow.com/questions/15580917/python-data-validation-using-regular-expression
             passVal = request.form['pass']
             # Credit: https://www.geeksforgeeks.org/password-validation-in-python/#:~:text=Conditions%20for%20a%20valid%20password%20are%3A%201%20Should,be%20between%206%20to%2020%20characters%20long.%20
