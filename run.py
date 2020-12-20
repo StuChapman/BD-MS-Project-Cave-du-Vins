@@ -195,10 +195,34 @@ def add_wine():
                                results_region=regionadd,
                                results_grape=grapeadd
                                )
+    wines = mongo.db.wines
+    existing_wine = wines.find_one({"wine_name": nameadd.title(),
+                                                             "vintage": vintageadd,
+                                                             "colour": colouradd,
+                                                             "country": countryadd,
+                                                             "region": regionadd,
+                                                             "grape": grapeadd,
+                                                             "photo_url": "",
+                                                             "tasting_notes": ""})
+    if existing_wine is not None:
+        flash("That wine has already been added")
+        return render_template("add_wine.html",
+                               user_name='User: ' + session['username'],
+                               colours=mongo.db.colours.find(),
+                               country=mongo.db.country.find(),
+                               region=mongo.db.region.find(),
+                               grape=mongo.db.grape.find(),
+                               results_name="",
+                               results_vintage="",
+                               results_colour="",
+                               results_country="",
+                               results_region="",
+                               results_grape=""
+                               )
 
     # Credit: https://pythonprogramming.net/flash-flask-tutorial/
     flash("The wine has been added")
-    return render_template("index.html",
+    return render_template("add_wine.html",
                            user_name='User: ' + session['username'],
                            insert=mongo.db.wines.insert_one({"wine_name": nameadd.title(),
                                                              "vintage": vintageadd,
@@ -214,6 +238,10 @@ def add_wine():
                                                              results_country="",
                                                              results_region="",
                                                              results_grape="",
+                                                             colours=mongo.db.colours.find(),
+                                                             country=mongo.db.country.find(),
+                                                             region=mongo.db.region.find(),
+                                                             grape=mongo.db.grape.find(),
                                                              results=mongo.db.wines.find({"wine_name": nameadd.title(),
                                                                                           "vintage": vintageadd,
                                                                                           "colour": colouradd,
@@ -430,6 +458,12 @@ def populate_search():
                            results_region="",
                            results_grape=""
                            )
+
+
+@app.route('/filter_regions')
+def filter_regions():
+    print("filter_regions")
+
 
 @app.route("/search", methods=["GET", "POST"])
 def search():

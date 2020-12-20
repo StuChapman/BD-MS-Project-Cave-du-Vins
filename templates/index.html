@@ -63,7 +63,7 @@
                     <div class="searchcountry">
                         <label for="country">Country</label>
                         <br>
-                        <select name="country" id="country" class="searchitem">
+                        <select name="country" id="country" class="searchitem" onchange="{{ url_for('filter_regions') }}" >
                             {% if results_country == "" %}
                                 <option value="{{ results_country }}"></option>
                             {% endif %}
