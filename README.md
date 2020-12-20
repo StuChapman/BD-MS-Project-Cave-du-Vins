@@ -87,6 +87,7 @@ As a registered user of Cave du Vins, I …
 1.  … want to be able to add tasting notes to the database.
 2.  … want to be able to alter and append tasting notes in the database.
 3.  … want to be able to upload images of wines to the database.
+
 As an administrator of Cave du Vins, I …
 1.  … want to be able to delete wines from the database.
 2.  … want to be able to remove colours from the database.
@@ -410,6 +411,7 @@ To push to Heroku from GitPod (from the command line...)
 12. Getting a user input file in Flask is from [pythonise.com](https://pythonise.com/series/learning-flask/flask-uploading-files)
 13. Setting background image opacity is from [coder-coder.com](https://coder-coder.com/background-image-opacity/)
 14. Validating tasting notes input is from [stackoverflow.com](https://stackoverflow.com/questions/15472764/regular-expression-to-allow-spaces-between-words)
+15. Error handling is from [askpython.com](https://www.askpython.com/python-modules/flask/flask-error-handling)
 
 ### Media
 
@@ -420,7 +422,6 @@ To push to Heroku from GitPod (from the command line...)
 I would like to thank the following people for thier support and input:
 
 1. As always, my mentor, [Precious Ijege](https://www.linkedin.com/in/precious-ijege-908a00168/) who teaches me the details that stay with me, like - never work on your code on the morning of a live demo!!!
-2. My girlfriend, Ruth for listening to my constant stressing about bugs and errors!
-3. My friends [Scott](https://www.facebook.com/scott.mckellar.399) and [Magoo](https://www.facebook.com/carlos.fandango.56232), who I consulted before I started the FSD course, and gave me the confidence to go for it!
+2. My friends [Scott](https://www.facebook.com/scott.mckellar.399) and [Magoo](https://www.facebook.com/carlos.fandango.56232), who I consulted before I started the FSD course, and gave me the confidence to go for it!
 
 

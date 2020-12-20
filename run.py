@@ -24,6 +24,18 @@ app.config["ALLOWED_IMAGE_EXTENSIONS"] = ["JPEG", "JPG", "PNG", "GIF"]
 
 mongo = PyMongo(app)
 
+#Handling error and displaying error.html page
+# Credit: https://www.askpython.com/python-modules/flask/flask-error-handling
+@app.errorhandler(500)
+def internal_error(error):
+    return render_template('error.html'),500
+
+
+@app.errorhandler(404)
+def internal_error(error):
+    return render_template('error.html'),404
+
+
 # Start app on index.html
 @app.route('/')
 def index():
@@ -65,7 +77,7 @@ def login():
         if bcrypt.hashpw(request.form['pass'].encode('utf-8'),
                          login_user['password']) == login_user['password']:
             session['username'] = request.form['username']
-            return redirect(url_for('index'))
+            return redirect(url_for('my_profile_page'))
 
     return render_template("login.html",
                            password_error='Invalid username/password combination')
@@ -629,6 +641,21 @@ def add_tasting_note():
                                                             {"$set": {'tasting_notes': tastingnoteadd}}),
                                                             results=mongo.db.wines.find({'_id': ObjectId(wineid)}))
 
+
+# Edit Wine
+@app.route('/edit_wine_page/<wine_id>')
+def edit_wine_page(wine_id):
+    the_wine = mongo.db.wines.find_one({"_id": ObjectId(wine_id)})
+    return render_template('add_tasting_note.html',
+                           wine=the_wine,
+                           user_name='User: ' + session['username'],
+                           colours=mongo.db.colours.find(),
+                           country=mongo.db.country.find(),
+                           region=mongo.db.region.find(),
+                           grape=mongo.db.grape.find()
+                           )
+
+
 # Upload Image
 @app.route('/upload_image_page/<wine_id>')
 def upload_image_page(wine_id):
@@ -751,10 +778,26 @@ def view_image_page(wine_id):
                            wine=mongo.db.wines.find({'_id': ObjectId(wine_id)})
                            )
 
+# My Profile
+@app.route('/my_profile_page/')
+def my_profile_page():
+    if 'username' in session:
+        user_return = session['username']
+    if user_return == 'admin':
+        return render_template("my_profile.html",
+                           user_name=user_return,
+                           results=mongo.db.wines.find()
+                           )
+    return render_template("my_profile.html",
+                           user_name=user_return,
+                           results=mongo.db.wines.find({'added_by': user_return})
+                           )
+
+
 if __name__ == '__main__':
     app.secret_key = 'mysecret'
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
-            debug=True)
+            debug=False)
 
 

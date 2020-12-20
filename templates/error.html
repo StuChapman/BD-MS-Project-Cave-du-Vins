@@ -1,0 +1,14 @@
+
+{% extends "layout.html" %}
+{% block body %}
+
+    <!-- Header -->
+    <header class="hero text-center">
+        <div class="hero-content">
+            <h2>Oops! Something went wrong. Press 'Home' below to return to the Cave du Vins homepage...</h2>
+            <br>
+            <a href="{{ url_for('index') }}" class="btn btn-yellow btn-large btn-xl rounded-pill mt-5">Home</a>
+        </div>
+    </header>
+
+{% endblock %}
