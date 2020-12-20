@@ -153,7 +153,7 @@ header.tastingnotehero {
 }
 
 .disabledtextinput {
-    height: 20vh;
+    height: 10vh;
 }
 
 .disabledtextinput, .tastingnotebrowse {
@@ -216,6 +216,10 @@ header.tastingnotehero {
 
     .wine_img {
         height: 15vw;
+    }
+    
+    .disabledtextinput {
+        height: 20vh;
     }
 
 }

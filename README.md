@@ -344,7 +344,7 @@ Within the run.py app, I installed a number of add ins to enable various capabil
 4.  ObjectId, from bson.objectid - to enable Python to work with MongoDB.
 5.  bcrypt - to encrypt passwords.
 6.  re - to utilise regular expressions in data validation.
-7.  uuid - to append a random string to the end of the impoad image filename (upload_file_name = wine_id + str(uuid.uuid4()) + ".jpg").
+7.  uuid - to append a random string to the end of the upload image filename (upload_file_name = wine_id + str(uuid.uuid4()) + ".jpg").
 8.  BlobServiceClient, BlobClient, ContainerClient, '__version__', from azure.storage.blob - to interact the app with Azure.
 9.  ResourceExistsError, from azure.core.exceptions - to identify if a blob for the image already exists in the container.
 10. secure_filename from werkzeug.utils -to add protection from malicious use when uploading an image.
@@ -408,7 +408,8 @@ To push to Heroku from GitPod (from the command line...)
 10. Updating a single field in a collection is from [stackoverflow.com](https://stackoverflow.com/questions/10290621/how-do-i-partially-update-an-object-in-mongodb-so-the-new-object-will-overlay)
 11. Uploading an image to Azure from Python is from [docs.microsoft.com](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-python)
 12. Getting a user input file in Flask is from [pythonise.com](https://pythonise.com/series/learning-flask/flask-uploading-files)
-13. Setting background image opacity if from [coder-coder.com](https://coder-coder.com/background-image-opacity/)
+13. Setting background image opacity is from [coder-coder.com](https://coder-coder.com/background-image-opacity/)
+14. Validating tasting notes input is from [stackoverflow.com](https://stackoverflow.com/questions/15472764/regular-expression-to-allow-spaces-between-words)
 
 ### Media
 

@@ -591,10 +591,27 @@ def add_tasting_note():
         tastingnoteexist = ""
     else:
         tastingnoteexist = request.values.get("existing_tasting_note")
+
+    wineid = request.values.get("wine_id")
+    tastingnotenew = request.values.get("add_tasting_note")
+
+    # Credit: https://stackoverflow.com/questions/15472764/regular-expression-to-allow-spaces-between-words
+    if not re.match("^[a-zA-Z0-9_][a-zA-Z0-9_ ]*[a-zA-Z0-9_]$", tastingnotenew) or tastingnotenew.isnumeric():
+        flash('Please enter some valid text')
+        the_wine = mongo.db.wines.find_one({"_id": ObjectId(wineid)})
+        return render_template('add_tasting_note.html',
+                            wine=the_wine,
+                            user_name='User: ' + session['username'],
+                            colours=mongo.db.colours.find(),
+                            country=mongo.db.country.find(),
+                            region=mongo.db.region.find(),
+                            grape=mongo.db.grape.find()
+                            )
+
     ts = time.time()
     timestring = time.ctime(ts)
-    tastingnoteadd = "[" + 'User: ' + session['username'] + ": " + timestring  + "] "+ request.values.get("add_tasting_note") + "\r" + tastingnoteexist
-    wineid = request.values.get("wine_id")
+    tastingnoteadd = "[" + 'User: ' + session['username'] + ": " + timestring  + "] "+ tastingnotenew + "\r" + tastingnoteexist
+
     return render_template("index.html",
                            user_name='User: ' + session['username'],
                            colours=mongo.db.colours.find(),
