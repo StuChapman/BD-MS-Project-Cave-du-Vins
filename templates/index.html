@@ -172,8 +172,9 @@
                                     Tasting Notes
                                 </div>
                             {% else %}
-                                <div class="col-md-6 mb-2 m-md-0 disabledtext">
-                                    <a class="btn btn-yellow btn-xxsmall rounded-pill mb-1 disabled">
+                                <div class="col-md-6 mb-2 m-md-0">
+                                    <a class="btn btn-yellow btn-xxsmall rounded-pill mb-1"
+                                        href="{{ url_for('register', wine_id=document._id) }}">
                                         <i class="fas fa-plus"></i>
                                     </a>
                                     Tasting Notes

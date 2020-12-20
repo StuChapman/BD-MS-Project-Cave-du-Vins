@@ -782,17 +782,31 @@ def view_image_page(wine_id):
 @app.route('/my_profile_page/')
 def my_profile_page():
     if 'username' in session:
-        user_return = session['username']
-    if user_return == 'admin':
+        user_return = 'User: ' + session['username']
+        if session['username'] == 'admin':
+            return render_template("my_profile.html",
+                            user_name=user_return,
+                            results=mongo.db.wines.find()
+                            )
         return render_template("my_profile.html",
-                           user_name=user_return,
-                           results=mongo.db.wines.find()
-                           )
-    return render_template("my_profile.html",
-                           user_name=user_return,
-                           results=mongo.db.wines.find({'added_by': user_return})
-                           )
-
+                            user_name=user_return,
+                            results=mongo.db.wines.find({'added_by': user_return})
+                            )
+    else:
+        user_return = 'Cave du Vins'
+        return render_template('index.html',
+                            user_name=user_return,
+                            colours=mongo.db.colours.find(),
+                            country=mongo.db.country.find(),
+                            region=mongo.db.region.find(),
+                            grape=mongo.db.grape.find(),
+                            results_winename="",
+                            results_vintage="",
+                            results_colour="",
+                            results_country="",
+                            results_region="",
+                            results_grape=""
+                            )
 
 if __name__ == '__main__':
     app.secret_key = 'mysecret'
