@@ -783,15 +783,22 @@ def view_image_page(wine_id):
 def my_profile_page():
     if 'username' in session:
         user_return = 'User: ' + session['username']
+        added_by = session['username']
         if session['username'] == 'admin':
             return render_template("my_profile.html",
                             user_name=user_return,
+                            added_by=added_by,
                             results=mongo.db.wines.find()
                             )
         return render_template("my_profile.html",
                             user_name=user_return,
-                            results=mongo.db.wines.find({'added_by': user_return})
-                            )
+                            added_by=added_by,
+                            results=mongo.db.wines.find({'added_by': added_by}),
+                            notes=mongo.db.wines.find(
+                                {"$or": [
+                                    {'tasting_notes': {'$regex': '.*' + added_by + '.*'}},
+                                    {'tasting_notes': {'$regex': '.*' + added_by.title() + '.*'}}]}
+                                    ))
     else:
         user_return = 'Cave du Vins'
         return render_template('index.html',

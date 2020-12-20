@@ -12,6 +12,10 @@
     background-color: silver;
 }
 
+.btn-xl {
+    max-height: 4.5rem;
+}
+
 .btn-large {
     width: 15rem;
 }
@@ -190,6 +194,11 @@ header.tastingnotehero {
 .filedialog {
     background-color: white;
     width: 100%;
+}
+
+.profile {
+    font-size: 7.5vh;
+    color: white;
 }
 
 /* Large Media Device styling */

@@ -3,12 +3,12 @@
 {% block body %}
 
     <!-- Header -->
-    <header class="hero text-center">
+    <header class="hero text-center" id="top">
         <div class="hero-content">
             <div class="container">
-                <p class="profile">Profile for:</p>
-                <p class="profile">Activity</p>
-                <a href="#browse" class="btn btn-yellow btn-large btn-xl rounded-pill mt-5">My Wines</a>
+                <p class="profile mb-4">Profile for: {{ added_by }}</p>
+                <a href="#results" class="btn btn-yellow btn-large btn-xl rounded-pill mt-2">My Wines</a>
+                <a href="#notes" class="btn btn-blue btn-large btn-xl rounded-pill mt-2">My Notes</a>
             </div>
         </div>
     </header>
@@ -30,7 +30,7 @@
     <section id="results">
         <div class="container text-center mt-5 pt-5">
             {% if results %}
-                <h3>wines added by: {{ user_name }}<span class="resultsgrey">
+                <h3>wines added by: {{ added_by }}<span class="resultsgrey">
                     <em>
                         {{ results_winename }} 
                         {{ results_vintage }} 
@@ -104,7 +104,78 @@
                     {% endif %}
                 {% endfor %}
             {% endif %}
+            <a href="#top" class="btn btn-blue btn-large btn-xl rounded-pill mt-5">Back to top</a>
         </div>
+        <hr>
+    </section>
+
+    <!-- Tasting Note Section -->
+    <section id="notes">
+        <div class="container text-center mt-5 pt-5">
+            {% if notes %}
+                <h3>tasting notes contributed to by: {{ added_by }}<span class="resultsgrey">
+                    <em>
+                        {{ notes_winename }} 
+                        {{ notes_vintage }} 
+                        {{ notes_colour }} 
+                        {{ notes_country }} 
+                        {{ notes_region }} 
+                        {{ notes_grape }} 
+                    </em></span>
+                    <br><br>
+                    {{ notes.count() }} found...
+                </h3>
+                <br>
+                {% for document in notes %}
+                    <div class="ml-md-5 mr-md-5">
+                        <div>
+                            <h1>{{ document.wine_name.title() }}</h1>
+                            <h3>{{ document.vintage }}</h3>
+                            <h3>{{ document.colour }}</h3>
+                            <h3>{{ document.country }}</h3>
+                            <h3>{{ document.region }}</h3>
+                        </div>
+                        <div>
+                            {% if document.photo_url %}
+                                <a href="{{ url_for('view_image_page', wine_id=document._id) }}">
+                                    <img class="img-fluid rounded-circle wine_img mb-3 mb-md-0" 
+                                        alt="wine image" src="{{ document.photo_url }}">
+                                </a>
+                            {% endif %}
+                        </div>
+                        <div>
+                            {% if document.tasting_notes != "" %}
+                                <textarea class="tastingnotebrowse" rows="3">{{ document.tasting_notes }}</textarea>
+                            {% endif %}
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6 mb-2 m-md-0">
+                                <a class="btn btn-yellow btn-xxsmall rounded-pill mb-1"
+                                    href="{{ url_for('add_tasting_note_page', wine_id=document._id) }}">
+                                    <i class="fas fa-plus"></i>
+                                </a>
+                                Tasting Notes
+                            </div>
+                            <div class="col-md-6 mb-2 m-md-0">
+                                <a class="btn btn-silver btn-xxsmall rounded-pill mb-1"
+                                    href="https://www.wine-searcher.com/find/{{ document.wine_name }}+{{ document.vintage }}/{{ document.vintage }}" target="_blank">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </a>
+                                Buy this Wine
+                            </div>
+                        </div>
+                    </div>
+                    {% if loop.index != notes.count() %}
+                        <hr>
+                    {% else %}
+                        <br>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            <a href="#top" class="btn btn-blue btn-large btn-xl rounded-pill mt-5">Back to top</a>
+        </div>
+        <br>
     </section>
 
 {% endblock %}
