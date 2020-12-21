@@ -106,7 +106,7 @@ header.hero, header.tastingnotehero {
 }
 
 header.hero, header.tastingnotehero {
-    height: 95vh;
+    min-height: 95vh;
 }
 
 .hero::before, header.tastingnotehero::before { /* Credit: https://coder-coder.com/background-image-opacity/ */
@@ -223,10 +223,6 @@ header.tastingnotehero {
         width: 34vw;
     }
 
-    .wine_img {
-        height: 15vw;
-    }
-    
     .disabledtextinput {
         height: 20vh;
     }
@@ -248,7 +244,7 @@ header.tastingnotehero {
     }
 
     header.hero {
-        height: 110vh;
+        min-height: 110vh;
     }
 
     .imgcontainer {
@@ -262,6 +258,10 @@ header.tastingnotehero {
         height: 10vh;
     }
 
+    .wine_img {
+        height: 15vw;
+    }
+
     .wine_img_lg {
         width: 75vw;
     }
@@ -269,6 +269,11 @@ header.tastingnotehero {
     .wine_btn {
         margin-top: 5vh;
         height: 10vh;
+    }
+
+    .carouselcontainer {
+        width: 35vw;
+        height: 30vw;
     }
 
 }
@@ -296,6 +301,10 @@ header.tastingnotehero {
         height: 10vh;
     }
 
+    .wine_img {
+        height: 15vh;
+    }
+
     .wine_img_lg {
         width: 95vw;
         background-size: contain;
@@ -304,6 +313,11 @@ header.tastingnotehero {
     .wine_btn {
         margin-top: .5rem;
         height: 10vh;
+    }
+
+    .carouselcontainer {
+        width: 70vw;
+        height: 35vh;
     }
 
     @media (min-height: 652px) {
@@ -319,6 +333,14 @@ header.tastingnotehero {
 
         .filedialogcontainer {
             width: 18rem;
+        }
+
+    }
+
+    @media (min-height: 1023px) {
+        .carouselcontainer {
+            width: 35vw;
+            height: 32.5vw;
         }
 
     }

@@ -8,7 +8,46 @@
             <div class="container">
                 <h1 class="hero-heading mb-0">Cave du Vins</h1>
                 <h2 class="hero-subheading mb-0">An online cellar of fine wine</h2>
-                <a href="#browse" class="btn btn-yellow btn-large btn-xl rounded-pill mt-5">Browse Wines</a>
+                <!-- Bootstrap Carousel-->
+                <div id="carouselExampleIndicators" class="carousel slide carouselcontainer mt-4 mt-lg-5 mb-lg-2 ml-auto mr-auto" data-ride="carousel" data-interval="2500">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active mb-3">
+                            {% for document in carousel_one %}
+                                <img class="d-block rounded-circle wine_img ml-auto mr-auto" src="{{ document.photo_url }}" alt="Wine image one">
+                                <p class="mb-0">{{ document.wine_name }}</p>
+                                <p>{{ document.vintage }}</p>
+                            {% endfor %}
+                        </div>
+                        <div class="carousel-item mb-3">
+                            {% for document in carousel_two %}
+                                <img class="d-block rounded-circle wine_img ml-auto mr-auto" src="{{ document.photo_url }}" alt="Wine image two">
+                                <p class="mb-0">{{ document.wine_name }}</p>
+                                <p>{{ document.vintage }}</p>
+                            {% endfor %}
+                        </div>
+                        <div class="carousel-item mb-3">
+                            {% for document in carousel_three %}
+                                <img class="d-block rounded-circle wine_img ml-auto mr-auto" src="{{ document.photo_url }}" alt="Wine image three">
+                                <p class="mb-0">{{ document.wine_name }}</p>
+                                <p>{{ document.vintage }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                <a href="#browse" class="btn btn-yellow btn-large btn-xl rounded-pill mt-2">Browse Wines</a>
             </div>
         </div>
     </header>
