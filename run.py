@@ -888,7 +888,12 @@ def my_profile_page():
             return render_template("my_profile.html",
                             user_name=user_return,
                             added_by=added_by,
-                            results=mongo.db.wines.find()
+                            results=mongo.db.wines.find(),
+                            notes=mongo.db.wines.find(
+                                {"$or": [
+                                    {'tasting_notes': {'$regex': '.*' + added_by + '.*'}},
+                                    {'tasting_notes': {'$regex': '.*' + added_by.title() + '.*'}}]}
+                                    )
                             )
         return render_template("my_profile.html",
                             user_name=user_return,
