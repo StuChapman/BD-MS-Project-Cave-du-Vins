@@ -465,7 +465,14 @@ def search_page():
                            results_colour="",
                            results_country="",
                            results_region="",
-                           results_grape=""
+                           results_grape="",
+                           # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
+                           carousel_one=mongo.db.wines.aggregate(
+                                        [{"$sample": {"size": 1}}]),
+                           carousel_two=mongo.db.wines.aggregate(
+                                        [{"$sample": {"size": 1}}]),
+                           carousel_three=mongo.db.wines.aggregate(
+                                        [{"$sample": {"size": 1}}])
                            )
 
 @app.route('/populate_search')
