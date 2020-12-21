@@ -598,7 +598,14 @@ def search():
                                     results_colour=resultcolour,
                                     results_country=resultcountry,
                                     results_region=resultregion,
-                                    results_grape=resultgrape
+                                    results_grape=resultgrape,
+                                    # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
+                                    carousel_one=mongo.db.wines.aggregate(
+                                                    [{"$sample": {"size": 1}}]),
+                                    carousel_two=mongo.db.wines.aggregate(
+                                                    [{"$sample": {"size": 1}}]),
+                                    carousel_three=mongo.db.wines.aggregate(
+                                                    [{"$sample": {"size": 1}}])
                                     )
 
 # Add tasting Note Routes
