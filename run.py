@@ -243,7 +243,8 @@ def add_wine():
                                                              "region": regionadd,
                                                              "grape": grapeadd,
                                                              "photo_url": "",
-                                                             "tasting_notes": ""}),
+                                                             "tasting_notes": "",
+                                                             "added_by": session['username']}),
                                                              results_winename="",
                                                              results_vintage="",
                                                              results_colour="",
@@ -269,20 +270,28 @@ def add_wine():
 def delete_wine(wine_id):
     # Credit: https://pythonprogramming.net/flash-flask-tutorial/
     flash("The wine has been deleted")
-    return render_template('index.html',
-                           delete=mongo.db.wines.remove({'_id': ObjectId(wine_id)}),
-                           user_name='User: ' + session['username'],
-                           colours=mongo.db.colours.find(),
-                           country=mongo.db.country.find(),
-                           region=mongo.db.region.find(),
-                           grape=mongo.db.grape.find(),
-                           results_winename="",
-                           results_vintage="",
-                           results_colour="",
-                           results_country="",
-                           results_region="",
-                           results_grape=""
-                           )
+
+    user_return = 'User: ' + session['username']
+    added_by = session['username']
+
+    if session['username'] == 'admin':
+        return render_template("my_profile.html",
+                        delete=mongo.db.wines.remove({'_id': ObjectId(wine_id)}),
+                        user_name=user_return,
+                        added_by=added_by,
+                        results=mongo.db.wines.find()
+                        )
+    return render_template("my_profile.html",
+                        delete=mongo.db.wines.remove({'_id': ObjectId(wine_id)}),
+                        user_name=user_return,
+                        added_by=added_by,
+                        results=mongo.db.wines.find({'added_by': added_by}),
+                        notes=mongo.db.wines.find(
+                            {"$or": [
+                                {'tasting_notes': {'$regex': '.*' + added_by + '.*'}},
+                                {'tasting_notes': {'$regex': '.*' + added_by.title() + '.*'}}]}
+                                ))
+
 
 # Add/Deleted Documents to/from Collections routes
 @app.route('/add_country', methods=["GET", "POST"])
@@ -657,7 +666,6 @@ def edit_wine_page(wine_id):
                            )
 
 
-
 @app.route('/edit_wine/<wine_id>', methods=["GET", "POST"])
 def edit_wine(wine_id):
     nameadd = request.values.get("name")
@@ -668,7 +676,7 @@ def edit_wine(wine_id):
     grapeadd = request.values.get("grape")
     if not any(char.islower() for char in nameadd):
         flash('wine name must be populated')
-        return render_template("add_wine.html",
+        return render_template("edit_wine.html",
                                user_name='User: ' + session['username'],
                                colours=mongo.db.colours.find(),
                                country=mongo.db.country.find(),
@@ -678,11 +686,12 @@ def edit_wine(wine_id):
                                results_colour=colouradd,
                                results_country=countryadd,
                                results_region=regionadd,
-                               results_grape=grapeadd
+                               results_grape=grapeadd,
+                               wine=mongo.db.wines.find_one({"_id": ObjectId(wine_id)})
                                )
     if not all(char.isdigit() for char in vintageadd):
         flash('vintage must be 4 numerals')
-        return render_template("add_wine.html",
+        return render_template("edit_wine.html",
                                user_name='User: ' + session['username'],
                                colours=mongo.db.colours.find(),
                                country=mongo.db.country.find(),
@@ -692,11 +701,12 @@ def edit_wine(wine_id):
                                results_colour=colouradd,
                                results_country=countryadd,
                                results_region=regionadd,
-                               results_grape=grapeadd
+                               results_grape=grapeadd,
+                               wine=mongo.db.wines.find_one({"_id": ObjectId(wine_id)})
                                )
     if nameadd == "" or vintageadd == "" or colouradd == "" or countryadd == "" or regionadd == "" or grapeadd == "":
         flash('all fields must be populated')
-        return render_template("add_wine.html",
+        return render_template("edit_wine.html",
                                user_name='User: ' + session['username'],
                                colours=mongo.db.colours.find(),
                                country=mongo.db.country.find(),
@@ -707,7 +717,8 @@ def edit_wine(wine_id):
                                results_colour=colouradd,
                                results_country=countryadd,
                                results_region=regionadd,
-                               results_grape=grapeadd
+                               results_grape=grapeadd,
+                               wine=mongo.db.wines.find_one({"_id": ObjectId(wine_id)})
                                )
     wines = mongo.db.wines
     existing_wine = wines.find_one({"wine_name": nameadd.title(),
@@ -718,21 +729,6 @@ def edit_wine(wine_id):
                                                              "grape": grapeadd,
                                                              "photo_url": "",
                                                              "tasting_notes": ""})
-    if existing_wine is not None:
-        flash("That wine has already been added")
-        return render_template("add_wine.html",
-                               user_name='User: ' + session['username'],
-                               colours=mongo.db.colours.find(),
-                               country=mongo.db.country.find(),
-                               region=mongo.db.region.find(),
-                               grape=mongo.db.grape.find(),
-                               results_name="",
-                               results_vintage="",
-                               results_colour="",
-                               results_country="",
-                               results_region="",
-                               results_grape=""
-                               )
 
     # Credit: https://pythonprogramming.net/flash-flask-tutorial/
     flash("The wine has been updated")

@@ -89,11 +89,11 @@
                                 Edit Wine
                             </div>
                             <div class="col-md-3 mb-2 m-md-0">
-                                <a class="btn btn-silver btn-xxsmall rounded-pill mb-1"
-                                    href="https://www.wine-searcher.com/find/{{ document.wine_name }}+{{ document.vintage }}/{{ document.vintage }}" target="_blank">
-                                    <i class="fas fa-shopping-cart"></i>
+                                <a class="btn btn-blue btn-xxsmall rounded-pill mb-1"
+                                    href="{{ url_for('delete_wine', wine_id=document._id) }}">
+                                    <i class="fas fa-minus"></i>
                                 </a>
-                                Buy this Wine
+                                Delete Wine
                             </div>
                         </div>
                     </div>
