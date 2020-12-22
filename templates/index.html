@@ -18,21 +18,30 @@
                     <div class="carousel-inner">
                         <div class="carousel-item active mb-3">
                             {% for document in carousel_one %}
-                                <img class="d-block rounded-circle wine_img ml-auto mr-auto" src="{{ document.photo_url }}" alt="Wine image one">
+                                <a href="{{ url_for('view_image_page', wine_id=document._id) }}">
+                                    <img class="d-block rounded-circle wine_img ml-auto mr-auto" 
+                                        alt="wine image one" src="{{ document.photo_url }}">
+                                </a>
                                 <p class="mb-0">{{ document.wine_name }}</p>
                                 <p>{{ document.vintage }}</p>
                             {% endfor %}
                         </div>
                         <div class="carousel-item mb-3">
                             {% for document in carousel_two %}
-                                <img class="d-block rounded-circle wine_img ml-auto mr-auto" src="{{ document.photo_url }}" alt="Wine image two">
+                                <a href="{{ url_for('view_image_page', wine_id=document._id) }}">
+                                    <img class="d-block rounded-circle wine_img ml-auto mr-auto" 
+                                        alt="wine image two" src="{{ document.photo_url }}">
+                                </a>
                                 <p class="mb-0">{{ document.wine_name }}</p>
                                 <p>{{ document.vintage }}</p>
                             {% endfor %}
                         </div>
                         <div class="carousel-item mb-3">
                             {% for document in carousel_three %}
-                                <img class="d-block rounded-circle wine_img ml-auto mr-auto" src="{{ document.photo_url }}" alt="Wine image three">
+                                <a href="{{ url_for('view_image_page', wine_id=document._id) }}">
+                                    <img class="d-block rounded-circle wine_img ml-auto mr-auto" 
+                                        alt="wine image three" src="{{ document.photo_url }}">
+                                </a>
                                 <p class="mb-0">{{ document.wine_name }}</p>
                                 <p>{{ document.vintage }}</p>
                             {% endfor %}
