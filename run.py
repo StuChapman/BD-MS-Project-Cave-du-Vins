@@ -492,7 +492,14 @@ def populate_search():
                            results_colour="",
                            results_country="",
                            results_region="",
-                           results_grape=""
+                           results_grape="",
+                           # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
+                           carousel_one=mongo.db.wines.aggregate(
+                                        [{"$sample": {"size": 1}}]),
+                           carousel_two=mongo.db.wines.aggregate(
+                                        [{"$sample": {"size": 1}}]),
+                           carousel_three=mongo.db.wines.aggregate(
+                                        [{"$sample": {"size": 1}}])
                            )
 
 
@@ -566,7 +573,14 @@ def search():
                                results_country=resultcountry,
                                results_region=resultregion,
                                results_grape=resultgrape,
-                               vintagenumfail=True
+                               vintagenumfail=True,
+                               # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
+                               carousel_one=mongo.db.wines.aggregate(
+                                               [{"$sample": {"size": 1}}]),
+                               carousel_two=mongo.db.wines.aggregate(
+                                               [{"$sample": {"size": 1}}]),
+                               carousel_three=mongo.db.wines.aggregate(
+                                               [{"$sample": {"size": 1}}])
                                )
 
     if results_string == "":
@@ -581,7 +595,14 @@ def search():
                                results_colour=resultcolour,
                                results_country=resultcountry,
                                results_region=resultregion,
-                               results_grape=resultgrape
+                               results_grape=resultgrape,
+                               # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
+                               carousel_one=mongo.db.wines.aggregate(
+                                               [{"$sample": {"size": 1}}]),
+                               carousel_two=mongo.db.wines.aggregate(
+                                               [{"$sample": {"size": 1}}]),
+                               carousel_three=mongo.db.wines.aggregate(
+                                               [{"$sample": {"size": 1}}])
                                )
     return render_template("index.html",
                            results=mongo.db.wines.find(
@@ -667,10 +688,18 @@ def add_tasting_note():
                            results_country="",
                            results_region="",
                            results_grape="",
+                           # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
+                           carousel_one=mongo.db.wines.aggregate(
+                                        [{"$sample": {"size": 1}}]),
+                           carousel_two=mongo.db.wines.aggregate(
+                                        [{"$sample": {"size": 1}}]),
+                           carousel_three=mongo.db.wines.aggregate(
+                                        [{"$sample": {"size": 1}}]),
                            update=mongo.db.wines.update_one({'_id': ObjectId(wineid)},
                                                             # Credit: https://stackoverflow.com/questions/10290621/how-do-i-partially-update-an-object-in-mongodb-so-the-new-object-will-overlay
                                                             {"$set": {'tasting_notes': tastingnoteadd}}),
-                                                            results=mongo.db.wines.find({'_id': ObjectId(wineid)}))
+                                                            results=mongo.db.wines.find({'_id': ObjectId(wineid)})
+                           )
 
 
 # Edit Wine Routes
@@ -884,7 +913,14 @@ def upload_image(wine_id):
                            results_country="",
                            results_region="",
                            results_grape="",
-                           results=mongo.db.wines.find({'_id': ObjectId(wineid)})
+                           results=mongo.db.wines.find({'_id': ObjectId(wineid)}),
+                           # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
+                           carousel_one=mongo.db.wines.aggregate(
+                                        [{"$sample": {"size": 1}}]),
+                           carousel_two=mongo.db.wines.aggregate(
+                                        [{"$sample": {"size": 1}}]),
+                           carousel_three=mongo.db.wines.aggregate(
+                                        [{"$sample": {"size": 1}}])
                            )
 
 # Upload Image
@@ -938,7 +974,14 @@ def my_profile_page():
                             results_colour="",
                             results_country="",
                             results_region="",
-                            results_grape=""
+                            results_grape="",
+                           # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
+                           carousel_one=mongo.db.wines.aggregate(
+                                        [{"$sample": {"size": 1}}]),
+                           carousel_two=mongo.db.wines.aggregate(
+                                        [{"$sample": {"size": 1}}]),
+                           carousel_three=mongo.db.wines.aggregate(
+                                        [{"$sample": {"size": 1}}])
                             )
 
 if __name__ == '__main__':
