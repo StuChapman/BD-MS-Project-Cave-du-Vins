@@ -265,6 +265,7 @@ header.tastingnotehero {
     .wine_img_lg {
         width: 75vw;
         height: 100vw;
+        background-size: contain;
     }
 
     .wine_btn {
@@ -308,6 +309,7 @@ header.tastingnotehero {
 
     .wine_img_lg {
         width: 95vw;
+        max-height: 75vh;
         background-size: contain;
     }
 
