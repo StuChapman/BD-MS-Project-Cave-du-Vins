@@ -263,6 +263,49 @@ the concepts of:
 * @media screen and (orientation: portrait), and
 * @media screen and (orientation: landscape)
 
+## Technologies Used
+
+1.  [html](https://en.wikipedia.org/wiki/HTML) - to create the structure and text of each page.
+2.  [css](https://en.wikipedia.org/wiki/Cascading_Style_Sheets) - to style each page centrally and individually.
+3.  [javascript](https://en.wikipedia.org/wiki/JavaScript) - was used to power the Bootstrap functionality.
+4.  [jquery](https://jquery.com/) - was used to power the Bootstrap functionality.
+5.  [Python](https://www.python.org/) - for interactions between the app, the MongoDB database and the Azure cloud storage.
+6.  [Bootstrap](https://getbootstrap.com/) plugins - Responsive grid and prebuilt components to enable more responsive design; particularly “accordion” and “toggle” collapsed (hidden) content.
+7.  [Font Awesome](https://fontawesome.com/v4.7.0/icons/) - for icons.
+8.  [Figma](http://www.figma.com) - to produce the mockups.
+9.  [w3 validator](https://validator.w3.org/) - for html validation.
+10. [http://pep8online.com/](http://pep8online.com/) - for Python validation.
+11. [Heroku](https://www.heroku.com/) - for the back end database.
+12. [Azure](https://azure.microsoft.com/en-gb/) - for cloud storage to host the uploaded images.
+13. [Flask](https://en.wikipedia.org/wiki/Flask_%28web_framework%29) - to provide a web framework.
+
+### Add ins
+Within the run.py app, I installed a number of add ins to enable various capabilities:
+1.  os - for interactiuon with the operating system (e.g. retrieving the content of env.py to connect to the MongoDB backend).
+2.  Flask, render_template, redirect, request, url_for, session, flash from flask - to provide a web framework.
+3.  PyMongo, from flask_pymongo - to enable Python to work with MongoDB.
+4.  ObjectId, from bson.objectid - to enable Python to work with MongoDB.
+5.  bcrypt - to encrypt passwords.
+6.  re - to utilise regular expressions in data validation.
+7.  uuid - to append a random string to the end of the upload image filename (upload_file_name = wine_id + str(uuid.uuid4()) + ".jpg").
+8.  BlobServiceClient, BlobClient, ContainerClient, '__version__', from azure.storage.blob - to interact the app with Azure.
+9.  ResourceExistsError, from azure.core.exceptions - to identify if a blob for the image already exists in the container.
+10. secure_filename from werkzeug.utils -to add protection from malicious use when uploading an image.
+
+## Testing
+I created a separate [testing](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/733c885efed6503fffda533463fd2f32714f1ee3/testing) folder containing pre and post test matrices.
+
+As usual; an organised testing matrix proved invaluable. Taking a disciplined approach to testing all features on all devices and browsers, 
+in both portrait and landscape orientation **always** reveals unforseen issues.
+
+Testing revealed some issues with rendering - particularly on add_tasting_note.html in landscape viw on small mobile devices,
+and a number of views on Glalaxy Fold in landscape.
+
+There was also an error with the code to navigate back to the search view from view_image.html on Edge and Opera browsers... 
+*onclick="window.history.back();location.reload(); return false;"*
+
+These were corrected in a post-testing commit.
+
 ### Bugs, Challenges and Errors
 
 1.  When designing the layout for the search form, I moved the search button outside the <form></form> - this resulted in the search criteria not being passed to the flask app. I corrected this by returning the button to the form, and finding a better way to achieve the layout I wanted.
@@ -311,6 +354,10 @@ the concepts of:
 9.  I had the issue with the broken Dockerfile as detailed above.
 10. I had left the default value "select" in the select inputs on add_wine.html. This caused the fileds to reset after the wine was added, but a much better user experience was to have the new wine returned.
 11. There was also an issue with the GutHub repository not updating with the latest code pushed from GitPod. The GitPod workspace had been upversioned and commited over 5 days, but none of these reflected in the repository. I manually updated the repository to consolidation all updates.
+12. There was an issue with the rendering of the app under https. There are 2 articles here [stackoverflow.com](https://stackoverflow.com/questions/7918394/why-images-and-css-do-not-show-under-https) and here [stackoverflow.com](https://stackoverflow.com/questions/13772884/css-problems-with-flask-web-app). I found that a combination of:
+    * adding ```{python}app.static_folder = 'static'``` to ```{python} if __name__ == '__main__':``` and
+    * changing the hrefs for css stylesheets to absolute filepaths, solved the problem.
+    
 
 Apart from the 2 major isses with Procfile and Dockefile; the most challenging aspect of the project was uploading images to cloud storage.
 
@@ -320,49 +367,6 @@ This [tutorial: flask-uploading-files](https://pythonise.com/series/learning-fla
 I then blended the 2 bits of code together to upload the user selected image to a static folder, then upload the image from the static folder to the cloud.
 
 This didn't feel like the most elegant of solutions, but it is effective.
-
-## Technologies Used
-
-1.  [html](https://en.wikipedia.org/wiki/HTML) - to create the structure and text of each page.
-2.  [css](https://en.wikipedia.org/wiki/Cascading_Style_Sheets) - to style each page centrally and individually.
-3.  [javascript](https://en.wikipedia.org/wiki/JavaScript) - was used to power the Bootstrap functionality.
-4.  [jquery](https://jquery.com/) - was used to power the Bootstrap functionality.
-5.  [Python](https://www.python.org/) - for interactions between the app, the MongoDB database and the Azure cloud storage.
-6.  [Bootstrap](https://getbootstrap.com/) plugins - Responsive grid and prebuilt components to enable more responsive design; particularly “accordion” and “toggle” collapsed (hidden) content.
-7.  [Font Awesome](https://fontawesome.com/v4.7.0/icons/) - for icons.
-8.  [Figma](http://www.figma.com) - to produce the mockups.
-9.  [w3 validator](https://validator.w3.org/) - for html validation.
-10. [http://pep8online.com/](http://pep8online.com/) - for Python validation.
-11. [Heroku](https://www.heroku.com/) - for the back end database.
-12. [Azure](https://azure.microsoft.com/en-gb/) - for cloud storage to host the uploaded images.
-13. [Flask](https://en.wikipedia.org/wiki/Flask_%28web_framework%29) - to provide a web framework.
-
-### Add ins
-Within the run.py app, I installed a number of add ins to enable various capabilities:
-1.  os - for interactiuon with the operating system (e.g. retrieving the content of env.py to connect to the MongoDB backend).
-2.  Flask, render_template, redirect, request, url_for, session, flash from flask - to provide a web framework.
-3.  PyMongo, from flask_pymongo - to enable Python to work with MongoDB.
-4.  ObjectId, from bson.objectid - to enable Python to work with MongoDB.
-5.  bcrypt - to encrypt passwords.
-6.  re - to utilise regular expressions in data validation.
-7.  uuid - to append a random string to the end of the upload image filename (upload_file_name = wine_id + str(uuid.uuid4()) + ".jpg").
-8.  BlobServiceClient, BlobClient, ContainerClient, '__version__', from azure.storage.blob - to interact the app with Azure.
-9.  ResourceExistsError, from azure.core.exceptions - to identify if a blob for the image already exists in the container.
-10. secure_filename from werkzeug.utils -to add protection from malicious use when uploading an image.
-
-## Testing
-I created a separate [testing](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/733c885efed6503fffda533463fd2f32714f1ee3/testing) folder containing pre and post test matrices.
-
-As usual; an organised testing matrix proved invaluable. Taking a disciplined approach to testing all features on all devices and browsers, 
-in both portrait and landscape orientation **always** reveals unforseen issues.
-
-Testing revealed some issues with rendering - particularly on add_tasting_note.html in landscape viw on small mobile devices,
-and a number of views on Glalaxy Fold in landscape.
-
-There was also an error with the code to navigate back to the search view from view_image.html on Edge and Opera browsers... 
-*onclick="window.history.back();location.reload(); return false;"*
-
-These were corrected in a post-testing commit.
 
 ## Deployment
 
