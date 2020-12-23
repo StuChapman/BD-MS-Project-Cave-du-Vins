@@ -11,6 +11,7 @@ from azure.storage.blob import __version__
 from azure.core.exceptions import ResourceExistsError
 from werkzeug.utils import secure_filename
 import time
+from datetime import datetime
 
 if os.path.exists("env.py"):
     import env
@@ -189,6 +190,7 @@ def add_wine():
                                results_region=regionadd,
                                results_grape=grapeadd
                                )
+
     if not all(char.isdigit() for char in vintageadd):
         flash('vintage must be 4 numerals')
         return render_template("add_wine.html",
@@ -203,6 +205,23 @@ def add_wine():
                                results_region=regionadd,
                                results_grape=grapeadd
                                )
+
+    currentYear = datetime.now().year
+    if int(vintageadd) > currentYear:
+        flash('you have entered a vintage that is in the future!')
+        return render_template("add_wine.html",
+                               user_name='User: ' + session['username'],
+                               colours=mongo.db.colours.find(),
+                               country=mongo.db.country.find(),
+                               region=mongo.db.region.find(),
+                               grape=mongo.db.grape.find(),
+                               results_name=nameadd,
+                               results_colour=colouradd,
+                               results_country=countryadd,
+                               results_region=regionadd,
+                               results_grape=grapeadd
+                               )
+
     if nameadd == "" or vintageadd == "" or colouradd == "" or countryadd == "" or regionadd == "" or grapeadd == "":
         flash('all fields must be populated')
         return render_template("add_wine.html",
@@ -218,6 +237,7 @@ def add_wine():
                                results_region=regionadd,
                                results_grape=grapeadd
                                )
+
     wines = mongo.db.wines
     existing_wine = wines.find_one({"wine_name": nameadd.title(),
                                                              "vintage": vintageadd,
