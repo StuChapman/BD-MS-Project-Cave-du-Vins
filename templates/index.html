@@ -183,8 +183,13 @@
                         {{ results_region }} 
                         {{ results_grape }} 
                     </em></span>
-                    <br><br>
-                    {{ results.count() }} found...
+                    <br>
+                    <br>
+                    {% if zerocount != 0 %}
+                        {{ results.count() }} found...
+                    {% else %}
+                        no wines found ... but may we recommend ...
+                    {% endif %}
                 </h3>
                 <br>
                 {% for document in results %}
@@ -237,11 +242,16 @@
                             </div>
                         </div>
                     </div>
-                    {% if loop.index != results.count() %}
-                        <hr>
+                    {% if zerocount != 0 %}
+                        {% if loop.index != results.count() %}
+                            <hr>
+                        {% else %}
+                            <br>
+                        {% endif %}
                     {% else %}
                         <br>
                     {% endif %}
+                    
                 {% endfor %}
             {% endif %}
         </div>

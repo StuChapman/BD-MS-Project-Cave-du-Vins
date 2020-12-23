@@ -520,12 +520,9 @@ def search():
         namesearch = ".*.*"
         resultname = ""
     else:
-        if re.match("^[a-zA-Z0-9* ]+$", request.values.get("name")):
-            namesearch = request.values.get("name")
-            resultname = namesearch
-        else:
-            namesearch = "illegal text entered"
-            resultname = namesearch
+        namesearch = request.values.get("name")
+        resultname = namesearch
+
     if request.values.get("vintage") == "":
         vintagesearch = {'$regex': '.*'}
         resultvintage = ""
@@ -567,6 +564,30 @@ def search():
         user_return = 'Cave du Vins'
 
     results_string = resultname + resultvintage + resultcolour + resultcountry + resultregion + resultgrape
+
+    if not re.match("^[a-zA-Z0-9* ]+$", request.values.get("name")):
+        flash('illegal text entered')
+        return render_template("index.html",
+                               user_name=user_return,
+                               colours=mongo.db.colours.find(),
+                               country=mongo.db.country.find(),
+                               region=mongo.db.region.find(),
+                               grape=mongo.db.grape.find(),
+                               results_winename="",
+                               results_colour=resultcolour,
+                               results_country=resultcountry,
+                               results_region=resultregion,
+                               results_grape=resultgrape,
+                               vintagenumfail=True,
+                               # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
+                               carousel_one=mongo.db.wines.aggregate(
+                                               [{"$sample": {"size": 1}}]),
+                               carousel_two=mongo.db.wines.aggregate(
+                                               [{"$sample": {"size": 1}}]),
+                               carousel_three=mongo.db.wines.aggregate(
+                                               [{"$sample": {"size": 1}}])
+                               )
+
 
     if not all(char.isdigit() for char in resultvintage):
         flash('vintage must be 4 numerals')
@@ -612,6 +633,43 @@ def search():
                                carousel_three=mongo.db.wines.aggregate(
                                                [{"$sample": {"size": 1}}])
                                )
+
+    resultscount = mongo.db.wines.find(
+                                {"$and": [{"$or": [
+                                    # Credit: https://stackoverflow.com/questions/55617412/how-to-perform-wildcard-searches-mongodb-in-python-with-pymongo
+                                    {'wine_name': {'$regex': '.*' + namesearch + '.*'}},
+                                    {'wine_name': {'$regex': '.*' + namesearch.title() + '.*'}}]},
+                                    {"vintage": vintagesearch},
+                                    {"colour": coloursearch},
+                                    {"country": countrysearch},
+                                    {"region": regionsearch},
+                                    {"grape": grapesearch}
+                                    ]})
+    if resultscount.count() == 0:
+        return render_template("index.html",
+                           results=mongo.db.wines.aggregate(
+                                                    [{"$sample": {"size": 1}}]),
+                                    user_name=user_return,
+                                    colours=mongo.db.colours.find(),
+                                    country=mongo.db.country.find(),
+                                    region=mongo.db.region.find(),
+                                    grape=mongo.db.grape.find(),
+                                    results_winename=resultname,
+                                    results_vintage=resultvintage,
+                                    results_colour=resultcolour,
+                                    results_country=resultcountry,
+                                    results_region=resultregion,
+                                    results_grape=resultgrape,
+                                    # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
+                                    carousel_one=mongo.db.wines.aggregate(
+                                                    [{"$sample": {"size": 1}}]),
+                                    carousel_two=mongo.db.wines.aggregate(
+                                                    [{"$sample": {"size": 1}}]),
+                                    carousel_three=mongo.db.wines.aggregate(
+                                                    [{"$sample": {"size": 1}}]),
+                                    zerocount=0
+                                    )
+
     return render_template("index.html",
                            results=mongo.db.wines.find(
                                 {"$and": [{"$or": [
