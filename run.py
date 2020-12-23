@@ -283,21 +283,26 @@ def delete_wine(wine_id):
 
     if session['username'] == 'admin':
         return render_template("my_profile.html",
-                        delete=mongo.db.wines.remove({'_id': ObjectId(wine_id)}),
-                        user_name=user_return,
-                        added_by=added_by,
-                        results=mongo.db.wines.find()
-                        )
+                               delete=mongo.db.wines.remove({'_id': ObjectId(wine_id)}),
+                               user_name=user_return,
+                               added_by=added_by,
+                               results=mongo.db.wines.find(),
+                               notes=mongo.db.wines.find(
+                                   {"$or": [
+                                       {'tasting_notes': {'$regex': '.*' + added_by + '.*'}},
+                                       {'tasting_notes': {'$regex': '.*' + added_by.title() + '.*'}}]}
+                               ))
+
     return render_template("my_profile.html",
-                        delete=mongo.db.wines.remove({'_id': ObjectId(wine_id)}),
-                        user_name=user_return,
-                        added_by=added_by,
-                        results=mongo.db.wines.find({'added_by': added_by}),
-                        notes=mongo.db.wines.find(
-                            {"$or": [
-                                {'tasting_notes': {'$regex': '.*' + added_by + '.*'}},
-                                {'tasting_notes': {'$regex': '.*' + added_by.title() + '.*'}}]}
-                                ))
+                           delete=mongo.db.wines.remove({'_id': ObjectId(wine_id)}),
+                           user_name=user_return,
+                           added_by=added_by,
+                           results=mongo.db.wines.find({'added_by': added_by}),
+                           notes=mongo.db.wines.find(
+                               {"$or": [
+                                   {'tasting_notes': {'$regex': '.*' + added_by + '.*'}},
+                                   {'tasting_notes': {'$regex': '.*' + added_by.title() + '.*'}}]}
+                                   ))
 
 
 # Add/Deleted Documents to/from Collections routes
@@ -985,6 +990,7 @@ def my_profile_page():
                             )
 
 if __name__ == '__main__':
+    app.static_folder = 'static'
     app.secret_key = 'mysecret'
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
