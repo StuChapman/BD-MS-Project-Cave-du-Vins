@@ -278,6 +278,16 @@ the concepts of:
 11. [Heroku](https://www.heroku.com/) - for the back end database.
 12. [Azure](https://azure.microsoft.com/en-gb/) - for cloud storage to host the uploaded images.
 13. [Flask](https://en.wikipedia.org/wiki/Flask_%28web_framework%29) - to provide a web framework.
+14. [Pytest](https://docs.pytest.org/en/latest/index.html) - for automated test scripts.
+
+### Backend databases
+
+The 2 databases I created are:
+1.  [MongoDB](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/71d9fd61534310726bb6b81bcb2b2dd09e4c0bc2/backend_screenshots/MongoDB.png)
+2.  [Azure](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/71d9fd61534310726bb6b81bcb2b2dd09e4c0bc2/backend_screenshots/Azure.png)
+
+MongoDB hold the main Collections: wines, users, colours, countries, grapes and regions.
+Azure has a single Container (caveduvins) to host the uploaded images.
 
 ### Add ins
 Within the run.py app, I installed a number of add ins to enable various capabilities:
@@ -305,6 +315,23 @@ There was also an error with the code to navigate back to the search view from v
 *onclick="window.history.back();location.reload(); return false;"*
 
 These were corrected in a post-testing commit.
+
+### Automated Testing
+I used [Pytest](https://docs.pytest.org/en/latest/index.html) for automated testing. Primarily for data entry validation.
+
+This proved particularly useful when testing the validation of user entry into the wine name input from index.html into the search() route.
+
+I had used validation to prevent the user inputing any special characters (especially with malicious intent), but I was still permitting the input of a single "*", which cased an error.
+
+By testing the input of "*", I saw that my code 
+```{python}
+if not re.match("^[a-zA-Z0-9* ]+$", request.values.get("name")):
+```
+should read...
+```{python}
+if not re.match("^[a-zA-Z0-9 ]+$", request.values.get("name")):
+```
+This removed the error.
 
 ### Bugs, Challenges and Errors
 
@@ -368,6 +395,21 @@ This [tutorial: flask-uploading-files](https://pythonise.com/series/learning-fla
 I then blended the 2 bits of code together to upload the user selected image to a static folder, then upload the image from the static folder to the cloud.
 
 This didn't feel like the most elegant of solutions, but it is effective.
+
+## Additional Features post Testing
+Following user testing with my mentor [Precious Ijege](https://www.linkedin.com/in/precious-ijege-908a00168/) and my 
+friend [Magoo](https://www.facebook.com/carlos.fandango.56232), I added the following features...
+
+1.  A [Bootstrap](https://getbootstrap.com/) Carousel showing 3 randomly selected wines, with image to start the user's browsing journey.
+2.  A My Profile page for individual users to see the wines they have:
+    * Added
+    * Contributed to the Tasting Notes of
+    I also redesigned how wines could be edited and deleted using these views.
+    (Note: user:admin can view/edit and delete all wines).
+3.  A wine "recommended" (randomly selected) if the user creates a search that returns zero documents.
+4.  A timestamp on Tasting Notes.
+5.  An 'Edit own wines' feature.
+
 
 ## Deployment
 

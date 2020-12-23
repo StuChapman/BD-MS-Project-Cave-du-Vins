@@ -597,7 +597,7 @@ def search():
 
     results_string = resultname + resultvintage + resultcolour + resultcountry + resultregion + resultgrape
 
-    if not re.match("^[a-zA-Z0-9* ]+$", request.values.get("name")):
+    if not re.match("^[a-zA-Z0-9 ]+$", request.values.get("name")):
         flash('illegal text entered')
         return render_template("index.html",
                                user_name=user_return,
