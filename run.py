@@ -520,7 +520,7 @@ def search():
         namesearch = ".*.*"
         resultname = ""
     else:
-        if re.match("^[a-zA-Z0-9*]+$", request.values.get("name")):
+        if re.match("^[a-zA-Z0-9* ]+$", request.values.get("name")):
             namesearch = request.values.get("name")
             resultname = namesearch
         else:
