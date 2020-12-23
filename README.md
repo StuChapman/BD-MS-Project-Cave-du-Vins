@@ -251,6 +251,13 @@ I used these fonts exclusively.
 2. A text input to allow the user to add 155 characters of free text (stamped with the username).
 3. A Save button to append documents in the [MongoDB](https://www.mongodb.com/) database.
 
+### Features to be implimented at a future date
+1.  Filter Regions on Country. As this would normally be actioned using 
+    ```js 
+    "onchange" 
+    ```
+    which triggers Javascript code, not Python, I will address this in a future iteration.
+
 ### Approach
 
 The approach I took for designing the site, was to build on the [start bootstrap](https://startbootstrap.com/theme/one-page-wonder) 
@@ -283,24 +290,24 @@ the concepts of:
 ### Backend databases
 
 The 2 databases I created are:
-1.  [MongoDB](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/71d9fd61534310726bb6b81bcb2b2dd09e4c0bc2/backend_screenshots/MongoDB.png)
-2.  [Azure](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/71d9fd61534310726bb6b81bcb2b2dd09e4c0bc2/backend_screenshots/Azure.png)
+1.  [MongoDB](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/4eb557a961a48780253c2ce7a88787b0db5aaf55/backend_screenshots/MongoDB.png)
+2.  [Azure](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/4eb557a961a48780253c2ce7a88787b0db5aaf55/backend_screenshots/Azure.png)
 
 MongoDB hold the main Collections: wines, users, colours, countries, grapes and regions.
 Azure has a single Container (caveduvins) to host the uploaded images.
 
 ### Add ins
 Within the run.py app, I installed a number of add ins to enable various capabilities:
-1.  os - for interactiuon with the operating system (e.g. retrieving the content of env.py to connect to the MongoDB backend).
-2.  Flask, render_template, redirect, request, url_for, session, flash from flask - to provide a web framework.
-3.  PyMongo, from flask_pymongo - to enable Python to work with MongoDB.
-4.  ObjectId, from bson.objectid - to enable Python to work with MongoDB.
-5.  bcrypt - to encrypt passwords.
-6.  re - to utilise regular expressions in data validation.
-7.  uuid - to append a random string to the end of the upload image filename (upload_file_name = wine_id + str(uuid.uuid4()) + ".jpg").
-8.  BlobServiceClient, BlobClient, ContainerClient, '__version__', from azure.storage.blob - to interact the app with Azure.
-9.  ResourceExistsError, from azure.core.exceptions - to identify if a blob for the image already exists in the container.
-10. secure_filename from werkzeug.utils -to add protection from malicious use when uploading an image.
+1.  [os](https://docs.python.org/3/library/os.html#module-os) - for interaction with the operating system (e.g. retrieving the content of env.py to connect to the MongoDB backend).
+2.  [Flask](https://en.wikipedia.org/wiki/Flask_%28web_framework%29), render_template, redirect, request, url_for, session, flash from flask - to provide a web framework.
+3.  [PyMongo](https://pymongo.readthedocs.io/en/stable/), from flask_pymongo - to enable Python to work with MongoDB.
+4.  [ObjectId](https://docs.mongodb.com/manual/reference/method/ObjectId/), from bson.objectid - to enable Python to work with MongoDB.
+5.  [bcrypt](https://en.wikipedia.org/wiki/Bcrypt) - to encrypt passwords.
+6.  [re](https://docs.python.org/3/library/re.html) - to utilise regular expressions in data validation.
+7.  [uuid](https://docs.python.org/3/library/uuid.html) - to append a random string to the end of the upload image filename (upload_file_name = wine_id + str(uuid.uuid4()) + ".jpg").
+8.  [BlobServiceClient](https://docs.microsoft.com/en-us/dotnet/api/azure.storage.blobs.blobserviceclient?view=azure-dotnet), [BlobClient](https://docs.microsoft.com/en-us/dotnet/api/azure.storage.blobs.blobclient?view=azure-dotnet), [ContainerClient](https://docs.microsoft.com/en-us/python/api/azure-storage-blob/azure.storage.blob.containerclient?view=azure-python), '__version__', from azure.storage.blob - to interact the app with Azure.
+9.  [ResourceExistsError](https://docs.microsoft.com/en-us/python/api/azure-core/azure.core.exceptions.resourceexistserror?view=azure-python), from azure.core.exceptions - to identify if a blob for the image already exists in the container.
+10. [secure_filename from werkzeug.utils](https://werkzeug.palletsprojects.com/en/1.0.x/utils/?highlight=secure_filename#werkzeug.utils.secure_filename) -to add protection from malicious use when uploading an image.
 
 ## Testing
 I created a separate [testing](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/733c885efed6503fffda533463fd2f32714f1ee3/testing) folder containing pre and post test matrices.
@@ -410,7 +417,6 @@ friend [Magoo](https://www.facebook.com/carlos.fandango.56232), I added the foll
 4.  A timestamp on Tasting Notes.
 5.  An 'Edit own wines' feature.
 
-
 ## Deployment
 
 I deployed to Heroku by the following steps:
@@ -434,11 +440,37 @@ To push to Heroku from GitPod (from the command line...)
 7.  git push -u heroku master
 
 #### To run the code locally;
+
 1.  From the BD-MS-Project-Cave-du-Vins repository in Github, click ‘Clone or download’.
 2.  Copy the URL to your clipboard.
 3.  In Gitpod, open the terminal.
 4.  Change the directory to that where you wish to place the files.
 5.  Type ‘git clone’ then paste the URL.
+
+#### To run the code in Gitpod;
+
+1. Create a file env.py, containing the code...
+
+    import os
+
+    os.environ.setdefault("MONGO_URI", "mongodb+srv://root:r00tUser@cluster0.5zsef.mongodb.net/CaveDuVin?retryWrites=true&w=majority")
+
+    (this is the connection string for the MongoDB database).
+
+2.  Type into the command line:
+    * pip3 install flask_pymongo
+    * pip3 install pymongo
+    * pip3 install flask
+    * pip3 install bcrypt
+    * pip3 install dnspython
+    * pip install azure-storage-blob
+    * export AZURE_STORAGE_CONNECTION_STRING="DefaultEndpointsProtocol=https;AccountName=mystorageacct180671;AccountKey=QOqkBCOXq66XE3fSrvdMq99BoLLJVQLZOyvuXZuDBR90NLXyIvDhwpV+N+RU5inPObGTRFD1NkFwOsDCz3Bg8Q==;EndpointSuffix=core.windows.net"
+    (this is the connection string for the Azure database).
+    * python3 run.py
+
+#### To run the app as user:admin;
+
+1.  Access the username and password credentials from [admin-credentials.txt](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/4eb557a961a48780253c2ce7a88787b0db5aaf55/admin-credentials.txt)
 
 ## Credits
 
