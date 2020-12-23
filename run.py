@@ -520,9 +520,12 @@ def search():
         namesearch = ".*.*"
         resultname = ""
     else:
-        namesearch = request.values.get("name")
-        resultname = namesearch
-
+        if re.match("^[a-zA-Z0-9*]+$", request.values.get("name")):
+            namesearch = request.values.get("name")
+            resultname = namesearch
+        else:
+            namesearch = "illegal text entered"
+            resultname = namesearch
     if request.values.get("vintage") == "":
         vintagesearch = {'$regex': '.*'}
         resultvintage = ""
