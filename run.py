@@ -56,12 +56,16 @@ def index():
                            results_region="",
                            results_grape="",
                            # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
-                           carousel_one=mongo.db.wines.aggregate(
-                                        [{"$sample": {"size": 1}}]),
-                           carousel_two=mongo.db.wines.aggregate(
-                                        [{"$sample": {"size": 1}}]),
-                           carousel_three=mongo.db.wines.aggregate(
-                                        [{"$sample": {"size": 1}}])
+                           # Credit: https://stackoverflow.com/questions/25436630/mongodb-how-to-find-and-then-aggregate
+                           carousel_one=mongo.db.wines.aggregate([
+                                        {"$match": {"photo_url": {"$ne": ""}}},
+                                        {"$sample": {"size": 1}}]),
+                           carousel_two=mongo.db.wines.aggregate([
+                                        {"$match": {"photo_url": {"$ne": ""}}},
+                                        {"$sample": {"size": 1}}]),
+                           carousel_three=mongo.db.wines.aggregate([
+                                        {"$match": {"photo_url": {"$ne": ""}}},
+                                        {"$sample": {"size": 1}}])
                            )
 
 # Log In/Out and Register routes
@@ -472,12 +476,16 @@ def search_page():
                            results_region="",
                            results_grape="",
                            # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
-                           carousel_one=mongo.db.wines.aggregate(
-                                        [{"$sample": {"size": 1}}]),
-                           carousel_two=mongo.db.wines.aggregate(
-                                        [{"$sample": {"size": 1}}]),
-                           carousel_three=mongo.db.wines.aggregate(
-                                        [{"$sample": {"size": 1}}])
+                           # Credit: https://stackoverflow.com/questions/25436630/mongodb-how-to-find-and-then-aggregate
+                           carousel_one=mongo.db.wines.aggregate([
+                                        {"$match": {"photo_url":  {"$ne": ""}}},
+                                        {"$sample": {"size": 1}}]),
+                           carousel_two=mongo.db.wines.aggregate([
+                                        {"$match": {"photo_url": {"$ne": ""}}},
+                                        {"$sample": {"size": 1}}]),
+                           carousel_three=mongo.db.wines.aggregate([
+                                        {"$match": {"photo_url": {"$ne": ""}}},
+                                        {"$sample": {"size": 1}}])
                            )
 
 @app.route('/populate_search')
@@ -499,12 +507,16 @@ def populate_search():
                            results_region="",
                            results_grape="",
                            # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
-                           carousel_one=mongo.db.wines.aggregate(
-                                        [{"$sample": {"size": 1}}]),
-                           carousel_two=mongo.db.wines.aggregate(
-                                        [{"$sample": {"size": 1}}]),
-                           carousel_three=mongo.db.wines.aggregate(
-                                        [{"$sample": {"size": 1}}])
+                           # Credit: https://stackoverflow.com/questions/25436630/mongodb-how-to-find-and-then-aggregate
+                           carousel_one=mongo.db.wines.aggregate([
+                                        {"$match": {"photo_url":  {"$ne": ""}}},
+                                        {"$sample": {"size": 1}}]),
+                           carousel_two=mongo.db.wines.aggregate([
+                                        {"$match": {"photo_url": {"$ne": ""}}},
+                                        {"$sample": {"size": 1}}]),
+                           carousel_three=mongo.db.wines.aggregate([
+                                        {"$match": {"photo_url": {"$ne": ""}}},
+                                        {"$sample": {"size": 1}}])
                            )
 
 
@@ -579,13 +591,17 @@ def search():
                                results_region=resultregion,
                                results_grape=resultgrape,
                                vintagenumfail=True,
-                               # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
-                               carousel_one=mongo.db.wines.aggregate(
-                                               [{"$sample": {"size": 1}}]),
-                               carousel_two=mongo.db.wines.aggregate(
-                                               [{"$sample": {"size": 1}}]),
-                               carousel_three=mongo.db.wines.aggregate(
-                                               [{"$sample": {"size": 1}}])
+                           # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
+                           # Credit: https://stackoverflow.com/questions/25436630/mongodb-how-to-find-and-then-aggregate
+                           carousel_one=mongo.db.wines.aggregate([
+                                        {"$match": {"photo_url":  {"$ne": ""}}},
+                                        {"$sample": {"size": 1}}]),
+                           carousel_two=mongo.db.wines.aggregate([
+                                        {"$match": {"photo_url": {"$ne": ""}}},
+                                        {"$sample": {"size": 1}}]),
+                           carousel_three=mongo.db.wines.aggregate([
+                                        {"$match": {"photo_url": {"$ne": ""}}},
+                                        {"$sample": {"size": 1}}])
                                )
 
 
@@ -603,13 +619,17 @@ def search():
                                results_region=resultregion,
                                results_grape=resultgrape,
                                vintagenumfail=True,
-                               # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
-                               carousel_one=mongo.db.wines.aggregate(
-                                               [{"$sample": {"size": 1}}]),
-                               carousel_two=mongo.db.wines.aggregate(
-                                               [{"$sample": {"size": 1}}]),
-                               carousel_three=mongo.db.wines.aggregate(
-                                               [{"$sample": {"size": 1}}])
+                           # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
+                           # Credit: https://stackoverflow.com/questions/25436630/mongodb-how-to-find-and-then-aggregate
+                           carousel_one=mongo.db.wines.aggregate([
+                                        {"$match": {"photo_url":  {"$ne": ""}}},
+                                        {"$sample": {"size": 1}}]),
+                           carousel_two=mongo.db.wines.aggregate([
+                                        {"$match": {"photo_url": {"$ne": ""}}},
+                                        {"$sample": {"size": 1}}]),
+                           carousel_three=mongo.db.wines.aggregate([
+                                        {"$match": {"photo_url": {"$ne": ""}}},
+                                        {"$sample": {"size": 1}}])
                                )
 
     if results_string == "":
@@ -625,13 +645,17 @@ def search():
                                results_country=resultcountry,
                                results_region=resultregion,
                                results_grape=resultgrape,
-                               # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
-                               carousel_one=mongo.db.wines.aggregate(
-                                               [{"$sample": {"size": 1}}]),
-                               carousel_two=mongo.db.wines.aggregate(
-                                               [{"$sample": {"size": 1}}]),
-                               carousel_three=mongo.db.wines.aggregate(
-                                               [{"$sample": {"size": 1}}])
+                           # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
+                           # Credit: https://stackoverflow.com/questions/25436630/mongodb-how-to-find-and-then-aggregate
+                           carousel_one=mongo.db.wines.aggregate([
+                                        {"$match": {"photo_url":  {"$ne": ""}}},
+                                        {"$sample": {"size": 1}}]),
+                           carousel_two=mongo.db.wines.aggregate([
+                                        {"$match": {"photo_url": {"$ne": ""}}},
+                                        {"$sample": {"size": 1}}]),
+                           carousel_three=mongo.db.wines.aggregate([
+                                        {"$match": {"photo_url": {"$ne": ""}}},
+                                        {"$sample": {"size": 1}}])
                                )
 
     resultscount = mongo.db.wines.find(
@@ -660,13 +684,17 @@ def search():
                                     results_country=resultcountry,
                                     results_region=resultregion,
                                     results_grape=resultgrape,
-                                    # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
-                                    carousel_one=mongo.db.wines.aggregate(
-                                                    [{"$sample": {"size": 1}}]),
-                                    carousel_two=mongo.db.wines.aggregate(
-                                                    [{"$sample": {"size": 1}}]),
-                                    carousel_three=mongo.db.wines.aggregate(
-                                                    [{"$sample": {"size": 1}}]),
+                           # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
+                           # Credit: https://stackoverflow.com/questions/25436630/mongodb-how-to-find-and-then-aggregate
+                           carousel_one=mongo.db.wines.aggregate([
+                                        {"$match": {"photo_url":  {"$ne": ""}}},
+                                        {"$sample": {"size": 1}}]),
+                           carousel_two=mongo.db.wines.aggregate([
+                                        {"$match": {"photo_url": {"$ne": ""}}},
+                                        {"$sample": {"size": 1}}]),
+                           carousel_three=mongo.db.wines.aggregate([
+                                        {"$match": {"photo_url": {"$ne": ""}}},
+                                        {"$sample": {"size": 1}}]),
                                     zerocount=0
                                     )
 
@@ -693,13 +721,17 @@ def search():
                                     results_country=resultcountry,
                                     results_region=resultregion,
                                     results_grape=resultgrape,
-                                    # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
-                                    carousel_one=mongo.db.wines.aggregate(
-                                                    [{"$sample": {"size": 1}}]),
-                                    carousel_two=mongo.db.wines.aggregate(
-                                                    [{"$sample": {"size": 1}}]),
-                                    carousel_three=mongo.db.wines.aggregate(
-                                                    [{"$sample": {"size": 1}}])
+                           # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
+                           # Credit: https://stackoverflow.com/questions/25436630/mongodb-how-to-find-and-then-aggregate
+                           carousel_one=mongo.db.wines.aggregate([
+                                        {"$match": {"photo_url":  {"$ne": ""}}},
+                                        {"$sample": {"size": 1}}]),
+                           carousel_two=mongo.db.wines.aggregate([
+                                        {"$match": {"photo_url": {"$ne": ""}}},
+                                        {"$sample": {"size": 1}}]),
+                           carousel_three=mongo.db.wines.aggregate([
+                                        {"$match": {"photo_url": {"$ne": ""}}},
+                                        {"$sample": {"size": 1}}])
                                     )
 
 # Add tasting Note Routes
@@ -755,12 +787,16 @@ def add_tasting_note():
                            results_region="",
                            results_grape="",
                            # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
-                           carousel_one=mongo.db.wines.aggregate(
-                                        [{"$sample": {"size": 1}}]),
-                           carousel_two=mongo.db.wines.aggregate(
-                                        [{"$sample": {"size": 1}}]),
-                           carousel_three=mongo.db.wines.aggregate(
-                                        [{"$sample": {"size": 1}}]),
+                           # Credit: https://stackoverflow.com/questions/25436630/mongodb-how-to-find-and-then-aggregate
+                           carousel_one=mongo.db.wines.aggregate([
+                                        {"$match": {"photo_url":  {"$ne": ""}}},
+                                        {"$sample": {"size": 1}}]),
+                           carousel_two=mongo.db.wines.aggregate([
+                                        {"$match": {"photo_url": {"$ne": ""}}},
+                                        {"$sample": {"size": 1}}]),
+                           carousel_three=mongo.db.wines.aggregate([
+                                        {"$match": {"photo_url": {"$ne": ""}}},
+                                        {"$sample": {"size": 1}}]),
                            update=mongo.db.wines.update_one({'_id': ObjectId(wineid)},
                                                             # Credit: https://stackoverflow.com/questions/10290621/how-do-i-partially-update-an-object-in-mongodb-so-the-new-object-will-overlay
                                                             {"$set": {'tasting_notes': tastingnoteadd}}),
@@ -981,12 +1017,16 @@ def upload_image(wine_id):
                            results_grape="",
                            results=mongo.db.wines.find({'_id': ObjectId(wineid)}),
                            # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
-                           carousel_one=mongo.db.wines.aggregate(
-                                        [{"$sample": {"size": 1}}]),
-                           carousel_two=mongo.db.wines.aggregate(
-                                        [{"$sample": {"size": 1}}]),
-                           carousel_three=mongo.db.wines.aggregate(
-                                        [{"$sample": {"size": 1}}])
+                           # Credit: https://stackoverflow.com/questions/25436630/mongodb-how-to-find-and-then-aggregate
+                           carousel_one=mongo.db.wines.aggregate([
+                                        {"$match": {"photo_url":  {"$ne": ""}}},
+                                        {"$sample": {"size": 1}}]),
+                           carousel_two=mongo.db.wines.aggregate([
+                                        {"$match": {"photo_url": {"$ne": ""}}},
+                                        {"$sample": {"size": 1}}]),
+                           carousel_three=mongo.db.wines.aggregate([
+                                        {"$match": {"photo_url": {"$ne": ""}}},
+                                        {"$sample": {"size": 1}}])
                            )
 
 # Upload Image
@@ -1042,12 +1082,16 @@ def my_profile_page():
                             results_region="",
                             results_grape="",
                            # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
-                           carousel_one=mongo.db.wines.aggregate(
-                                        [{"$sample": {"size": 1}}]),
-                           carousel_two=mongo.db.wines.aggregate(
-                                        [{"$sample": {"size": 1}}]),
-                           carousel_three=mongo.db.wines.aggregate(
-                                        [{"$sample": {"size": 1}}])
+                           # Credit: https://stackoverflow.com/questions/25436630/mongodb-how-to-find-and-then-aggregate
+                           carousel_one=mongo.db.wines.aggregate([
+                                        {"$match":{"photo_url":{"$ne": ""}}},
+                                        {"$sample": {"size": 1}}]),
+                           carousel_two=mongo.db.wines.aggregate([
+                                        {"$match":{"photo_url":{"$ne": ""}}},
+                                        {"$sample": {"size": 1}}]),
+                           carousel_three=mongo.db.wines.aggregate([
+                                        {"$match":{"photo_url":{"$ne": ""}}},
+                                        {"$sample": {"size": 1}}])
                             )
 
 if __name__ == '__main__':

@@ -417,7 +417,8 @@ To push to Heroku from GitPod (from the command line...)
 13. Setting background image opacity is from [coder-coder.com](https://coder-coder.com/background-image-opacity/)
 14. Validating tasting notes input is from [stackoverflow.com](https://stackoverflow.com/questions/15472764/regular-expression-to-allow-spaces-between-words)
 15. Error handling is from [askpython.com](https://www.askpython.com/python-modules/flask/flask-error-handling)
-15. Random sampling of records is from [docs.mongodb.com](https://docs.mongodb.com/manual/reference/operator/aggregation/sample/)
+16. Random sampling of records is from [docs.mongodb.com](https://docs.mongodb.com/manual/reference/operator/aggregation/sample/)
+17. Aggregate on a select set of records is from [stackoverflow.com](https://stackoverflow.com/questions/25436630/mongodb-how-to-find-and-then-aggregate)
 
 ### Media
 
