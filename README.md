@@ -357,7 +357,8 @@ These were corrected in a post-testing commit.
 12. There was an issue with the rendering of the app under https. There are 2 articles here [stackoverflow.com](https://stackoverflow.com/questions/7918394/why-images-and-css-do-not-show-under-https) and here [stackoverflow.com](https://stackoverflow.com/questions/13772884/css-problems-with-flask-web-app). I found that a combination of:
     * adding ```{python}app.static_folder = 'static'``` to ```{python} if __name__ == '__main__':``` and
     * changing the hrefs for css stylesheets to absolute filepaths, solved the problem.
-    
+13. There same issue applied to the src paths for bootstrap javascript. Again changing to absolute file paths corrected this.
+14. A friend of mine, [Magoo](https://www.facebook.com/carlos.fandango.56232), who works in IT, had a play with the app and created an error by attempting to inject SQL into the text input for wine name on index.html. I added validation for non alphanumeric text to avoid this happening. Thanks Magoo!
 
 Apart from the 2 major isses with Procfile and Dockefile; the most challenging aspect of the project was uploading images to cloud storage.
 
