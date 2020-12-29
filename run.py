@@ -26,16 +26,17 @@ app.config["ALLOWED_IMAGE_EXTENSIONS"] = ["JPEG", "JPG", "PNG", "GIF"]
 
 mongo = PyMongo(app)
 
-#Handling error and displaying error.html page
+
+# Handling error and displaying error.html page
 # Credit: https://www.askpython.com/python-modules/flask/flask-error-handling
 @app.errorhandler(500)
 def internal_error(error):
-    return render_template('error.html'),500
+    return render_template('error.html'), 500
 
 
 @app.errorhandler(404)
 def internal_error(error):
-    return render_template('error.html'),404
+    return render_template('error.html'), 404
 
 
 # Start app on index.html
@@ -70,6 +71,7 @@ def index():
                                         {"$sample": {"size": 1}}])
                            )
 
+
 # Log In/Out and Register routes
 @app.route('/login_page')
 def login_page():
@@ -79,6 +81,7 @@ def login_page():
         user_return = 'Cave du Vins'
     return render_template('login.html',
                            user_name=user_return)
+
 
 # Credit: https://edubanq.com/programming/mongodb/creating-a-user-login-system-using-python-flask-and-mongodb/
 @app.route('/login', methods=['POST'])
@@ -95,11 +98,13 @@ def login():
     return render_template("login.html",
                            password_error='Invalid username/password combination')
 
+
 # Credit: https://pythonbasics.org/flask-sessions/
 @app.route('/logout')
 def logout():
     session.pop('username', None)
     return redirect(url_for('index'))
+
 
 # Credit: https://edubanq.com/programming/mongodb/creating-a-user-login-system-using-python-flask-and-mongodb/
 @app.route('/register', methods=['POST', 'GET'])
@@ -147,6 +152,7 @@ def register():
 
     return ''
 
+
 # Add/Delete Wine routes
 @app.route('/add_wine_page')
 def add_wine_page():
@@ -158,6 +164,7 @@ def add_wine_page():
                            grape=mongo.db.grape.find()
                            )
 
+
 # Refresh Add Wine Form route
 @app.route('/populate_form')
 def populate_form():
@@ -168,6 +175,7 @@ def populate_form():
                            region=mongo.db.region.find(),
                            grape=mongo.db.grape.find()
                            )
+
 
 @app.route('/add_wine', methods=["GET", "POST"])
 def add_wine():
@@ -241,13 +249,13 @@ def add_wine():
 
     wines = mongo.db.wines
     existing_wine = wines.find_one({"wine_name": nameadd.title(),
-                                                             "vintage": vintageadd,
-                                                             "colour": colouradd,
-                                                             "country": countryadd,
-                                                             "region": regionadd,
-                                                             "grape": grapeadd,
-                                                             "photo_url": "",
-                                                             "tasting_notes": ""})
+                                    "vintage": vintageadd,
+                                    "colour": colouradd,
+                                    "country": countryadd,
+                                    "region": regionadd,
+                                    "grape": grapeadd,
+                                    "photo_url": "",
+                                    "tasting_notes": ""})
     if existing_wine is not None:
         flash("That wine has already been added")
         return render_template("add_wine.html",
@@ -277,25 +285,25 @@ def add_wine():
                                                              "photo_url": "",
                                                              "tasting_notes": "",
                                                              "added_by": session['username']}),
-                                                             results_winename="",
-                                                             results_vintage="",
-                                                             results_colour="",
-                                                             results_country="",
-                                                             results_region="",
-                                                             results_grape="",
-                                                             colours=mongo.db.colours.find(),
-                                                             country=mongo.db.country.find(),
-                                                             region=mongo.db.region.find(),
-                                                             grape=mongo.db.grape.find(),
-                                                             results=mongo.db.wines.find({"wine_name": nameadd.title(),
-                                                                                          "vintage": vintageadd,
-                                                                                          "colour": colouradd,
-                                                                                          "country": countryadd,
-                                                                                          "region": regionadd,
-                                                                                          "grape": grapeadd,
-                                                                                          "photo_url": "",
-                                                                                          "tasting_notes": ""})
-                                                             )
+                           results_winename="",
+                           results_vintage="",
+                           results_colour="",
+                           results_country="",
+                           results_region="",
+                           results_grape="",
+                           colours=mongo.db.colours.find(),
+                           country=mongo.db.country.find(),
+                           region=mongo.db.region.find(),
+                           grape=mongo.db.grape.find(),
+                           results=mongo.db.wines.find({"wine_name": nameadd.title(),
+                                                        "vintage": vintageadd,
+                                                        "colour": colouradd,
+                                                        "country": countryadd,
+                                                        "region": regionadd,
+                                                        "grape": grapeadd,
+                                                        "photo_url": "",
+                                                        "tasting_notes": ""})
+                           )
 
 
 @app.route('/delete_wine_page/<wine_id>')
@@ -374,6 +382,7 @@ def add_country():
                            grape=mongo.db.grape.find()
                            )
 
+
 @app.route('/add_region', methods=["GET", "POST"])
 def add_region():
     regionadd = request.values.get("addregion")
@@ -407,6 +416,7 @@ def add_region():
                            grape=mongo.db.grape.find()
                            )
 
+
 @app.route('/add_grape', methods=["GET", "POST"])
 def add_grape():
     grapeadd = request.values.get("addgrape")
@@ -439,6 +449,7 @@ def add_grape():
                            grape=mongo.db.grape.find()
                            )
 
+
 @app.route('/delete_category_page/<category_id>')
 def delete_category_page(category_id):
     return render_template('categories.html',
@@ -449,6 +460,7 @@ def delete_category_page(category_id):
                            region=mongo.db.region.find(),
                            grape=mongo.db.grape.find()
                            )
+
 
 @app.route('/delete_category/<category_id>', methods=["GET", "POST"])
 def delete_category(category_id):
@@ -487,6 +499,7 @@ def delete_category(category_id):
                                grape=mongo.db.grape.find()
                                )
 
+
 # Browse Wines routes
 @app.route('/search_page')
 def search_page():
@@ -518,6 +531,7 @@ def search_page():
                                         {"$match": {"photo_url": {"$ne": ""}}},
                                         {"$sample": {"size": 1}}])
                            )
+
 
 @app.route('/populate_search')
 def populate_search():
@@ -622,19 +636,18 @@ def search():
                                results_region=resultregion,
                                results_grape=resultgrape,
                                vintagenumfail=True,
-                           # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
-                           # Credit: https://stackoverflow.com/questions/25436630/mongodb-how-to-find-and-then-aggregate
-                           carousel_one=mongo.db.wines.aggregate([
-                                        {"$match": {"photo_url":  {"$ne": ""}}},
-                                        {"$sample": {"size": 1}}]),
-                           carousel_two=mongo.db.wines.aggregate([
-                                        {"$match": {"photo_url": {"$ne": ""}}},
-                                        {"$sample": {"size": 1}}]),
-                           carousel_three=mongo.db.wines.aggregate([
-                                        {"$match": {"photo_url": {"$ne": ""}}},
-                                        {"$sample": {"size": 1}}])
+                               # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
+                               # Credit: https://stackoverflow.com/questions/25436630/mongodb-how-to-find-and-then-aggregate
+                               carousel_one=mongo.db.wines.aggregate([
+                                               {"$match": {"photo_url":  {"$ne": ""}}},
+                                               {"$sample": {"size": 1}}]),
+                               carousel_two=mongo.db.wines.aggregate([
+                                               {"$match": {"photo_url": {"$ne": ""}}},
+                                               {"$sample": {"size": 1}}]),
+                               carousel_three=mongo.db.wines.aggregate([
+                                               {"$match": {"photo_url": {"$ne": ""}}},
+                                               {"$sample": {"size": 1}}])
                                )
-
 
     if not all(char.isdigit() for char in resultvintage):
         flash('vintage must be 4 numerals')
@@ -650,17 +663,17 @@ def search():
                                results_region=resultregion,
                                results_grape=resultgrape,
                                vintagenumfail=True,
-                           # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
-                           # Credit: https://stackoverflow.com/questions/25436630/mongodb-how-to-find-and-then-aggregate
-                           carousel_one=mongo.db.wines.aggregate([
-                                        {"$match": {"photo_url":  {"$ne": ""}}},
-                                        {"$sample": {"size": 1}}]),
-                           carousel_two=mongo.db.wines.aggregate([
-                                        {"$match": {"photo_url": {"$ne": ""}}},
-                                        {"$sample": {"size": 1}}]),
-                           carousel_three=mongo.db.wines.aggregate([
-                                        {"$match": {"photo_url": {"$ne": ""}}},
-                                        {"$sample": {"size": 1}}])
+                               # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
+                               # Credit: https://stackoverflow.com/questions/25436630/mongodb-how-to-find-and-then-aggregate
+                               carousel_one=mongo.db.wines.aggregate([
+                                               {"$match": {"photo_url":  {"$ne": ""}}},
+                                               {"$sample": {"size": 1}}]),
+                               carousel_two=mongo.db.wines.aggregate([
+                                               {"$match": {"photo_url": {"$ne": ""}}},
+                                               {"$sample": {"size": 1}}]),
+                               carousel_three=mongo.db.wines.aggregate([
+                                               {"$match": {"photo_url": {"$ne": ""}}},
+                                               {"$sample": {"size": 1}}])
                                )
 
     if results_string == "":
@@ -676,17 +689,17 @@ def search():
                                results_country=resultcountry,
                                results_region=resultregion,
                                results_grape=resultgrape,
-                           # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
-                           # Credit: https://stackoverflow.com/questions/25436630/mongodb-how-to-find-and-then-aggregate
-                           carousel_one=mongo.db.wines.aggregate([
-                                        {"$match": {"photo_url":  {"$ne": ""}}},
-                                        {"$sample": {"size": 1}}]),
-                           carousel_two=mongo.db.wines.aggregate([
-                                        {"$match": {"photo_url": {"$ne": ""}}},
-                                        {"$sample": {"size": 1}}]),
-                           carousel_three=mongo.db.wines.aggregate([
-                                        {"$match": {"photo_url": {"$ne": ""}}},
-                                        {"$sample": {"size": 1}}])
+                               # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
+                               # Credit: https://stackoverflow.com/questions/25436630/mongodb-how-to-find-and-then-aggregate
+                               carousel_one=mongo.db.wines.aggregate([
+                                               {"$match": {"photo_url":  {"$ne": ""}}},
+                                               {"$sample": {"size": 1}}]),
+                               carousel_two=mongo.db.wines.aggregate([
+                                               {"$match": {"photo_url": {"$ne": ""}}},
+                                               {"$sample": {"size": 1}}]),
+                               carousel_three=mongo.db.wines.aggregate([
+                                               {"$match": {"photo_url": {"$ne": ""}}},
+                                               {"$sample": {"size": 1}}])
                                )
 
     resultscount = mongo.db.wines.find(
@@ -702,32 +715,32 @@ def search():
                                     ]})
     if resultscount.count() == 0:
         return render_template("index.html",
-                           results=mongo.db.wines.aggregate(
-                                                    [{"$sample": {"size": 1}}]),
-                                    user_name=user_return,
-                                    colours=mongo.db.colours.find(),
-                                    country=mongo.db.country.find(),
-                                    region=mongo.db.region.find(),
-                                    grape=mongo.db.grape.find(),
-                                    results_winename=resultname,
-                                    results_vintage=resultvintage,
-                                    results_colour=resultcolour,
-                                    results_country=resultcountry,
-                                    results_region=resultregion,
-                                    results_grape=resultgrape,
-                           # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
-                           # Credit: https://stackoverflow.com/questions/25436630/mongodb-how-to-find-and-then-aggregate
-                           carousel_one=mongo.db.wines.aggregate([
-                                        {"$match": {"photo_url":  {"$ne": ""}}},
-                                        {"$sample": {"size": 1}}]),
-                           carousel_two=mongo.db.wines.aggregate([
-                                        {"$match": {"photo_url": {"$ne": ""}}},
-                                        {"$sample": {"size": 1}}]),
-                           carousel_three=mongo.db.wines.aggregate([
-                                        {"$match": {"photo_url": {"$ne": ""}}},
-                                        {"$sample": {"size": 1}}]),
-                                    zerocount=0
-                                    )
+                               results=mongo.db.wines.aggregate(
+                                                   [{"$sample": {"size": 1}}]),
+                               user_name=user_return,
+                               colours=mongo.db.colours.find(),
+                               country=mongo.db.country.find(),
+                               region=mongo.db.region.find(),
+                               grape=mongo.db.grape.find(),
+                               results_winename=resultname,
+                               results_vintage=resultvintage,
+                               results_colour=resultcolour,
+                               results_country=resultcountry,
+                               results_region=resultregion,
+                               results_grape=resultgrape,
+                               # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
+                               # Credit: https://stackoverflow.com/questions/25436630/mongodb-how-to-find-and-then-aggregate
+                               carousel_one=mongo.db.wines.aggregate([
+                                               {"$match": {"photo_url":  {"$ne": ""}}},
+                                               {"$sample": {"size": 1}}]),
+                               carousel_two=mongo.db.wines.aggregate([
+                                               {"$match": {"photo_url": {"$ne": ""}}},
+                                               {"$sample": {"size": 1}}]),
+                               carousel_three=mongo.db.wines.aggregate([
+                                               {"$match": {"photo_url": {"$ne": ""}}},
+                                               {"$sample": {"size": 1}}]),
+                               zerocount=0
+                               )
 
     return render_template("index.html",
                            results=mongo.db.wines.find(
@@ -741,29 +754,30 @@ def search():
                                     {"region": regionsearch},
                                     {"grape": grapesearch}
                                     ]}),
-                                    user_name=user_return,
-                                    colours=mongo.db.colours.find(),
-                                    country=mongo.db.country.find(),
-                                    region=mongo.db.region.find(),
-                                    grape=mongo.db.grape.find(),
-                                    results_winename=resultname,
-                                    results_vintage=resultvintage,
-                                    results_colour=resultcolour,
-                                    results_country=resultcountry,
-                                    results_region=resultregion,
-                                    results_grape=resultgrape,
+                           user_name=user_return,
+                           colours=mongo.db.colours.find(),
+                           country=mongo.db.country.find(),
+                           region=mongo.db.region.find(),
+                           grape=mongo.db.grape.find(),
+                           results_winename=resultname,
+                           results_vintage=resultvintage,
+                           results_colour=resultcolour,
+                           results_country=resultcountry,
+                           results_region=resultregion,
+                           results_grape=resultgrape,
                            # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
                            # Credit: https://stackoverflow.com/questions/25436630/mongodb-how-to-find-and-then-aggregate
                            carousel_one=mongo.db.wines.aggregate([
-                                        {"$match": {"photo_url":  {"$ne": ""}}},
-                                        {"$sample": {"size": 1}}]),
+                                           {"$match": {"photo_url":  {"$ne": ""}}},
+                                           {"$sample": {"size": 1}}]),
                            carousel_two=mongo.db.wines.aggregate([
-                                        {"$match": {"photo_url": {"$ne": ""}}},
-                                        {"$sample": {"size": 1}}]),
+                                           {"$match": {"photo_url": {"$ne": ""}}},
+                                           {"$sample": {"size": 1}}]),
                            carousel_three=mongo.db.wines.aggregate([
-                                        {"$match": {"photo_url": {"$ne": ""}}},
-                                        {"$sample": {"size": 1}}])
-                                    )
+                                           {"$match": {"photo_url": {"$ne": ""}}},
+                                           {"$sample": {"size": 1}}])
+                           )
+
 
 # Add tasting Note Routes
 @app.route('/add_tasting_note_page/<wine_id>')
@@ -777,6 +791,7 @@ def add_tasting_note_page(wine_id):
                            region=mongo.db.region.find(),
                            grape=mongo.db.grape.find()
                            )
+
 
 @app.route('/add_tasting_note', methods=["GET", "POST"])
 def add_tasting_note():
@@ -793,17 +808,17 @@ def add_tasting_note():
         flash('Please enter some valid text')
         the_wine = mongo.db.wines.find_one({"_id": ObjectId(wineid)})
         return render_template('add_tasting_note.html',
-                            wine=the_wine,
-                            user_name='User: ' + session['username'],
-                            colours=mongo.db.colours.find(),
-                            country=mongo.db.country.find(),
-                            region=mongo.db.region.find(),
-                            grape=mongo.db.grape.find()
-                            )
+                               wine=the_wine,
+                               user_name='User: ' + session['username'],
+                               colours=mongo.db.colours.find(),
+                               country=mongo.db.country.find(),
+                               region=mongo.db.region.find(),
+                               grape=mongo.db.grape.find()
+                               )
 
     ts = time.time()
     timestring = time.ctime(ts)
-    tastingnoteadd = "[" + 'User: ' + session['username'] + ": " + timestring  + "] "+ tastingnotenew + "\r" + tastingnoteexist
+    tastingnoteadd = "[" + 'User: ' + session['username'] + ": " + timestring + "] " + tastingnotenew + "\r" + tastingnoteexist
 
     return render_template("index.html",
                            user_name='User: ' + session['username'],
@@ -831,7 +846,7 @@ def add_tasting_note():
                            update=mongo.db.wines.update_one({'_id': ObjectId(wineid)},
                                                             # Credit: https://stackoverflow.com/questions/10290621/how-do-i-partially-update-an-object-in-mongodb-so-the-new-object-will-overlay
                                                             {"$set": {'tasting_notes': tastingnoteadd}}),
-                                                            results=mongo.db.wines.find({'_id': ObjectId(wineid)})
+                           results=mongo.db.wines.find({'_id': ObjectId(wineid)})
                            )
 
 
@@ -905,13 +920,13 @@ def edit_wine(wine_id):
                                )
     wines = mongo.db.wines
     existing_wine = wines.find_one({"wine_name": nameadd.title(),
-                                                             "vintage": vintageadd,
-                                                             "colour": colouradd,
-                                                             "country": countryadd,
-                                                             "region": regionadd,
-                                                             "grape": grapeadd,
-                                                             "photo_url": "",
-                                                             "tasting_notes": ""})
+                                    "vintage": vintageadd,
+                                    "colour": colouradd,
+                                    "country": countryadd,
+                                    "region": regionadd,
+                                    "grape": grapeadd,
+                                    "photo_url": "",
+                                    "tasting_notes": ""})
 
     # Credit: https://pythonprogramming.net/flash-flask-tutorial/
     flash("The wine has been updated")
@@ -919,24 +934,24 @@ def edit_wine(wine_id):
                            user_name='User: ' + session['username'],
                            insert=mongo.db.wines.update_one({'_id': ObjectId(wine_id)},
                                                             {"$set": {"wine_name": nameadd.title(),
-                                                            "vintage": vintageadd,
-                                                            "colour": colouradd,
-                                                            "country": countryadd,
-                                                            "region": regionadd,
-                                                            "grape": grapeadd}}),
-                                                            results_winename=nameadd,
-                                                            results_vintage=vintageadd,
-                                                            results_colour=colouradd,
-                                                            results_country=countryadd,
-                                                            results_region=regionadd,
-                                                            results_grape=grapeadd,
-                                                            colours=mongo.db.colours.find(),
-                                                            country=mongo.db.country.find(),
-                                                            region=mongo.db.region.find(),
-                                                            grape=mongo.db.grape.find(),
-                                                            results=mongo.db.wines.find({'_id': ObjectId(wine_id)}),
-                                                            wine=mongo.db.wines.find_one({"_id": ObjectId(wine_id)})
-                                                            )
+                                                                      "vintage": vintageadd,
+                                                                      "colour": colouradd,
+                                                                      "country": countryadd,
+                                                                      "region": regionadd,
+                                                                      "grape": grapeadd}}),
+                           results_winename=nameadd,
+                           results_vintage=vintageadd,
+                           results_colour=colouradd,
+                           results_country=countryadd,
+                           results_region=regionadd,
+                           results_grape=grapeadd,
+                           colours=mongo.db.colours.find(),
+                           country=mongo.db.country.find(),
+                           region=mongo.db.region.find(),
+                           grape=mongo.db.grape.find(),
+                           results=mongo.db.wines.find({'_id': ObjectId(wine_id)}),
+                           wine=mongo.db.wines.find_one({"_id": ObjectId(wine_id)})
+                           )
 
 
 # Upload Image
@@ -948,15 +963,17 @@ def upload_image_page(wine_id):
                            user_name='User: ' + session['username']
                            )
 
+
 # Check For Image Extension
 def allowed_image(filename):
-    if not "." in filename:
+    if "." not in filename:
         return False
     ext = filename.rsplit(".", 1)[1]
     if ext.upper() in app.config["ALLOWED_IMAGE_EXTENSIONS"]:
         return True
     else:
         return False
+
 
 # Upload Image
 @app.route('/upload_image/<wine_id>', methods=["GET", "POST"])
@@ -1033,8 +1050,8 @@ def upload_image(wine_id):
 
     return render_template("index.html",
                            update=mongo.db.wines.update({'_id': ObjectId(wineid)},
-                           # Credit: https://stackoverflow.com/questions/10290621/how-do-i-partially-update-an-object-in-mongodb-so-the-new-object-will-overlay
-                           {"$set": {'photo_url': image_url}}),
+                                                        # Credit: https://stackoverflow.com/questions/10290621/how-do-i-partially-update-an-object-in-mongodb-so-the-new-object-will-overlay
+                                                        {"$set": {'photo_url': image_url}}),
                            user_name=user_return,
                            colours=mongo.db.colours.find(),
                            country=mongo.db.country.find(),
@@ -1060,7 +1077,8 @@ def upload_image(wine_id):
                                         {"$sample": {"size": 1}}])
                            )
 
-# Upload Image
+
+# View Image
 @app.route('/view_image_page/<wine_id>')
 def view_image_page(wine_id):
     if 'username' in session:
@@ -1072,6 +1090,7 @@ def view_image_page(wine_id):
                            wine=mongo.db.wines.find({'_id': ObjectId(wine_id)})
                            )
 
+
 # My Profile
 @app.route('/my_profile_page/')
 def my_profile_page():
@@ -1080,54 +1099,55 @@ def my_profile_page():
         added_by = session['username']
         if session['username'] == 'admin':
             return render_template("my_profile.html",
-                            user_name=user_return,
-                            added_by=added_by,
-                            results=mongo.db.wines.find(),
-                            notes=mongo.db.wines.find(
-                                {"$or": [
-                                    {'tasting_notes': {'$regex': '.*' + added_by + '.*'}},
-                                    {'tasting_notes': {'$regex': '.*' + added_by.title() + '.*'}}]}
-                                    )
-                            )
+                                   user_name=user_return,
+                                   added_by=added_by,
+                                   results=mongo.db.wines.find(),
+                                   notes=mongo.db.wines.find(
+                                       {"$or": [
+                                           {'tasting_notes': {'$regex': '.*' + added_by + '.*'}},
+                                           {'tasting_notes': {'$regex': '.*' + added_by.title() + '.*'}}]}
+                                           )
+                                   )
         return render_template("my_profile.html",
-                            user_name=user_return,
-                            added_by=added_by,
-                            results=mongo.db.wines.find({'added_by': added_by}),
-                            notes=mongo.db.wines.find(
-                                {"$or": [
-                                    {'tasting_notes': {'$regex': '.*' + added_by + '.*'}},
-                                    {'tasting_notes': {'$regex': '.*' + added_by.title() + '.*'}}]}
-                                    ))
+                               user_name=user_return,
+                               added_by=added_by,
+                               results=mongo.db.wines.find({'added_by': added_by}),
+                               notes=mongo.db.wines.find(
+                                   {"$or": [
+                                       {'tasting_notes': {'$regex': '.*' + added_by + '.*'}},
+                                       {'tasting_notes': {'$regex': '.*' + added_by.title() + '.*'}}]}
+                               ))
     else:
         user_return = 'Cave du Vins'
         return render_template('index.html',
-                            user_name=user_return,
-                            colours=mongo.db.colours.find(),
-                            country=mongo.db.country.find(),
-                            region=mongo.db.region.find(),
-                            grape=mongo.db.grape.find(),
-                            results_winename="",
-                            results_vintage="",
-                            results_colour="",
-                            results_country="",
-                            results_region="",
-                            results_grape="",
-                           # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
-                           # Credit: https://stackoverflow.com/questions/25436630/mongodb-how-to-find-and-then-aggregate
-                           carousel_one=mongo.db.wines.aggregate([
-                                        {"$match":{"photo_url":{"$ne": ""}}},
-                                        {"$sample": {"size": 1}}]),
-                           carousel_two=mongo.db.wines.aggregate([
-                                        {"$match":{"photo_url":{"$ne": ""}}},
-                                        {"$sample": {"size": 1}}]),
-                           carousel_three=mongo.db.wines.aggregate([
-                                        {"$match":{"photo_url":{"$ne": ""}}},
-                                        {"$sample": {"size": 1}}])
-                            )
+                               user_name=user_return,
+                               colours=mongo.db.colours.find(),
+                               country=mongo.db.country.find(),
+                               region=mongo.db.region.find(),
+                               grape=mongo.db.grape.find(),
+                               results_winename="",
+                               results_vintage="",
+                               results_colour="",
+                               results_country="",
+                               results_region="",
+                               results_grape="",
+                               # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
+                               # Credit: https://stackoverflow.com/questions/25436630/mongodb-how-to-find-and-then-aggregate
+                               carousel_one=mongo.db.wines.aggregate([
+                                               {"$match": {"photo_url": {"$ne": ""}}},
+                                               {"$sample": {"size": 1}}]),
+                               carousel_two=mongo.db.wines.aggregate([
+                                               {"$match": {"photo_url": {"$ne": ""}}},
+                                               {"$sample": {"size": 1}}]),
+                               carousel_three=mongo.db.wines.aggregate([
+                                               {"$match": {"photo_url": {"$ne": ""}}},
+                                               {"$sample": {"size": 1}}])
+                               )
+
 
 if __name__ == '__main__':
     app.static_folder = 'static'
     app.secret_key = os.environ.get("SECRET_KEY")
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
-            debug=False)
+            debug=True)

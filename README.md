@@ -387,7 +387,8 @@ The 2 redundant repositories are:
                                 grape=mongo.db.grape.find(),
                             )
 ```
-6.  I created an issue by passing my code through the Python validator, and slavishly following the protocals. I determined to use the validator carefully from then on.
+6.  I created an issue by passing my code through the Python validator, and slavishly following the protocols. I determined to use the validator carefully from then on.
+    Specifically I decided to be relaxed about lines that are over 79 characters in length. My research suggests this is a recommendation, rather than an error. In future, I will learn more methods of breaking up lines of code.
 7.  I had the issue with the broken Procfile as detailed above.
 8.  I had a bug where the search fields were populated with a default values after deleting a wine. They should be return to blank - I used code to clear each of the variables...
 ```{python}
