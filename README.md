@@ -419,6 +419,11 @@ I then blended the 2 bits of code together to upload the user selected image to 
 
 This didn't feel like the most elegant of solutions, but it is effective.
 
+### Code Validators
+
+Screenshots of the recommendations of the validators are:
+[PEP8 - python](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/6db5f03f85eca8dc70943c67aa5fe8df8a94baa4/validation_screenshots)
+
 ## Additional Features post Testing
 Following user testing with my mentor [Precious Ijege](https://www.linkedin.com/in/precious-ijege-908a00168/) and my 
 friend [Magoo](https://www.facebook.com/carlos.fandango.56232), I added the following features...
@@ -494,9 +499,10 @@ I deployed to Heroku by the following steps:
 4.  Add the key of "PORT" and the value of "5000", then click Add.
 5.  Add the key of "MONGO_URI" and the value of "*...this is the connection string for the MongoDB database...*", then click Add to connect to MongoDB
 6.  Add the key of "AZURE_STORAGE_CONNECTION_STRING" and the value of "*...this is the connection string for the Azure database...*", then click Add to connect to Azure.
-7.  Set the app to automatically deploy from GitHub by selecting GitHub on the Deploy tab.
-8.  Enter the repository name (BD-MS-Project-Cave-du-Vins) and click Search.
-9.  Click Connect next to the repository name.
+7.  Add the key of "SECRET_KEY" and the value of "*...this is the secret_key for the app...*", then click Add to set.
+8.  Set the app to automatically deploy from GitHub by selecting GitHub on the Deploy tab.
+9.  Enter the repository name (BD-MS-Project-Cave-du-Vins) and click Search.
+10. Click Connect next to the repository name.
 
 To push to Heroku from GitPod (from the command line...)
 1.  pip3 freeze --local > requirements.txt to create a requirements file.
@@ -522,6 +528,8 @@ To push to Heroku from GitPod (from the command line...)
     import os
 
     os.environ.setdefault(*...this is the connection string for the MongoDB database...*)
+    os.environ.setdefault("MONGO_DBNAME", '*...this is the MongoDB database name...*')
+    os.environ.setdefault("SECRET_KEY", '*...this is the secret_key for the app...*')
 
 2.  Type into the command line:
     * pip3 install flask_pymongo
