@@ -1,30 +1,8 @@
 # Cave du Vins – An online cellar of fine wine
 
-Link to the deployed wesite [here](http://bd-ms-project-cave-du-vins.herokuapp.com/)
+Link to the deployed wesite [here](https://bd-ms-project-cave-du-vins.herokuapp.com/)
 
-**IMPORTANT NOTE:**
-
-There were 2 serious bugs when building the application.
-The first was when deploying the application to [Heroku](https://www.heroku.com/). The Procfile appears to have been 
-corrupted or incorrectly created, delivering an error "no web processes running". There is some discussion on the 
-topic [here](https://stackoverflow.com/questions/41804507/h14-error-in-heroku-no-web-processes-running). 
-On inspection of the app in Heroku, I saw that no Dyno had been added and there was the suggestion that a Procfile should be created. 
-No amount of removing and rebuilding the Procfile would remove this error, so I decided to download a zip file of all the files in my 
-GitHub repository, create a new repository, upload the files and rebuild the Procfile. This solved the problem. 
-
-The second bug happened when opening the repository in Gitpod. I recieved the question "start with default docker file?". In doing so, 
-The repository would not open up a PORT correctly and this error passed through to Heruko. I decided that the github docker file 
-had somehow been corrupted, so again, I took the approach of creating a new repository with a new, working docker file.
-
-The 2 redundant repositories are:
-
-[broken Procfile](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins-broken-Procfile)
-
-[broken Dockerfile](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins-broken-Dockerfile)
-
-**The commit history of the entire project can be viewed in these repositories.**
-
-# Purpose
+# Introduction
 
 Create a web application that stores, organises and presents a multi-user input and updated collection of wine; 
 including:
@@ -73,8 +51,7 @@ As a user of Cave du Vins, I …
     * Region (e.g. all wines in the collection produced in the Bordeaux region).
     * Grape (e.g. all wine in the collection produced from the Cabernet Sauvignon grape variety).
 2.  … want the browsed wines to be presented to me in a list.
-2.  … want any uploaded images of the wines to be presented to me.
-4.  … want to be able to navigate to a site where I can purchase the wines in the database.
+3.  … want to be able to navigate to a site where I can purchase the wines in the database.
 ### Adding Wines
 As a registered user of Cave du Vins, I …
 1.  … want to be able to add wines to the database.
@@ -82,6 +59,7 @@ As a registered user of Cave du Vins, I …
 3.  … want to be able to add countries to the database.
 4.  … want to be able to add regions to the database.
 5.  … want to be able to add grape varieties to the database.
+6.  … want any uploaded images of the wines I add to the database.
 ### Updating Wine Information
 As a registered user of Cave du Vins, I …
 1.  … want to be able to add tasting notes to the database.
@@ -98,10 +76,11 @@ As an administrator of Cave du Vins, I …
 As a user of Cave du Vins, I …
 1.  … want to be able to navigate to the different functions easily, from any area of the application.
 2.  … want to be able to navigate anywhere on the application without the use of the browser's navigation.
+
 As a registered user of Cave du Vins, I also …
 1.  … want to be able to be able to navigate to additional features on the application reserved for registered users.
 As an administrator of Cave du Vins, I also …
-1.  … want to be able to be able to navigate to additional features on the application reserved for administrators.
+2.  … want to be able to be able to navigate to additional features on the application reserved for administrators.
 
 ## Validation
 
@@ -198,6 +177,8 @@ I used these fonts exclusively.
 
 ## Features
 
+### Existing Features
+
 #### Navigation
 1. A navigation bar, collapsed to burger menu for mobile devices.
 2. A "Home" hyperlink that displays "Cave du Vins" if the user is not signed in, or the username if they are signed in"
@@ -241,6 +222,10 @@ I used these fonts exclusively.
 8. A button to remove a Country from the collection.
 9. A button to remove a Region from the collection.
 10. A button to remove a Grape from the collection.
+#### Edit Wine Page
+1. An Edit Wines form with the option to edit: wine name, vintage, colour, country, region and grape
+2. Colour, country, region and grape are pre-populated select inputs.
+3. A Save button to update documents in the [MongoDB](https://www.mongodb.com/) database.
 #### Delete Category page
 1. A pre-populated select input to delete a: Country, Region or Grape from the respective collection.
 #### View Image page
@@ -251,7 +236,7 @@ I used these fonts exclusively.
 2. A text input to allow the user to add 155 characters of free text (stamped with the username).
 3. A Save button to append documents in the [MongoDB](https://www.mongodb.com/) database.
 
-### Features to be implimented at a future date
+### Features Left to Implement
 1.  Filter Regions on Country. As this would normally be actioned using 
     ```js 
     "onchange" 
@@ -326,6 +311,14 @@ These were corrected in a post-testing commit.
 ### Automated Testing
 I used [Pytest](https://docs.pytest.org/en/latest/index.html) for automated testing. Primarily for data entry validation.
 
+To install Pytest, in the GitPod command line, enter...
+
+pip install -U pytest
+
+Then to run the test scripts, in the GitPod command line, enter ...
+
+pytest
+
 This proved particularly useful when testing the validation of user entry into the wine name input from index.html into the search() route.
 
 I had used validation to prevent the user inputing any special characters (especially with malicious intent), but I was still permitting the input of a single "*", which cased an error.
@@ -341,6 +334,28 @@ if not re.match("^[a-zA-Z0-9 ]+$", request.values.get("name")):
 This removed the error.
 
 ### Bugs, Challenges and Errors
+
+**IMPORTANT NOTE:**
+
+There were 2 serious bugs when building the application.
+The first was when deploying the application to [Heroku](https://www.heroku.com/). The Procfile appears to have been 
+corrupted or incorrectly created, delivering an error "no web processes running". There is some discussion on the 
+topic [here](https://stackoverflow.com/questions/41804507/h14-error-in-heroku-no-web-processes-running). 
+On inspection of the app in Heroku, I saw that no Dyno had been added and there was the suggestion that a Procfile should be created. 
+No amount of removing and rebuilding the Procfile would remove this error, so I decided to download a zip file of all the files in my 
+GitHub repository, create a new repository, upload the files and rebuild the Procfile. This solved the problem. 
+
+The second bug happened when opening the repository in Gitpod. I recieved the question "start with default docker file?". In doing so, 
+The repository would not open up a PORT correctly and this error passed through to Heruko. I decided that the github docker file 
+had somehow been corrupted, so again, I took the approach of creating a new repository with a new, working docker file.
+
+The 2 redundant repositories are:
+
+[broken Procfile](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins-broken-Procfile)
+
+[broken Dockerfile](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins-broken-Dockerfile)
+
+**The commit history of the entire project can be viewed in these repositories.**
 
 1.  When designing the layout for the search form, I moved the search button outside the <form></form> - this resulted in the search criteria not being passed to the flask app. I corrected this by returning the button to the form, and finding a better way to achieve the layout I wanted.
 2.  The default values in the search inputs were being passed into the flask app and preventing the code from running - I removed these.
@@ -417,6 +432,58 @@ friend [Magoo](https://www.facebook.com/carlos.fandango.56232), I added the foll
 4.  A timestamp on Tasting Notes.
 5.  An 'Edit own wines' feature.
 
+### Solutions to User Stories
+
+### Registration
+As a user of Cave du Vins, I …
+1.  … want to be able to register a username and password.
+2.  … want my password to be secure.
+### Logging In
+As a registered user of Cave du Vins, I …
+1.  … want to be able to access further functionality by logging in.
+2.  … want to be able to log out of the application.
+### Browsing
+As a user of Cave du Vins, I …
+1.  … want to be able to browse the collection of wines by:
+    * Wine Name - by full title, partial title/word, upper-case or lower-case.
+    * Vintage (e.g. all wines in the collection produced in 1999).
+    * Colour (e.g. Red, White or Rose).
+    * Country (e.g. all wines in the collection produced in France).
+    * Region (e.g. all wines in the collection produced in the Bordeaux region).
+    * Grape (e.g. all wine in the collection produced from the Cabernet Sauvignon grape variety).
+2.  … want the browsed wines to be presented to me in a list.
+3.  … want to be able to navigate to a site where I can purchase the wines in the database.
+### Adding Wines
+As a registered user of Cave du Vins, I …
+1.  … want to be able to add wines to the database.
+2.  … want to be able to add colours to the database.
+3.  … want to be able to add countries to the database.
+4.  … want to be able to add regions to the database.
+5.  … want to be able to add grape varieties to the database.
+6.  … want any uploaded images of the wines I add to the database.
+### Updating Wine Information
+As a registered user of Cave du Vins, I …
+1.  … want to be able to add tasting notes to the database.
+2.  … want to be able to alter and append tasting notes in the database.
+3.  … want to be able to upload images of wines to the database.
+
+As an administrator of Cave du Vins, I …
+1.  … want to be able to delete wines from the database.
+2.  … want to be able to remove colours from the database.
+3.  … want to be able to remove countries from the database.
+4.  … want to be able to remove regions from the database.
+5.  … want to be able to remove grape varieties from the database.
+### Navigation
+As a user of Cave du Vins, I …
+1.  … want to be able to navigate to the different functions easily, from any area of the application.
+2.  … want to be able to navigate anywhere on the application without the use of the browser's navigation.
+
+As a registered user of Cave du Vins, I also …
+1.  … want to be able to be able to navigate to additional features on the application reserved for registered users.
+As an administrator of Cave du Vins, I also …
+2.  … want to be able to be able to navigate to additional features on the application reserved for administrators.
+
+
 ## Deployment
 
 I deployed to Heroku by the following steps:
@@ -424,8 +491,8 @@ I deployed to Heroku by the following steps:
 2.  Click on "Reveal Config Vars" to add any hidden environment variables.
 3.  Add the key of "IP" and the value of "0.0.0.0", and click on Add.
 4.  Add the key of "PORT" and the value of "5000", then click Add.
-5.  Add the key of "MONGO_URI" and the value of "mongodb+srv://root:r00tUser@cluster0.5zsef.mongodb.net/CaveDuVin?retryWrites=true&w=majority", then click Add to connect to MongoDB
-6.  Add the key of "AZURE_STORAGE_CONNECTION_STRING" and the value of "DefaultEndpointsProtocol=https;AccountName=mystorageacct180671;AccountKey=QOqkBCOXq66XE3fSrvdMq99BoLLJVQLZOyvuXZuDBR90NLXyIvDhwpV+N+RU5inPObGTRFD1NkFwOsDCz3Bg8Q==;EndpointSuffix=core.windows.net", then click Add to connect to Azure.
+5.  Add the key of "MONGO_URI" and the value of "*...this is the connection string for the MongoDB database...*", then click Add to connect to MongoDB
+6.  Add the key of "AZURE_STORAGE_CONNECTION_STRING" and the value of "*...this is the connection string for the Azure database...*", then click Add to connect to Azure.
 7.  Set the app to automatically deploy from GitHub by selecting GitHub on the Deploy tab.
 8.  Enter the repository name (BD-MS-Project-Cave-du-Vins) and click Search.
 9.  Click Connect next to the repository name.
@@ -453,9 +520,7 @@ To push to Heroku from GitPod (from the command line...)
 
     import os
 
-    os.environ.setdefault("MONGO_URI", "mongodb+srv://root:r00tUser@cluster0.5zsef.mongodb.net/CaveDuVin?retryWrites=true&w=majority")
-
-    (this is the connection string for the MongoDB database).
+    os.environ.setdefault(*...this is the connection string for the MongoDB database...*)
 
 2.  Type into the command line:
     * pip3 install flask_pymongo
@@ -464,13 +529,8 @@ To push to Heroku from GitPod (from the command line...)
     * pip3 install bcrypt
     * pip3 install dnspython
     * pip install azure-storage-blob
-    * export AZURE_STORAGE_CONNECTION_STRING="DefaultEndpointsProtocol=https;AccountName=mystorageacct180671;AccountKey=QOqkBCOXq66XE3fSrvdMq99BoLLJVQLZOyvuXZuDBR90NLXyIvDhwpV+N+RU5inPObGTRFD1NkFwOsDCz3Bg8Q==;EndpointSuffix=core.windows.net"
-    (this is the connection string for the Azure database).
+    * export AZURE_STORAGE_CONNECTION_STRING="*...this is the connection string for the Azure database...*"
     * python3 run.py
-
-#### To run the app as user:admin;
-
-1.  Access the username and password credentials from [admin-credentials.txt](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/4eb557a961a48780253c2ce7a88787b0db5aaf55/admin-credentials.txt)
 
 ## Credits
 

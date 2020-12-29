@@ -62,7 +62,7 @@
                         </div>
                         <div>
                             {% if document.tasting_notes != "" %}
-                                <textarea class="tastingnotebrowse" rows="3">{{ document.tasting_notes }}</textarea>
+                                <textarea class="tastingnotebrowse" rows="5">{{ document.tasting_notes }}</textarea>
                             {% endif %}
                         </div>
                         <br>
@@ -90,7 +90,7 @@
                             </div>
                             <div class="col-md-3 mb-2 m-md-0">
                                 <a class="btn btn-blue btn-xxsmall rounded-pill mb-1"
-                                    href="{{ url_for('delete_wine', wine_id=document._id) }}">
+                                    href="{{ url_for('delete_wine_page', wine_id=document._id) }}">
                                     <i class="fas fa-minus"></i>
                                 </a>
                                 Delete Wine
@@ -145,7 +145,7 @@
                         </div>
                         <div>
                             {% if document.tasting_notes != "" %}
-                                <textarea class="tastingnotebrowse" rows="3">{{ document.tasting_notes }}</textarea>
+                                <textarea class="tastingnotebrowse" rows="5">{{ document.tasting_notes }}</textarea>
                             {% endif %}
                         </div>
                         <br>

@@ -18,8 +18,9 @@ if os.path.exists("env.py"):
 
 app = Flask(__name__)
 
-app.config["MONGO_DBNAME"] = 'CaveDuVin'
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
+app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 app.config["IMAGE_UPLOADS"] = "./upload_images"
 app.config["ALLOWED_IMAGE_EXTENSIONS"] = ["JPEG", "JPG", "PNG", "GIF"]
 
@@ -295,6 +296,16 @@ def add_wine():
                                                                                           "photo_url": "",
                                                                                           "tasting_notes": ""})
                                                              )
+
+
+@app.route('/delete_wine_page/<wine_id>')
+def delete_wine_page(wine_id):
+
+    user_return = 'User: ' + session['username']
+
+    return render_template("delete_wine_page.html",
+                           user_name=user_return,
+                           wine_id=wine_id)
 
 
 @app.route('/delete_wine/<wine_id>')
@@ -1116,9 +1127,7 @@ def my_profile_page():
 
 if __name__ == '__main__':
     app.static_folder = 'static'
-    app.secret_key = 'mysecret'
+    app.secret_key = os.environ.get("SECRET_KEY")
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
             debug=False)
-
-
