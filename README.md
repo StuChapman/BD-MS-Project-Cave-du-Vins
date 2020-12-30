@@ -424,6 +424,35 @@ This didn't feel like the most elegant of solutions, but it is effective.
 Screenshots of the recommendations of the validators are:
 [PEP8 - python](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/6db5f03f85eca8dc70943c67aa5fe8df8a94baa4/validation_screenshots)
 
+#### Recommendation of Validators
+    * Python - multiple recommendations of "line too long (>79 characters)". I decided to reject these recommendations as I felt the code was clearer without them.
+    * HTML - "Errors" were identified where special characters are used to call Flask (e.g. "{{ url_for('add_tasting_note', wine_id=wine._id) }}"). Again, I rejected these recommendations.
+    * HTML - on add_wine.html, the validator found error of "Duplicate ID". This is where I displayed alternative html form inputs, depending on previous actions in run.py.
+    (e.g.
+    {% if results_name != "" %}
+        <input type="text" name="name" id="name" minlength="3" class="searchitem" value="{{ results_name }}">
+    {% else %}
+        <input type="text" name="name" id="name" minlength="3" class="searchitem">
+    {% endif %})
+    I accepted this error as designed.
+    * HTML - on category.html, the validator found the error "Element option without attribute label must not be empty.". I corrected this by displaying "Select..." as the value. This also meant I had to modify the delete_category route in run.py as it would be flashing the message "Select has been deleted".
+    The ammended code is:
+        if category == "select":
+            flash("no " + category_id + " has been deleted")
+            return render_template('add_wine.html',
+                               user_name=user_return,
+                               colours=mongo.db.colours.find(),
+                               country=mongo.db.country.find(),
+                               region=mongo.db.region.find(),
+                               grape=mongo.db.grape.find()
+                               )
+    * HTML - on index.html, the validator found the error "Element option without attribute label must not be empty.". I corrected the code as follows...
+        from
+        <option value="{{ results_grape }}"></option>
+        to
+        <option value="{{ results_grape }}">{{ results_grape }}</option>
+
+
 ## Additional Features post Testing
 Following user testing with my mentor [Precious Ijege](https://www.linkedin.com/in/precious-ijege-908a00168/) and my 
 friend [Magoo](https://www.facebook.com/carlos.fandango.56232), I added the following features...

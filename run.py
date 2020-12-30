@@ -524,9 +524,19 @@ def delete_category(category_id):
         user_return = 'Cave du Vins'
 
     category = request.values.get("category")
+
     # Credit: https://pythonprogramming.net/flash-flask-tutorial/
-    flash(category + " has been deleted")
     if category_id == "country":
+        if category == "select":
+            flash("no " + category_id + " has been deleted")
+            return render_template('add_wine.html',
+                                   user_name=user_return,
+                                   colours=mongo.db.colours.find(),
+                                   country=mongo.db.country.find(),
+                                   region=mongo.db.region.find(),
+                                   grape=mongo.db.grape.find()
+                                   )
+        flash(category + " has been deleted")
         return render_template('add_wine.html',
                                user_name=user_return,
                                category_id="country",
@@ -537,6 +547,16 @@ def delete_category(category_id):
                                grape=mongo.db.grape.find()
                                )
     if category_id == "region":
+        if category == "select":
+            flash("no " + category_id + " has been deleted")
+            return render_template('add_wine.html',
+                                   user_name=user_return,
+                                   colours=mongo.db.colours.find(),
+                                   country=mongo.db.country.find(),
+                                   region=mongo.db.region.find(),
+                                   grape=mongo.db.grape.find()
+                                   )
+        flash(category + " has been deleted")
         return render_template('add_wine.html',
                                user_name=user_return,
                                category_id="region",
@@ -547,6 +567,16 @@ def delete_category(category_id):
                                grape=mongo.db.grape.find()
                                )
     if category_id == "grape":
+        if category == "select":
+            flash("no " + category_id + " has been deleted")
+            return render_template('add_wine.html',
+                                   user_name=user_return,
+                                   colours=mongo.db.colours.find(),
+                                   country=mongo.db.country.find(),
+                                   region=mongo.db.region.find(),
+                                   grape=mongo.db.grape.find()
+                                   )
+        flash(category + " has been deleted")
         return render_template('add_wine.html',
                                user_name=user_return,
                                category_id="grape",
@@ -684,7 +714,7 @@ def search():
 
     results_string = resultname + resultvintage + resultcolour + resultcountry + resultregion + resultgrape
 
-    if not re.match("^[a-zA-Z0-9 ]+$", request.values.get("name")):
+    if not re.match("^[a-zA-Z0-9 ]+$", request.values.get("name")) and request.values.get("name") != "":
         flash('illegal text entered')
         return render_template("index.html",
                                user_name=user_return,
@@ -1192,54 +1222,55 @@ def my_profile_page():
         added_by = session['username']
         if session['username'] == 'admin':
             return render_template("my_profile.html",
-                            user_name=user_return,
-                            added_by=added_by,
-                            results=mongo.db.wines.find(),
-                            notes=mongo.db.wines.find(
-                                {"$or": [
-                                    {'tasting_notes': {'$regex': '.*' + added_by + '.*'}},
-                                    {'tasting_notes': {'$regex': '.*' + added_by.title() + '.*'}}]}
-                                    )
-                            )
+                                   user_name=user_return,
+                                   added_by=added_by,
+                                   results=mongo.db.wines.find(),
+                                   notes=mongo.db.wines.find(
+                                       {"$or": [
+                                           {'tasting_notes': {'$regex': '.*' + added_by + '.*'}},
+                                           {'tasting_notes': {'$regex': '.*' + added_by.title() + '.*'}}]}
+                                           )
+                                   )
         return render_template("my_profile.html",
-                            user_name=user_return,
-                            added_by=added_by,
-                            results=mongo.db.wines.find({'added_by': added_by}),
-                            notes=mongo.db.wines.find(
-                                {"$or": [
-                                    {'tasting_notes': {'$regex': '.*' + added_by + '.*'}},
-                                    {'tasting_notes': {'$regex': '.*' + added_by.title() + '.*'}}]}
-                                    ))
+                               user_name=user_return,
+                               added_by=added_by,
+                               results=mongo.db.wines.find({'added_by': added_by}),
+                               notes=mongo.db.wines.find(
+                                   {"$or": [
+                                       {'tasting_notes': {'$regex': '.*' + added_by + '.*'}},
+                                       {'tasting_notes': {'$regex': '.*' + added_by.title() + '.*'}}]}
+                                       )
+                               )
     else:
         user_return = 'Cave du Vins'
         return render_template('index.html',
-                            user_name=user_return,
-                            colours=mongo.db.colours.find(),
-                            country=mongo.db.country.find(),
-                            region=mongo.db.region.find(),
-                            grape=mongo.db.grape.find(),
-                            results_winename="",
-                            results_vintage="",
-                            results_colour="",
-                            results_country="",
-                            results_region="",
-                            results_grape="",
-                           # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
-                           # Credit: https://stackoverflow.com/questions/25436630/mongodb-how-to-find-and-then-aggregate
-                           carousel_one=mongo.db.wines.aggregate([
-                                        {"$match":{"photo_url":{"$ne": ""}}},
-                                        {"$sample": {"size": 1}}]),
-                           carousel_two=mongo.db.wines.aggregate([
-                                        {"$match":{"photo_url":{"$ne": ""}}},
-                                        {"$sample": {"size": 1}}]),
-                           carousel_three=mongo.db.wines.aggregate([
-                                        {"$match":{"photo_url":{"$ne": ""}}},
-                                        {"$sample": {"size": 1}}])
-                            )
+                               user_name=user_return,
+                               colours=mongo.db.colours.find(),
+                               country=mongo.db.country.find(),
+                               region=mongo.db.region.find(),
+                               grape=mongo.db.grape.find(),
+                               results_winename="",
+                               results_vintage="",
+                               results_colour="",
+                               results_country="",
+                               results_region="",
+                               results_grape="",
+                               # Credit: https://docs.mongodb.com/manual/reference/operator/aggregation/sample/
+                               # Credit: https://stackoverflow.com/questions/25436630/mongodb-how-to-find-and-then-aggregate
+                               carousel_one=mongo.db.wines.aggregate([
+                                               {"$match": {"photo_url": {"$ne": ""}}},
+                                               {"$sample": {"size": 1}}]),
+                               carousel_two=mongo.db.wines.aggregate([
+                                               {"$match": {"photo_url": {"$ne": ""}}},
+                                               {"$sample": {"size": 1}}]),
+                               carousel_three=mongo.db.wines.aggregate([
+                                               {"$match": {"photo_url": {"$ne": ""}}},
+                                               {"$sample": {"size": 1}}])
+                               )
 
 if __name__ == '__main__':
     app.static_folder = 'static'
     app.secret_key = os.environ.get("SECRET_KEY")
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
-            debug=True)
+            debug=False)

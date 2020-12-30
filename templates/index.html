@@ -97,7 +97,7 @@
                         <br>
                         <select name="colour" id="colour" class="searchitem">
                             {% if results_colour == "" %}
-                                <option value="{{ results_colour }}"></option>
+                                <option value="{{ results_colour }}">{{ results_colour }}</option>
                             {% endif %}
                             {% for document in colours %}
                                 {% if document.colour == results_colour %}
@@ -113,7 +113,7 @@
                         <br>
                         <select name="country" id="country" class="searchitem" onchange="{{ url_for('filter_regions') }}" >
                             {% if results_country == "" %}
-                                <option value="{{ results_country }}"></option>
+                                <option value="{{ results_country }}">{{ results_country }}</option>
                             {% endif %}
                             {% for document in country %}
                                 {% if document.country == results_country %}
@@ -129,7 +129,7 @@
                         <br>
                         <select name="region" id="region" class="searchitem">
                             {% if results_region == "" %}
-                                <option value="{{ results_region }}"></option>
+                                <option value="{{ results_region }}">{{ results_region }}</option>
                             {% endif %}
                             {% for document in region %}
                                 {% if document.region == results_region %}
@@ -145,7 +145,7 @@
                         <br>
                         <select name="grape" id="grape" class="searchitem">
                             {% if results_grape == "" %}
-                                <option value="{{ results_grape }}"></option>
+                                <option value="{{ results_grape }}">{{ results_grape }}</option>
                             {% endif %}
                             {% for document in grape %}
                                 {% if document.grape == results_grape %}

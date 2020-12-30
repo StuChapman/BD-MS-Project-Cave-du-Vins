@@ -13,7 +13,7 @@
                 <form method="POST" action="{{ url_for('delete_category', category_id=category_id) }}">
                     <div>
                         <select name="category" id="category" class="deleteitem">
-                            <option value="select"></option>
+                            <option value="select">select...</option>
                             {% if category_id == "country" %}
                                 {% for document in country %}
                                     <option value="{{ document.country }}">{{ document.country }}</option>

@@ -43,3 +43,8 @@ def test_WineNameVal():  # test failed
 def test_WineNameVal_two():  # test passed
     winename = "&"
     assert WineNameVal(winename) == True
+    
+
+def test_WineNameVal_three():  # test passed
+    winename = ""
+    assert WineNameVal(winename) == True

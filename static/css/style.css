@@ -166,7 +166,6 @@ header.tastingnotehero {
     opacity: 1;
     color: black;
     text-align: center;
-    overflow-x: none;
     overflow-y: auto;
     background: transparent;
 }
