@@ -42,10 +42,12 @@ def internal_error(error):
 # Start app on index.html
 @app.route('/')
 def index():
+
     if 'username' in session:
         user_return = 'User: ' + session['username']
     else:
         user_return = 'Cave du Vins'
+
     return render_template('index.html',
                            user_name=user_return,
                            colours=mongo.db.colours.find(),
@@ -75,10 +77,12 @@ def index():
 # Log In/Out and Register routes
 @app.route('/login_page')
 def login_page():
+
     if 'username' in session:
         user_return = 'User: ' + session['username']
     else:
         user_return = 'Cave du Vins'
+
     return render_template('login.html',
                            user_name=user_return)
 
@@ -147,6 +151,7 @@ def register():
         user_return = 'User: ' + session['username']
     else:
         user_return = 'Cave du Vins'
+
     return render_template('register.html',
                            user_name=user_return)
 
@@ -156,8 +161,14 @@ def register():
 # Add/Delete Wine routes
 @app.route('/add_wine_page')
 def add_wine_page():
+
+    if 'username' in session:
+        user_return = 'User: ' + session['username']
+    else:
+        user_return = 'Cave du Vins'
+
     return render_template("add_wine.html",
-                           user_name='User: ' + session['username'],
+                           user_name=user_return,
                            colours=mongo.db.colours.find(),
                            country=mongo.db.country.find(),
                            region=mongo.db.region.find(),
@@ -168,8 +179,14 @@ def add_wine_page():
 # Refresh Add Wine Form route
 @app.route('/populate_form')
 def populate_form():
+
+    if 'username' in session:
+        user_return = 'User: ' + session['username']
+    else:
+        user_return = 'Cave du Vins'
+
     return render_template("add_wine.html",
-                           user_name='User: ' + session['username'],
+                           user_name=user_return,
                            colours=mongo.db.colours.find(),
                            country=mongo.db.country.find(),
                            region=mongo.db.region.find(),
@@ -179,6 +196,12 @@ def populate_form():
 
 @app.route('/add_wine', methods=["GET", "POST"])
 def add_wine():
+
+    if 'username' in session:
+        user_return = 'User: ' + session['username']
+    else:
+        user_return = 'Cave du Vins'
+
     nameadd = request.values.get("name")
     vintageadd = request.values.get("vintage")
     colouradd = request.values.get("colour")
@@ -188,7 +211,7 @@ def add_wine():
     if not any(char.islower() for char in nameadd):
         flash('wine name must be populated')
         return render_template("add_wine.html",
-                               user_name='User: ' + session['username'],
+                               user_name=user_return,
                                colours=mongo.db.colours.find(),
                                country=mongo.db.country.find(),
                                region=mongo.db.region.find(),
@@ -203,7 +226,7 @@ def add_wine():
     if not all(char.isdigit() for char in vintageadd):
         flash('vintage must be 4 numerals')
         return render_template("add_wine.html",
-                               user_name='User: ' + session['username'],
+                               user_name=user_return,
                                colours=mongo.db.colours.find(),
                                country=mongo.db.country.find(),
                                region=mongo.db.region.find(),
@@ -219,7 +242,7 @@ def add_wine():
     if int(vintageadd) > currentYear:
         flash('you have entered a vintage that is in the future!')
         return render_template("add_wine.html",
-                               user_name='User: ' + session['username'],
+                               user_name=user_return,
                                colours=mongo.db.colours.find(),
                                country=mongo.db.country.find(),
                                region=mongo.db.region.find(),
@@ -234,7 +257,7 @@ def add_wine():
     if nameadd == "" or vintageadd == "" or colouradd == "" or countryadd == "" or regionadd == "" or grapeadd == "":
         flash('all fields must be populated')
         return render_template("add_wine.html",
-                               user_name='User: ' + session['username'],
+                               user_name=user_return,
                                colours=mongo.db.colours.find(),
                                country=mongo.db.country.find(),
                                region=mongo.db.region.find(),
@@ -259,7 +282,7 @@ def add_wine():
     if existing_wine is not None:
         flash("That wine has already been added")
         return render_template("add_wine.html",
-                               user_name='User: ' + session['username'],
+                               user_name=user_return,
                                colours=mongo.db.colours.find(),
                                country=mongo.db.country.find(),
                                region=mongo.db.region.find(),
@@ -275,7 +298,7 @@ def add_wine():
     # Credit: https://pythonprogramming.net/flash-flask-tutorial/
     flash("The wine has been added")
     return render_template("add_wine.html",
-                           user_name='User: ' + session['username'],
+                           user_name=user_return,
                            insert=mongo.db.wines.insert_one({"wine_name": nameadd.title(),
                                                              "vintage": vintageadd,
                                                              "colour": colouradd,
@@ -309,7 +332,10 @@ def add_wine():
 @app.route('/delete_wine_page/<wine_id>')
 def delete_wine_page(wine_id):
 
-    user_return = 'User: ' + session['username']
+    if 'username' in session:
+        user_return = 'User: ' + session['username']
+    else:
+        user_return = 'Cave du Vins'
 
     return render_template("delete_wine_page.html",
                            user_name=user_return,
@@ -321,8 +347,11 @@ def delete_wine(wine_id):
     # Credit: https://pythonprogramming.net/flash-flask-tutorial/
     flash("The wine has been deleted")
 
-    user_return = 'User: ' + session['username']
-    added_by = session['username']
+    if 'username' in session:
+        user_return = 'User: ' + session['username']
+        added_by = session['username']
+    else:
+        user_return = 'Cave du Vins'
 
     if session['username'] == 'admin':
         return render_template("my_profile.html",
@@ -351,12 +380,18 @@ def delete_wine(wine_id):
 # Add/Deleted Documents to/from Collections routes
 @app.route('/add_country', methods=["GET", "POST"])
 def add_country():
+
+    if 'username' in session:
+        user_return = 'User: ' + session['username']
+    else:
+        user_return = 'Cave du Vins'
+
     countryadd = request.values.get("addcountry")
     existing_country = mongo.db.country.find_one({'country': countryadd})
     if not any(char.islower() for char in countryadd) and not any(char.isupper() for char in countryadd):
         flash('country must be populated')
         return render_template("add_wine.html",
-                               user_name='User: ' + session['username'],
+                               user_name=user_return,
                                country=mongo.db.country.find(),
                                region=mongo.db.region.find(),
                                grape=mongo.db.grape.find()
@@ -366,7 +401,7 @@ def add_country():
     flash(countryadd + " has been added")
     if existing_country is None:
         return render_template("add_wine.html",
-                               user_name='User: ' + session['username'],
+                               user_name=user_return,
                                colours=mongo.db.colours.find(),
                                country=mongo.db.country.find(),
                                region=mongo.db.region.find(),
@@ -375,7 +410,7 @@ def add_country():
                                     {"country": countryadd.title()}
                                     ))
     return render_template("add_wine.html",
-                           user_name='User: ' + session['username'],
+                           user_name=user_return,
                            colours=mongo.db.colours.find(),
                            country=mongo.db.country.find(),
                            region=mongo.db.region.find(),
@@ -385,12 +420,18 @@ def add_country():
 
 @app.route('/add_region', methods=["GET", "POST"])
 def add_region():
+
+    if 'username' in session:
+        user_return = 'User: ' + session['username']
+    else:
+        user_return = 'Cave du Vins'
+
     regionadd = request.values.get("addregion")
     existing_region = mongo.db.region.find_one({'region': regionadd})
     if not any(char.islower() for char in regionadd) and not any(char.isupper() for char in regionadd):
         flash('region must be populated')
         return render_template("add_wine.html",
-                               user_name='User: ' + session['username'],
+                               user_name=user_return,
                                country=mongo.db.country.find(),
                                region=mongo.db.region.find(),
                                grape=mongo.db.grape.find()
@@ -400,7 +441,7 @@ def add_region():
     flash(regionadd + " has been added")
     if existing_region is None:
         return render_template("add_wine.html",
-                               user_name='User: ' + session['username'],
+                               user_name=user_return,
                                colours=mongo.db.colours.find(),
                                country=mongo.db.country.find(),
                                region=mongo.db.region.find(),
@@ -409,7 +450,7 @@ def add_region():
                                     {"region": regionadd.title()}
                                     ))
     return render_template("add_wine.html",
-                           user_name='User: ' + session['username'],
+                           user_name=user_return,
                            colours=mongo.db.colours.find(),
                            country=mongo.db.country.find(),
                            region=mongo.db.region.find(),
@@ -419,12 +460,18 @@ def add_region():
 
 @app.route('/add_grape', methods=["GET", "POST"])
 def add_grape():
+
+    if 'username' in session:
+        user_return = 'User: ' + session['username']
+    else:
+        user_return = 'Cave du Vins'
+
     grapeadd = request.values.get("addgrape")
     existing_grape = mongo.db.grape.find_one({'grape': grapeadd})
     if not any(char.islower() for char in grapeadd) and not any(char.isupper() for char in grapeadd):
         flash('grape must be populated')
         return render_template("add_wine.html",
-                               user_name='User: ' + session['username'],
+                               user_name=user_return,
                                country=mongo.db.country.find(),
                                region=mongo.db.region.find(),
                                grape=mongo.db.grape.find())
@@ -433,7 +480,7 @@ def add_grape():
     flash(grapeadd + " has been added")
     if existing_grape is None:
         return render_template("add_wine.html",
-                               user_name='User: ' + session['username'],
+                               user_name=user_return,
                                colours=mongo.db.colours.find(),
                                country=mongo.db.country.find(),
                                region=mongo.db.region.find(),
@@ -442,7 +489,7 @@ def add_grape():
                                     {"grape": grapeadd.title()}
                                     ))
     return render_template("add_wine.html",
-                           user_name='User: ' + session['username'],
+                           user_name=user_return,
                            colours=mongo.db.colours.find(),
                            country=mongo.db.country.find(),
                            region=mongo.db.region.find(),
@@ -452,9 +499,15 @@ def add_grape():
 
 @app.route('/delete_category_page/<category_id>')
 def delete_category_page(category_id):
+
+    if 'username' in session:
+        user_return = 'User: ' + session['username']
+    else:
+        user_return = 'Cave du Vins'
+
     return render_template('categories.html',
                            category_id=category_id,
-                           user_name='User: ' + session['username'],
+                           user_name=user_return,
                            colours=mongo.db.colours.find(),
                            country=mongo.db.country.find(),
                            region=mongo.db.region.find(),
@@ -464,13 +517,18 @@ def delete_category_page(category_id):
 
 @app.route('/delete_category/<category_id>', methods=["GET", "POST"])
 def delete_category(category_id):
-    category = request.values.get("category")
 
+    if 'username' in session:
+        user_return = 'User: ' + session['username']
+    else:
+        user_return = 'Cave du Vins'
+
+    category = request.values.get("category")
     # Credit: https://pythonprogramming.net/flash-flask-tutorial/
     flash(category + " has been deleted")
     if category_id == "country":
         return render_template('add_wine.html',
-                               user_name='User: ' + session['username'],
+                               user_name=user_return,
                                category_id="country",
                                delete=mongo.db.country.delete_one({'country': category}),
                                colours=mongo.db.colours.find(),
@@ -480,7 +538,7 @@ def delete_category(category_id):
                                )
     if category_id == "region":
         return render_template('add_wine.html',
-                               user_name='User: ' + session['username'],
+                               user_name=user_return,
                                category_id="region",
                                delete=mongo.db.region.delete_one({'region': category}),
                                colours=mongo.db.colours.find(),
@@ -490,7 +548,7 @@ def delete_category(category_id):
                                )
     if category_id == "grape":
         return render_template('add_wine.html',
-                               user_name='User: ' + session['username'],
+                               user_name=user_return,
                                category_id="grape",
                                delete=mongo.db.grape.delete_one({'grape': category}),
                                colours=mongo.db.colours.find(),
@@ -503,10 +561,12 @@ def delete_category(category_id):
 # Browse Wines routes
 @app.route('/search_page')
 def search_page():
+
     if 'username' in session:
         user_return = 'User: ' + session['username']
     else:
         user_return = 'Cave du Vins'
+
     return render_template('index.html',
                            user_name=user_return,
                            colours=mongo.db.colours.find(),
@@ -535,10 +595,12 @@ def search_page():
 
 @app.route('/populate_search')
 def populate_search():
+
     if 'username' in session:
         user_return = 'User: ' + session['username']
     else:
         user_return = 'Cave du Vins'
+
     return render_template("index.html",
                            user_name=user_return,
                            colours=mongo.db.colours.find(),
@@ -782,10 +844,16 @@ def search():
 # Add tasting Note Routes
 @app.route('/add_tasting_note_page/<wine_id>')
 def add_tasting_note_page(wine_id):
+
+    if 'username' in session:
+        user_return = 'User: ' + session['username']
+    else:
+        user_return = 'Cave du Vins'
+
     the_wine = mongo.db.wines.find_one({"_id": ObjectId(wine_id)})
     return render_template('add_tasting_note.html',
                            wine=the_wine,
-                           user_name='User: ' + session['username'],
+                           user_name=user_return,
                            colours=mongo.db.colours.find(),
                            country=mongo.db.country.find(),
                            region=mongo.db.region.find(),
@@ -803,13 +871,18 @@ def add_tasting_note():
     wineid = request.values.get("wine_id")
     tastingnotenew = request.values.get("add_tasting_note")
 
+    if 'username' in session:
+        user_return = 'User: ' + session['username']
+    else:
+        user_return = 'Cave du Vins'
+
     # Credit: https://stackoverflow.com/questions/15472764/regular-expression-to-allow-spaces-between-words
     if not re.match("^[a-zA-Z0-9_][a-zA-Z0-9_ ]*[a-zA-Z0-9_]$", tastingnotenew) or tastingnotenew.isnumeric():
         flash('Please enter some valid text')
         the_wine = mongo.db.wines.find_one({"_id": ObjectId(wineid)})
         return render_template('add_tasting_note.html',
                                wine=the_wine,
-                               user_name='User: ' + session['username'],
+                               user_name=user_return,
                                colours=mongo.db.colours.find(),
                                country=mongo.db.country.find(),
                                region=mongo.db.region.find(),
@@ -821,7 +894,7 @@ def add_tasting_note():
     tastingnoteadd = "[" + 'User: ' + session['username'] + ": " + timestring + "] " + tastingnotenew + "\r" + tastingnoteexist
 
     return render_template("index.html",
-                           user_name='User: ' + session['username'],
+                           user_name=user_return,
                            colours=mongo.db.colours.find(),
                            country=mongo.db.country.find(),
                            region=mongo.db.region.find(),
@@ -853,10 +926,16 @@ def add_tasting_note():
 # Edit Wine Routes
 @app.route('/edit_wine_page/<wine_id>')
 def edit_wine_page(wine_id):
+
+    if 'username' in session:
+        user_return = 'User: ' + session['username']
+    else:
+        user_return = 'Cave du Vins'
+
     the_wine = mongo.db.wines.find_one({"_id": ObjectId(wine_id)})
     return render_template('edit_wine.html',
                            wine=the_wine,
-                           user_name='User: ' + session['username'],
+                           user_name=user_return,
                            colours=mongo.db.colours.find(),
                            country=mongo.db.country.find(),
                            region=mongo.db.region.find(),
@@ -866,6 +945,12 @@ def edit_wine_page(wine_id):
 
 @app.route('/edit_wine/<wine_id>', methods=["GET", "POST"])
 def edit_wine(wine_id):
+
+    if 'username' in session:
+        user_return = 'User: ' + session['username']
+    else:
+        user_return = 'Cave du Vins'
+
     nameadd = request.values.get("name")
     vintageadd = request.values.get("vintage")
     colouradd = request.values.get("colour")
@@ -875,7 +960,7 @@ def edit_wine(wine_id):
     if not any(char.islower() for char in nameadd):
         flash('wine name must be populated')
         return render_template("edit_wine.html",
-                               user_name='User: ' + session['username'],
+                               user_name=user_return,
                                colours=mongo.db.colours.find(),
                                country=mongo.db.country.find(),
                                region=mongo.db.region.find(),
@@ -890,7 +975,7 @@ def edit_wine(wine_id):
     if not all(char.isdigit() for char in vintageadd):
         flash('vintage must be 4 numerals')
         return render_template("edit_wine.html",
-                               user_name='User: ' + session['username'],
+                               user_name=user_return,
                                colours=mongo.db.colours.find(),
                                country=mongo.db.country.find(),
                                region=mongo.db.region.find(),
@@ -905,7 +990,7 @@ def edit_wine(wine_id):
     if nameadd == "" or vintageadd == "" or colouradd == "" or countryadd == "" or regionadd == "" or grapeadd == "":
         flash('all fields must be populated')
         return render_template("edit_wine.html",
-                               user_name='User: ' + session['username'],
+                               user_name=user_return,
                                colours=mongo.db.colours.find(),
                                country=mongo.db.country.find(),
                                region=mongo.db.region.find(),
@@ -931,7 +1016,7 @@ def edit_wine(wine_id):
     # Credit: https://pythonprogramming.net/flash-flask-tutorial/
     flash("The wine has been updated")
     return render_template("edit_wine.html",
-                           user_name='User: ' + session['username'],
+                           user_name=user_return,
                            insert=mongo.db.wines.update_one({'_id': ObjectId(wine_id)},
                                                             {"$set": {"wine_name": nameadd.title(),
                                                                       "vintage": vintageadd,
@@ -957,10 +1042,16 @@ def edit_wine(wine_id):
 # Upload Image
 @app.route('/upload_image_page/<wine_id>')
 def upload_image_page(wine_id):
+
+    if 'username' in session:
+        user_return = 'User: ' + session['username']
+    else:
+        user_return = 'Cave du Vins'
+
     the_wine = mongo.db.wines.find_one({"_id": ObjectId(wine_id)})
     return render_template('image_upload.html',
                            wine=the_wine,
-                           user_name='User: ' + session['username']
+                           user_name=user_return
                            )
 
 
@@ -987,6 +1078,11 @@ def upload_image(wine_id):
     # the shell or application needs to be closed and reloaded to take the
     # environment variable into account.
 
+    if 'username' in session:
+        user_return = 'User: ' + session['username']
+    else:
+        user_return = 'Cave du Vins'
+
     connect_str = os.getenv('AZURE_STORAGE_CONNECTION_STRING')
 
     # Get the user unput image file Credit: https://pythonise.com/series/learning-flask/flask-uploading-files
@@ -998,7 +1094,7 @@ def upload_image(wine_id):
                 return render_template('image_upload.html',
                                        wine=the_wine,
                                        upload_error='No image selected',
-                                       user_name='User: ' + session['username']
+                                       user_name=user_return
                                        )
 
             if allowed_image(image.filename):
@@ -1009,7 +1105,7 @@ def upload_image(wine_id):
                 return render_template('image_upload.html',
                                        wine=the_wine,
                                        upload_error='Incorrect file type selected - must be: "JPEG", "JPG", "PNG" or "GIF"',
-                                       user_name='User: ' + session['username']
+                                       user_name=user_return
                                        )
 
     # Get static file and save to upload_images directory to upload
@@ -1042,11 +1138,6 @@ def upload_image(wine_id):
     wineid = wine_id
 
     flash("Image uploaded")
-
-    if 'username' in session:
-        user_return = 'User: ' + session['username']
-    else:
-        user_return = 'Cave du Vins'
 
     return render_template("index.html",
                            update=mongo.db.wines.update({'_id': ObjectId(wineid)},
@@ -1081,10 +1172,12 @@ def upload_image(wine_id):
 # View Image
 @app.route('/view_image_page/<wine_id>')
 def view_image_page(wine_id):
+
     if 'username' in session:
         user_return = 'User: ' + session['username']
     else:
         user_return = 'Cave du Vins'
+
     return render_template("view_image.html",
                            user_name=user_return,
                            wine=mongo.db.wines.find({'_id': ObjectId(wine_id)})
@@ -1094,9 +1187,13 @@ def view_image_page(wine_id):
 # My Profile
 @app.route('/my_profile_page/')
 def my_profile_page():
+
     if 'username' in session:
         user_return = 'User: ' + session['username']
         added_by = session['username']
+    else:
+        user_return = 'Cave du Vins'
+
         if session['username'] == 'admin':
             return render_template("my_profile.html",
                                    user_name=user_return,
@@ -1117,8 +1214,7 @@ def my_profile_page():
                                        {'tasting_notes': {'$regex': '.*' + added_by + '.*'}},
                                        {'tasting_notes': {'$regex': '.*' + added_by.title() + '.*'}}]}
                                ))
-    else:
-        user_return = 'Cave du Vins'
+
         return render_template('index.html',
                                user_name=user_return,
                                colours=mongo.db.colours.find(),
