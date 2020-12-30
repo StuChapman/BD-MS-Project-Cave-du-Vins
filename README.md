@@ -55,16 +55,15 @@ As a user of Cave du Vins, I …
 ### Adding Wines
 As a registered user of Cave du Vins, I …
 1.  … want to be able to add wines to the database.
-2.  … want to be able to add colours to the database.
-3.  … want to be able to add countries to the database.
-4.  … want to be able to add regions to the database.
-5.  … want to be able to add grape varieties to the database.
-6.  … want any uploaded images of the wines I add to the database.
+2.  … want to be able to add countries to the database.
+3.  … want to be able to add regions to the database.
+4.  … want to be able to add grape varieties to the database.
+5.  … want to be able to upload images of the wines I add to the database.
 ### Updating Wine Information
 As a registered user of Cave du Vins, I …
 1.  … want to be able to add tasting notes to the database.
-2.  … want to be able to alter and append tasting notes in the database.
-3.  … want to be able to upload images of wines to the database.
+2.  … want to be able to append tasting notes in the database.
+3.  … want to be able to edit the wines that I have added to the database.
 
 As an administrator of Cave du Vins, I …
 1.  … want to be able to delete wines from the database.
@@ -79,8 +78,9 @@ As a user of Cave du Vins, I …
 
 As a registered user of Cave du Vins, I also …
 1.  … want to be able to be able to navigate to additional features on the application reserved for registered users.
+
 As an administrator of Cave du Vins, I also …
-2.  … want to be able to be able to navigate to additional features on the application reserved for administrators.
+1.  … want to be able to be able to navigate to additional features on the application reserved for administrators.
 
 ## Validation
 
@@ -491,16 +491,15 @@ As a user of Cave du Vins, I …
 ### Adding Wines
 As a registered user of Cave du Vins, I …
 1.  … want to be able to add wines to the database.
-2.  … want to be able to add colours to the database.
-3.  … want to be able to add countries to the database.
-4.  … want to be able to add regions to the database.
-5.  … want to be able to add grape varieties to the database.
-6.  … want any uploaded images of the wines I add to the database.
+2.  … want to be able to add countries to the database.
+3.  … want to be able to add regions to the database.
+4.  … want to be able to add grape varieties to the database.
+5.  … want to be able to upload images of the wines I add to the database.
 ### Updating Wine Information
 As a registered user of Cave du Vins, I …
 1.  … want to be able to add tasting notes to the database.
-2.  … want to be able to alter and append tasting notes in the database.
-3.  … want to be able to upload images of wines to the database.
+2.  … want to be able to append tasting notes in the database.
+3.  … want to be able to edit the wines that I have added to the database.
 
 As an administrator of Cave du Vins, I …
 1.  … want to be able to delete wines from the database.
@@ -515,9 +514,9 @@ As a user of Cave du Vins, I …
 
 As a registered user of Cave du Vins, I also …
 1.  … want to be able to be able to navigate to additional features on the application reserved for registered users.
-As an administrator of Cave du Vins, I also …
-2.  … want to be able to be able to navigate to additional features on the application reserved for administrators.
 
+As an administrator of Cave du Vins, I also …
+1.  … want to be able to be able to navigate to additional features on the application reserved for administrators.
 
 ## Deployment
 
