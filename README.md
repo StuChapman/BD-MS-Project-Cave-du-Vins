@@ -452,7 +452,6 @@ Screenshots of the recommendations of the validators are:
         to
         <option value="{{ results_grape }}">{{ results_grape }}</option>
 
-
 ## Additional Features post Testing
 Following user testing with my mentor [Precious Ijege](https://www.linkedin.com/in/precious-ijege-908a00168/) and my 
 friend [Magoo](https://www.facebook.com/carlos.fandango.56232), I added the following features...
@@ -467,56 +466,56 @@ friend [Magoo](https://www.facebook.com/carlos.fandango.56232), I added the foll
 4.  A timestamp on Tasting Notes.
 5.  An 'Edit own wines' feature.
 
-### Solutions to User Stories
+## Solutions to User Stories
 
 ### Registration
 As a user of Cave du Vins, I …
-1.  … want to be able to register a username and password.
-2.  … want my password to be secure.
+1.  … want to be able to register a username and password [1-1](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/1-1-Registration_1.png).
+2.  … want my password to be secure [1-2](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/1-2-Registration_2.png).
 ### Logging In
 As a registered user of Cave du Vins, I …
-1.  … want to be able to access further functionality by logging in.
-2.  … want to be able to log out of the application.
+1.  … want to be able to access further functionality by logging in [1-3](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/1-3-Logging_In_1.png).
+2.  … want to be able to log out of the application [1-4](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/1-4-Logging_In_2-1.png) [1-5](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/1-5-Logging_In_2-2.png).
 ### Browsing
 As a user of Cave du Vins, I …
 1.  … want to be able to browse the collection of wines by:
-    * Wine Name - by full title, partial title/word, upper-case or lower-case.
-    * Vintage (e.g. all wines in the collection produced in 1999).
-    * Colour (e.g. Red, White or Rose).
-    * Country (e.g. all wines in the collection produced in France).
-    * Region (e.g. all wines in the collection produced in the Bordeaux region).
-    * Grape (e.g. all wine in the collection produced from the Cabernet Sauvignon grape variety).
-2.  … want the browsed wines to be presented to me in a list.
-3.  … want to be able to navigate to a site where I can purchase the wines in the database.
+    * Wine Name - by full title, partial title/word, upper-case or lower-case [1-6](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/1-6-Browsing_1-1.png).
+    * Vintage (e.g. all wines in the collection produced in 1999)  [1-7](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/1-7-Browsing_1-2.png).
+    * Colour (e.g. Red, White or Rose) [1-8](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/1-8-Browsing_1-3.png).
+    * Country (e.g. all wines in the collection produced in France) [1-9](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/1-9-Browsing_1-4.png).
+    * Region (e.g. all wines in the collection produced in the Bordeaux region) [2-0](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/2-0-Browsing_1-5.png).
+    * Grape (e.g. all wine in the collection produced from the Cabernet Sauvignon grape variety) [2-1](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/2-1-Browsing_1-6.png).
+2.  … want the browsed wines to be presented to me in a list [2-2](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/2-2-Browsing_2.png).
+3.  … want to be able to navigate to a site where I can purchase the wines in the database [2-3](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/2-3-Browsing_3.png).
 ### Adding Wines
 As a registered user of Cave du Vins, I …
-1.  … want to be able to add wines to the database.
-2.  … want to be able to add countries to the database.
-3.  … want to be able to add regions to the database.
-4.  … want to be able to add grape varieties to the database.
-5.  … want to be able to upload images of the wines I add to the database.
+1.  … want to be able to add wines to the database [2-4](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/2-4-Adding_Wines_1-1.png) [2-5](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/2-5-Adding_Wines_1-2.png) [2-6](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/2-6-Adding_Wines_1-3.png).
+2.  … want to be able to add countries to the database [2-7](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/2-7-Adding_Wines_2.png).
+3.  … want to be able to add regions to the database [2-8](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/2-8-Adding_Wines_3.png).
+4.  … want to be able to add grape varieties to the database [2-9](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/2-9-Adding_Wines_4.png) [3-0](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/3-0-Adding_Wines_4-1.png) [3-1](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/3-1-Adding_Wines_4-2.png).
+5.  … want to be able to upload images of the wines I add to the database [3-2](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/3-2-Adding_Wines_5-1.png) [3-3](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/3-3-Adding_Wines_5-2.png).
 ### Updating Wine Information
 As a registered user of Cave du Vins, I …
-1.  … want to be able to add tasting notes to the database.
-2.  … want to be able to append tasting notes in the database.
-3.  … want to be able to edit the wines that I have added to the database.
+1.  … want to be able to add tasting notes to the database [3-5](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/3-5-Updating_Wine_Information_1-1.png) [3-6](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/3-6-Updating_Wine_Information_1-2.png).
+2.  … want to be able to append tasting notes in the database [3-7](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/3-7-Updating_Wine_Information_2.png).
+3.  … want to be able to edit the wines that I have added to the database [3-8](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/3-8-Updating_Wine_Information_3.png).
 
 As an administrator of Cave du Vins, I …
-1.  … want to be able to delete wines from the database.
-2.  … want to be able to remove colours from the database.
-3.  … want to be able to remove countries from the database.
-4.  … want to be able to remove regions from the database.
-5.  … want to be able to remove grape varieties from the database.
+1.  … want to be able to delete wines from the database [3-9](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/3-9-Updating_Wine_Information_administrator_1-1.png) [4-0](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/4-0-Updating_Wine_Information_administrator_1-2.png) [4-1](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/4-1-Updating_Wine_Information_administrator_1-3.png).
+2.  … want to be able to remove colours from the database [4-2](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/4-2-Updating_Wine_Information_administrator_2.png).
+3.  … want to be able to remove countries from the database [4-3](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/4-3-Updating_Wine_Information_administrator_3.png).
+4.  … want to be able to remove regions from the database [4-4](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/4-4-Updating_Wine_Information_administrator_4.png).
+5.  … want to be able to remove grape varieties from the database [4-5](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/4-5-Updating_Wine_Information_administrator_5-1.png) [4-6](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/4-6-Updating_Wine_Information_administrator_5-2.png).
 ### Navigation
 As a user of Cave du Vins, I …
-1.  … want to be able to navigate to the different functions easily, from any area of the application.
-2.  … want to be able to navigate anywhere on the application without the use of the browser's navigation.
+1.  … want to be able to navigate to the different functions easily, from any area of the application [4-7](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/4-7-Navigation_1.png).
+2.  … want to be able to navigate anywhere on the application without the use of the browser's navigation [4-8](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/4-8-Navigation_2.png).
 
 As a registered user of Cave du Vins, I also …
-1.  … want to be able to be able to navigate to additional features on the application reserved for registered users.
+1.  … want to be able to be able to navigate to additional features on the application reserved for registered users [4-9](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/4-9-Navigation_registered_1-1.png) [5-0](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/5-0-Navigation_registered_1-2.png).
 
 As an administrator of Cave du Vins, I also …
-1.  … want to be able to be able to navigate to additional features on the application reserved for administrators.
+1.  … want to be able to be able to navigate to additional features on the application reserved for administrators [5-1](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/5-1-Navigation_administrator_1-1.png) [5-2](https://github.com/StuChapman/BD-MS-Project-Cave-du-Vins/blob/7b71fab582b0f2fc49631f9ac4585a4db80241f3/user_story_screenshots/5-2-Navigation_administrator_1-2.png).
 
 ## Deployment
 
