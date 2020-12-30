@@ -1193,6 +1193,7 @@ def my_profile_page():
         added_by = session['username']
     else:
         user_return = 'Cave du Vins'
+        added_by = 'Cave du Vins'
 
         if session['username'] == 'admin':
             return render_template("my_profile.html",
